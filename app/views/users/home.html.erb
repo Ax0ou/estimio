@@ -1,0 +1,40 @@
+<!-- app/views/users/home.html.erb -->
+<nav class="navbar navbar-light bg-white border-bottom px-4 py-3">
+  <a class="navbar-brand fw-bold" href="#">Estim.io</a>
+  <div>
+    <%= link_to "Voir mes devis", "/user/quotes", class: "btn btn-outline-dark" %>
+  </div>
+</nav>
+
+<div class="container text-center py-5">
+  <h1 class="display-4 fw-bold mb-3">Simplifiez la création<br>de vos devis</h1>
+  <p class="lead text-muted mb-4">Laissez notre assistant IA générer vos devis<br>rapidement et facilement.</p>
+  <%= link_to "Créer un devis", "/user/quotes/new", class: "btn btn-primary btn-lg px-4" %>
+
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-3 mb-3">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body">
+          <h5 class="card-title">🧑‍🔧 Pour les artisans</h5>
+          <p class="card-text text-muted">Inscrivez-vous en tant qu’artisan et accédez à la génération automatique de devis.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body">
+          <h5 class="card-title">🤖 Assistant intelligent</h5>
+          <p class="card-text text-muted">Décrivez les travaux à réaliser, notre IA s’occupe du reste.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body">
+          <h5 class="card-title">✅ Devis optimisés</h5>
+          <p class="card-text text-muted">Découvrez une nouvelle façon de générer et gérer vos devis.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

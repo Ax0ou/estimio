@@ -1,0 +1,25 @@
+<h1>Liste des devis</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Titre</th>
+      <th>Type de projet</th>
+      <th>Date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @quotes.each do |quote| %>
+      <tr>
+        <td><%= link_to quote.title, quote_path(quote) %></td>
+        <td><%= quote.project_type %></td>
+        <td><%= quote.created_at.strftime("%d/%m/%Y") %></td>
+        <td>
+          <%= link_to 'Modifier', edit_quote_path(quote), class: 'btn btn-primary' %>
+          <%= link_to 'Supprimer', quote_path(quote), method: :delete, data: { confirm: 'Es-tu sûr(e) de vouloir supprimer ce devis ?' }, class: 'btn btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

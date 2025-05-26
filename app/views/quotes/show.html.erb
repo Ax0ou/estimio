@@ -1,0 +1,17 @@
+<h1><%= @quote.title %></h1>
+
+<table>
+  <tbody>
+    <tr>
+      <th>Type de projet</th>
+      <td><%= @quote.project_type %></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  <%= link_to 'Modifier', edit_quote_path(@quote), class: 'btn btn-primary' %>
+  <%= link_to 'Supprimer', quote_path(@quote), method: :delete, data: { confirm: 'Supprimer ce devis ?' }, class: 'btn btn-danger' %>
+</p>
+
+<%= link_to 'Retour à la liste', quotes_path, class: 'btn btn-secondary' %>

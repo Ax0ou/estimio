@@ -1,8 +1,5 @@
 class UsersController < ApplicationController
 
-  def home
-  end
-
   def new
     @craftman = Craftman.new
   end

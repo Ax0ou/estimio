@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Page d'accueil en racine
-  root to: "users#home"
+  root to: "pages#home"
 
   # Page d'accueil accessible aussi par /home
   get "/home", to: "users#home"

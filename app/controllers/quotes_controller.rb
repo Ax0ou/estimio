@@ -1,6 +1,6 @@
 class QuotesController < ApplicationController
   def index
-    @quotes = Quotes.find(params[:user_id])
+    @quotes = Quote.find(params[:user_id])
   end
 
   def show

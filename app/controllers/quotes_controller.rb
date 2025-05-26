@@ -1,10 +1,11 @@
 class QuotesController < ApplicationController
+  before_action :set_quote, only: [:show, :edit, :update]
+
   def index
-    @quotes = Quotes.find(params[:user_id])
+    @quotes = Quote.all
   end
 
   def show
-    @quote = Quote.find(params[:user_id][:id])
   end
 
   def new
@@ -13,8 +14,8 @@ class QuotesController < ApplicationController
 
   def create
     @quote = Quote.new(quote_params)
-    @user = User.find(:user_id)
-    @quote.user = @user
+    @quote.user = current_user
+
     if @quote.save
       redirect_to #path vers edit de la quote post GPT submit
     else
@@ -23,15 +24,17 @@ class QuotesController < ApplicationController
   end
 
   def edit
-    @quote = Quote.find(params[:user_id][:id])
   end
 
   def update
-    @quote = Quote.find(params[:user_id][:id])
     @quote.update(params[:quote])
   end
 
   private
+
+  def set_quote
+     @quote = Quote.find(params[:id])
+  end
 
   def quote_params
     params.require(:quote).permit(:title, :project_type)

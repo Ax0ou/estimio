@@ -1,5 +1,6 @@
 class Quote < ApplicationRecord
-  belongs_to :craftman
+  belongs_to :user
   belongs_to :client
-  belongs_to :ai_message
+
+  has_many :ai_messages, dependent: :destroy
 end

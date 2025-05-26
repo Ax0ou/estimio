@@ -1,0 +1,2 @@
+class AiMessage < ApplicationRecord
+end

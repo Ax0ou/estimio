@@ -1,10 +1,10 @@
 <h3>Messages IA</h3>
 <% @quote.ai_messages.each do |msg| %>
   <div class="card mb-2 p-3">
-    <strong>🗨️ Vous :</strong> <%= msg.prompt %><br>
+
+    <strong>🗨️ Vous :</strong> <%= raw(msg.content) %><br>
     <% if msg.ai_response.present? %>
       <strong>🤖 IA :</strong> <%= msg.ai_response %>
     <% end %>
   </div>
 <% end %>
-

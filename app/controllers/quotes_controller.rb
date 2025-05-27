@@ -19,8 +19,7 @@ class QuotesController < ApplicationController
   def create
     @quote = current_user.quotes.build(quote_params)
     if @quote.save
-      redirect_to edit_quote_path(@quote),
-                  notice: "Devis créé, vous pouvez maintenant le générer via l’IA."
+      redirect_to  new_quote_ai_message_path(@quote), notice: "Quel est votre besoin ?"
     else
       render :new, status: :unprocessable_entity
     end

@@ -14,9 +14,13 @@ gem "pg", "~> 1.1"
 # AI gem
 gem "ruby_llm"
 
+# Je rajoute la gem .env qui permet de securiser votre clé API (ALVRD <3)
+gem 'dotenv-rails'
+
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 
+gem "ostruct"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 
@@ -28,6 +32,8 @@ gem "stimulus-rails"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
+
+gem "devise"
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"

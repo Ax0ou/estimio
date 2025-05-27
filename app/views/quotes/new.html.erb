@@ -1,0 +1,17 @@
+<h2>Interagir avec l'IA 🤖</h2>
+
+<%= form_for [@quote], local: true do |form| %>
+  <div class="mb-3">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :project_type %>
+    <%= form.text_field :project_type, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :client_id %>
+    <%= form.text_field :client_id, class: "form-control" %>
+  </div>
+  <%= form.submit "Envoyer", class: "btn btn-primary" %>
+<% end %>

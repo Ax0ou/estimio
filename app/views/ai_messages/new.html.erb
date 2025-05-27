@@ -1,2 +1,15 @@
-<h1>AiMessages#new</h1>
-<p>Find me in app/views/ai_messages/new.html.erb</p>
+<h2>Interagir avec l'IA 🤖</h2>
+
+<%= form_with model: [@quote, @ai_message], local: true do |form| %>
+  <div class="mb-3">
+    <%= form.label :description %>
+    <%= form.text_field :description, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :prompt, "Votre message à l’IA" %>
+    <%= form.text_area :prompt, rows: 5, class: "form-control" %>
+  </div>
+
+  <%= form.submit "Envoyer", class: "btn btn-primary" %>
+<% end %>

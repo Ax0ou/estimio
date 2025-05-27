@@ -1,14 +1,27 @@
+<!-- app/views/users/home.html.erb -->
 <nav class="navbar navbar-light bg-white border-bottom px-4 py-3">
   <a class="navbar-brand fw-bold" href="#">Estim.io</a>
+
   <div>
-    <%= link_to "Voir mes devis", "/user/quotes", class: "btn btn-outline-dark" %>
+    <% if user_signed_in? %>
+      <%= link_to "Voir mes devis", "/user/quotes", class: "btn btn-outline-dark" %>
+      <%= link_to "Déconnexion", destroy_user_session_path, method: :delete, class: "btn btn-link text-danger ms-3" %>
+    <% else %>
+      <%= link_to "Connexion", new_user_session_path, class: "btn btn-outline-dark me-2" %>
+      <%= link_to "Créer un compte", new_user_registration_path, class: "btn btn-primary" %>
+    <% end %>
   </div>
 </nav>
 
 <div class="container text-center py-5">
   <h1 class="display-4 fw-bold mb-3">Simplifiez la création<br>de vos devis</h1>
   <p class="lead text-muted mb-4">Laissez notre assistant IA générer vos devis<br>rapidement et facilement.</p>
-  <%= link_to "Créer un devis", "/user/quotes/new", class: "btn btn-primary btn-lg px-4" %>
+
+  <% if user_signed_in? %>
+    <%= link_to "Créer un devis", "/user/quotes/new", class: "btn btn-primary btn-lg px-4" %>
+  <% else %>
+    <%= link_to "Commencer", new_user_session_path, class: "btn btn-primary btn-lg px-4" %>
+  <% end %>
 
   <div class="row justify-content-center mt-5">
     <div class="col-md-3 mb-3">

@@ -1,15 +1,9 @@
-<h2>Interagir avec l'IA 🤖</h2>
+<h2>Créer un devis à partir d’un texte</h2>
 
-<%= form_for [@quote, @ai_message], local: true do |form| %>
-  <div class="mb-3">
-    <%= form.label :description %>
-    <%= form.text_field :description, class: "form-control" %>
-  </div>
-
-  <div class="mb-3">
-    <%= form.label :prompt, "Votre message à l’IA" %>
-    <%= form.text_area :prompt, rows: 5, class: "form-control" %>
-  </div>
-
-  <%= form.submit "Envoyer", class: "btn btn-primary" %>
+<%= simple_form_for @quote do |f| %>
+  <%= f.input :content,
+              as: :text,
+              label: "Décrivez le chantier ou le besoin",
+              input_html: { rows: 6 } %>
+  <%= f.button :submit, "Créer le devis", class: "btn btn-success" %>
 <% end %>

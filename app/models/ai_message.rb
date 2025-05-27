@@ -3,3 +3,4 @@ class AiMessage < ApplicationRecord
 
   validates :prompt, presence: true
 end
+

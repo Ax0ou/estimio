@@ -1,0 +1,30 @@
+<h2>Éditer votre devis</h2>
+
+<%= simple_form_for @quote do |f| %>
+  <%= f.input :title,        label: "Titre du devis" %>
+  <%= f.input :project_type, label: "Type de projet" %>
+
+  <h3>Lignes de devis</h3>
+  <%= f.simple_fields_for :quote_items do |item_f| %>
+    <div class="mb-3 row">
+      <div class="col">
+        <%= item_f.input :description %>
+      </div>
+      <div class="col">
+        <%= item_f.input :quantity %>
+      </div>
+      <div class="col">
+        <%= item_f.input :unit_price %>
+      </div>
+    </div>
+  <% end %>
+
+  <%= f.button :submit, "Enregistrer les modifications", class: "btn btn-primary" %>
+<% end %>
+
+<div class="mt-4">
+  <%= button_to "↻ Générer ou régénérer avec l’IA",
+                generate_from_ai_quote_path(@quote),
+                method: :post,
+                class: "btn btn-outline-secondary" %>
+</div>

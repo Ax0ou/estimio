@@ -14,6 +14,9 @@ gem "pg", "~> 1.1"
 # AI gem
 gem "ruby_llm"
 
+# Simple form (Axel add)
+gem 'simple_form'
+
 # Je rajoute la gem .env qui permet de securiser votre clé API (ALVRD <3)
 gem 'dotenv-rails'
 

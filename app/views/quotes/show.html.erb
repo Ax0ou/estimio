@@ -1,17 +1,10 @@
-<h1><%= @quote.title %></h1>
+<h3>Messages IA</h3>
+<% @quote.ai_messages.each do |msg| %>
+  <div class="card mb-2 p-3">
+    <strong>🗨️ Vous :</strong> <%= msg.prompt %><br>
+    <% if msg.ai_response.present? %>
+      <strong>🤖 IA :</strong> <%= msg.ai_response %>
+    <% end %>
+  </div>
+<% end %>
 
-<table>
-  <tbody>
-    <tr>
-      <th>Type de projet</th>
-      <td><%= @quote.project_type %></td>
-    </tr>
-  </tbody>
-</table>
-
-<p>
-  <%= link_to 'Modifier', edit_quote_path(@quote), class: 'btn btn-primary' %>
-  <%= link_to 'Supprimer', quote_path(@quote), method: :delete, data: { confirm: 'Supprimer ce devis ?' }, class: 'btn btn-danger' %>
-</p>
-
-<%= link_to 'Retour à la liste', quotes_path, class: 'btn btn-secondary' %>

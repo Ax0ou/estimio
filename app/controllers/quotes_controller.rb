@@ -15,7 +15,7 @@ class QuotesController < ApplicationController
     @quote = Quote.new(quote_params)
     @quote.user = current_user
     if @quote.save
-      redirect_to quote_path(@quote), notice: "Devis créé."
+      redirect_to  new_quote_ai_message_path(@quote), notice: "Quel est votre besoin ?"
     else
       render :new, status: :unprocessable_entity
     end

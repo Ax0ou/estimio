@@ -1,0 +1,17 @@
+<!-- app/views/ai_messages/new.html.erb -->
+
+<h2>Interagir avec l'IA 🤖</h2>
+
+<%= simple_form_for [@quote, @ai_message] do |form| %>
+  <%= form.error_notification %>
+
+  <%= form.input :description, label: "Objet de la demande" %>
+  <%= form.input :prompt,
+                 as: :text,
+                 label: "Votre message à l’IA",
+                 input_html: { rows: 5 } %>
+
+  <div class="mt-3">
+    <%= form.button :submit, "Envoyer", class: "btn btn-primary" %>
+  </div>
+<% end %>

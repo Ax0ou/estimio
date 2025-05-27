@@ -1,38 +1,51 @@
+# app/controllers/quotes_controller.rb
+
 class QuotesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_quote, only: [:show, :edit, :update, :generate_from_ai]
 
+  # GET /quotes
   def index
     @quotes = current_user.quotes
   end
 
+  # GET /quotes/new
   def new
     @quote = current_user.quotes.new
+    @quote.build_client
   end
 
+  # POST /quotes
   def create
     @quote = current_user.quotes.build(quote_params)
     if @quote.save
-      redirect_to edit_quote_path(@quote), notice: "Devis créé, vous pouvez maintenant le générer via l’IA."
+      redirect_to edit_quote_path(@quote),
+                  notice: "Devis créé, vous pouvez maintenant le générer via l’IA."
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
+  # GET /quotes/:id
   def show
+    # @quote est chargé dans set_quote
   end
 
+  # GET /quotes/:id/edit
   def edit
+    # @quote est chargé dans set_quote
   end
 
+  # PATCH/PUT /quotes/:id
   def update
     if @quote.update(quote_params)
       redirect_to quote_path(@quote), notice: "Devis mis à jour."
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
+  # POST /quotes/:id/generate_from_ai
   def generate_from_ai
     prompt = <<~PROMPT
       À partir de ce texte : "#{@quote.content}"
@@ -41,14 +54,14 @@ class QuotesController < ApplicationController
         "title": "...",
         "project_type": "...",
         "items": [
-          { "description": "...", "quantity": 1, "unit_price": 42.0 },
-          …
+          { "description": "...", "quantity": 1, "unit_price": 42.0 }
         ]
       }
     PROMPT
 
-    response = RubyLLM.chat(prompt: prompt)
-    data     = JSON.parse(response.completion) rescue {}
+    chat    = RubyLLM.chat
+    message = chat.ask(prompt)
+    data    = JSON.parse(message.content) rescue {}
 
     @quote.update(
       title:        data["title"],
@@ -64,7 +77,8 @@ class QuotesController < ApplicationController
       )
     end
 
-    redirect_to edit_quote_path(@quote), notice: "Devis généré par l’IA, vous pouvez maintenant l’éditer."
+    redirect_to edit_quote_path(@quote),
+                notice: "Devis généré par l’IA, vous pouvez maintenant l’éditer."
   end
 
   private
@@ -74,6 +88,9 @@ class QuotesController < ApplicationController
   end
 
   def quote_params
-    params.require(:quote).permit(:content, :title, :project_type, :client_id)
+    params.require(:quote).permit(
+      :content, :title, :project_type,
+      client_attributes: [:first_name, :last_name, :address, :phone_number]
+    )
   end
 end

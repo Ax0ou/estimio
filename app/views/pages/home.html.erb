@@ -18,7 +18,7 @@
   <p class="lead text-muted mb-4">Laissez notre assistant IA générer vos devis<br>rapidement et facilement.</p>
 
   <% if user_signed_in? %>
-    <%= link_to "Créer un devis", "/user/quotes/new", class: "btn btn-primary btn-lg px-4" %>
+    <%= link_to "Créer un devis", new_quote_path, class: "btn btn-primary btn-lg px-4" %>
   <% else %>
     <%= link_to "Commencer", new_user_session_path, class: "btn btn-primary btn-lg px-4" %>
   <% end %>

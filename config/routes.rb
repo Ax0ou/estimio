@@ -1,12 +1,10 @@
 Rails.application.routes.draw do
-  get 'ai_messages/new'
-  get 'ai_messages/create'
   devise_for :users
 
   # Routes des devis
   resources :quotes, only: [:index, :new, :create, :show, :edit, :update] do
-  resources :ai_messages, only: [:new, :create]
-end
+    resources :ai_messages, only: [:new, :create]
+  end
 
   # Page d'accueil en racine
   root to: "pages#home"

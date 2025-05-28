@@ -21,16 +21,20 @@
         </tr>
       </thead>
       <tbody>
-        <% @quotes.each do |quote| %>
-          <tr>
-            <td><%= link_to quote.title, quote_path(quote), class: "text-decoration-none text-dark fw-semibold" %></td>
-            <td><%= quote.project_type %></td>
-            <td><%= quote.created_at.strftime("%d/%m/%Y") %></td>
-            <td>
-              <%= link_to 'Modifier', edit_quote_path(quote), class: 'btn btn-sm btn-outline-secondary me-2' %>
-              <%= link_to 'Supprimer', quote_path(quote), method: :delete, data: { confirm: 'Es-tu sûr(e) de vouloir supprimer ce devis ?' }, class: 'btn btn-sm btn-outline-danger' %>
-            </td>
-          </tr>
+        <% if @quotes.empty? %>
+          <td colspan="4"><em>Aucun devis à afficher</em></td>
+        <% else %>
+          <% @quotes.each do |quote| %>
+            <tr>
+              <td><%= link_to quote.title, quote_path(quote), class: "text-decoration-none text-dark fw-semibold" %></td>
+              <td><%= quote.project_type %></td>
+              <td><%= quote.created_at.strftime("%d/%m/%Y") %></td>
+              <td>
+                <%= link_to 'Modifier', edit_quote_path(quote), class: 'btn btn-sm btn-outline-secondary me-2' %>
+                <%= link_to 'Supprimer', quote_path(quote), method: :delete, data: { confirm: 'Es-tu sûr(e) de vouloir supprimer ce devis ?' }, class: 'btn btn-sm btn-outline-danger' %>
+              </td>
+            </tr>
+          <% end %>
         <% end %>
       </tbody>
     </table>

@@ -21,6 +21,10 @@ class QuotesController < ApplicationController
     end
   end
 
+  def delete
+    
+  end
+
   private
 
   def quote_params

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   # Routes des devis
-  resources :quotes, only: [:index, :new, :create, :show, :edit, :update] do
+  resources :quotes, only: [:index, :new, :create, :show, :edit, :update, :destroy] do
     resources :ai_messages, only: [:new, :create]
   end
 

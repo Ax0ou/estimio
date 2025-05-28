@@ -1,17 +1,33 @@
-<h2>Interagir avec l'IA 🤖</h2>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h2 class="card-title mb-4 text-center">Interagir avec l'IA 🤖</h2>
 
-<%= form_for [@quote], local: true do |form| %>
-  <div class="mb-3">
-    <%= form.label :title %>
-    <%= form.text_field :title, class: "form-control" %>
+          <%= form_for [@quote], local: true do |form| %>
+            <div class="mb-3">
+              <%= form.label :title, "Titre du projet", class: "form-label" %>
+              <%= form.text_field :title, class: "form-control", placeholder: "Ex : Rénovation cuisine" %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :project_type, "Type de projet", class: "form-label" %>
+              <%= form.text_field :project_type, class: "form-control", placeholder: "Ex : Rénovation, construction..." %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :client_id, "Client", class: "form-label" %>
+              <%= form.collection_select :client_id, Client.all, :id, :first_name, { prompt: "Sélectionnez un client" }, { class: "form-control" } %>
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+              <%= link_to "← Retour", quotes_path, class: "btn btn-outline-secondary" %>
+              <%= form.submit "Envoyer", class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="mb-3">
-    <%= form.label :project_type %>
-    <%= form.text_field :project_type, class: "form-control" %>
-  </div>
-  <div class="mb-3">
-    <%= form.label :client_id %>
-    <%= form.collection_select :client_id, Client.all, :id, :first_name, { prompt: "Sélectionnez un client" }, { class: "form-control" } %>
-  </div>
-  <%= form.submit "Envoyer", class: "btn btn-primary" %>
-<% end %>
+</div>

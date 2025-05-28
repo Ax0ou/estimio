@@ -14,7 +14,7 @@ class AiMessagesController < ApplicationController
       @chat = RubyLLM.chat
       @ai_message.update(content: @chat.with_instructions(system_prompt).ask(@ai_message.description).content)
       # Stocker la réponse dans le modèle
-      redirect_to quote_path(@quote), notice: "Réponse IA enregistrée."
+      redirect_to quote_path(@quote)
     else
       render :new, status: :unprocessable_entity
     end

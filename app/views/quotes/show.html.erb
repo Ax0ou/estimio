@@ -1,10 +1,27 @@
-<h3>Messages IA</h3>
-<% @quote.ai_messages.each do |msg| %>
-  <div class="card mb-2 p-3">
+<h2 class="mb-4">Messages IA 🧠</h2>
 
-    <strong>🗨️ Vous :</strong> <%= raw(msg.content) %><br>
-    <% if msg.ai_response.present? %>
-      <strong>🤖 IA :</strong> <%= msg.ai_response %>
-    <% end %>
+<% @quote.ai_messages.each do |msg| %>
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <div class="mb-3">
+        <span class="fw-bold text-primary">🗨️ Vous :</span>
+        <div class="ps-3 pt-2 border-start">
+          <%= raw(msg.content) %>
+        </div>
+      </div>
+
+      <% if msg.ai_response.present? %>
+        <div>
+          <span class="fw-bold text-success">🤖 IA :</span>
+          <div class="ps-3 pt-2 border-start bg-light">
+            <%= raw(msg.ai_response) %>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
 <% end %>
+
+<div class="mt-4">
+  <%= link_to "← Retour à mes devis", quotes_path, class: "btn btn-outline-secondary" %>
+</div>

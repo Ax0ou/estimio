@@ -1,11 +1,10 @@
 class ClientsController < ApplicationController
   def index
     @clients = current_user.clients
-    raise
   end
 
   def show
-    @client = Client.find[params[:id]]
+    @client = Client.find(params[:id])
   end
 
   def new
@@ -14,26 +13,36 @@ class ClientsController < ApplicationController
 
   def create
     @client = Client.new(client_params)
-    @client.user_id = current_user
+    @client.user_id = current_user.id
     if @client.save
-      redirect_to clients_show_path(@client)
+      redirect_to clients_path, notice: "Client créé avec succès."
     else
       render :new, status: :unprocessable_entity
     end
   end
 
-  def udpate
+  def update
+    @client = current_user.clients.find(params[:id])
+    if @client.update(client_params)
+      redirect_to clients_path, notice: "Client mis à jour avec succès."
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def edit
+    @client = current_user.clients.find(params[:id])
   end
 
   def destroy
+    @client = current_user.clients.find(params[:id])
+    @client.destroy
+    redirect_to clients_path, notice: "Client supprimé avec succès."
   end
 
   private
 
   def client_params
-    params.require(:client).permit(:first_name, :last_name, :address, :user_id)
+    params.require(:client).permit(:first_name, :last_name, :address)
   end
 end

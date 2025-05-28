@@ -2,3 +2,5 @@
 import { application } from "controllers/application"
 import { eagerLoadControllersFrom } from "@hotwired/stimulus-loading"
 eagerLoadControllersFrom("controllers", application)
+import AudioController from "./audio_controller"
+application.register("audio", AudioController)

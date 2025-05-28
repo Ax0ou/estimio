@@ -103,3 +103,18 @@
   color: #0f2557;
   border-color: #ffdf99;
 }
+
+
+.text-primary {
+  color: #1e3a8a !important; /* Bleu profond */
+}
+
+.text-creme {
+  color: #fff8e7 !important; /* Crème clair */
+}
+
+/* Optionnel : hover sur liens titre dans le tableau */
+a.text-primary:hover {
+  color: #1451b3;
+  text-decoration: underline;
+}

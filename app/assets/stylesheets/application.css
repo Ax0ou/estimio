@@ -13,3 +13,93 @@
  *= require_tree .
  *= require_self
  */
+/* Fond bleu personnalisé pour la navbar */
+.bg-custom-blue {
+  background-color: #1e3a8a; /* bleu profond */
+}
+
+/* Couleur crème pour le texte */
+.text-creme {
+  color: #fff8e7 !important;
+}
+
+.text-creme-light {
+  color: #fff0d6 !important;
+}
+
+/* Bouton crème rempli */
+.btn-creme-filled {
+  background-color: #fff8e7;
+  border: 1px solid #ffe8b3;
+  color: #1e3a8a;
+  font-weight: 600;
+}
+
+.btn-creme-filled:hover {
+  background-color: #fff0d6;
+  color: #0f2557;
+  border-color: #ffdf99;
+}
+
+/* Bouton crème contour (outline) */
+.btn-creme-outline {
+  background-color: transparent;
+  border: 1px solid #fff8e7;
+  color: #fff8e7;
+  font-weight: 500;
+}
+
+.btn-creme-outline:hover {
+  background-color: #fff8e7;
+  color: #1e3a8a;
+  border-color: #ffe8b3;
+}
+.text-primary-blue {
+  color: #1e3a8a; /* Bleu profond pour titres/labels */
+}
+
+.input-creme {
+  background-color: #fff8e7;       /* Fond crème */
+  border: 1px solid #ffe8b3;       /* Bordure crème pâle */
+  color: #1e3a8a;                  /* Texte bleu */
+}
+
+.input-creme::placeholder {
+  color: #aaa;                     /* Optionnel pour contraste clair */
+}
+
+.input-creme:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Déjà défini plus haut, mais rappelé pour contexte */
+.btn-creme-filled {
+  background-color: #fff8e7;
+  border: 1px solid #ffe8b3;
+  color: #1e3a8a;
+  font-weight: 600;
+}
+
+.btn-creme-filled:hover {
+  background-color: #fff0d6;
+  color: #0f2557;
+  border-color: #ffdf99;
+}
+.text-primary-blue {
+  color: #1e3a8a; /* bleu profond */
+}
+
+.btn-creme-filled {
+  background-color: #fff8e7;
+  border: 1px solid #ffe8b3;
+  color: #1e3a8a;
+  font-weight: 600;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-creme-filled:hover {
+  background-color: #fff0d6;
+  color: #0f2557;
+  border-color: #ffdf99;
+}

@@ -1,0 +1,25 @@
+<div class="container mt-5">
+  <h1 class="mb-4">Nouveau client</h1>
+
+  <%= form_with(model: @client, local: true, class: "needs-validation") do |form| %>
+    <div class="mb-3">
+      <%= form.label :first_name, "Prénom", class: "form-label" %>
+      <%= form.text_field :first_name, class: "form-control", required: true %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :last_name, "Nom", class: "form-label" %>
+      <%= form.text_field :last_name, class: "form-control", required: true %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :address, "Adresse", class: "form-label" %>
+      <%= form.text_field :address, class: "form-control", required: true %>
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <%= link_to "← Retour", clients_path, class: "btn btn-outline-secondary" %>
+      <%= form.submit "Créer le client", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

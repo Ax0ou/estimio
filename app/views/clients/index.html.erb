@@ -1,0 +1,42 @@
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0">👥 Mes clients</h1>
+    <div class="d-flex gap-2">
+      <%= link_to "📄 Mes devis", quotes_path, class: "btn btn-outline-primary" %>
+      <%= link_to "➕ Nouveau client", new_client_path, class: "btn btn-primary" %>
+    </div>
+  </div>
+  <% if @clients.any? %>
+    <div class="table-responsive shadow-sm rounded">
+      <table class="table table-striped table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th scope="col">Prénom</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Adresse</th>
+            <th scope="col">Créé le</th>
+            <th scope="col" class="text-end">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @clients.each do |client| %>
+            <tr>
+              <td><%= client.first_name %></td>
+              <td><%= client.last_name %></td>
+              <td><%= client.address %></td>
+              <td><%= client.created_at.strftime("%d/%m/%Y") %></td>
+              <td class="text-end">
+                <%= link_to "✏️ Modifier", edit_client_path(client), class: "btn btn-sm btn-outline-secondary me-2" %>
+                <%= link_to "🗑️ Supprimer", client_path(client), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn btn-sm btn-outline-danger" %>
+            </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <div class="alert alert-info" role="alert">
+      Aucun client enregistré pour le moment.
+    </div>
+  <% end %>
+</div>

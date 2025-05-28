@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     resources :ai_messages, only: [:new, :create]
   end
 
+  resources :clients
+
   # Page d'accueil en racine
   root to: "pages#home"
 end

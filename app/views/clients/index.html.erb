@@ -1,0 +1,41 @@
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0">Mes clients</h1>
+    <div class="d-flex gap-2">
+      <%= link_to "📄 Mes devis", quotes_path, class: "btn btn-outline-primary" %>
+      <%= link_to "➕ Nouveau client", new_client_path, class: "btn btn-primary" %>
+    </div>
+  </div>
+
+  <% if @clients.any? %>
+    <table class="table table-hover shadow-sm rounded">
+      <thead class="table-light">
+        <tr>
+          <th>Prénom</th>
+          <th>Nom</th>
+          <th>Adresse</th>
+          <th>Créé le</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @clients.each do |client| %>
+          <tr>
+            <td><%= client.first_name %></td>
+            <td><%= client.last_name %></td>
+            <td><%= client.address %></td>
+            <td><%= client.created_at.strftime("%d/%m/%Y") %></td>
+            <td>
+              <%= link_to "✏️ Modifier", edit_client_path(client), class: "btn btn-sm btn-outline-secondary me-2" %>
+              <%= link_to "🗑️ Supprimer", client_path(client), method: :delete, data: { confirm: "Supprimer ce client ?" }, class: "btn btn-sm btn-outline-danger" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <div class="alert alert-info" role="alert">
+      Aucun client enregistré pour le moment.
+    </div>
+  <% end %>
+</div>

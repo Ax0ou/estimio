@@ -11,7 +11,7 @@
   </div>
   <div class="mb-3">
     <%= form.label :client_id %>
-    <%= form.text_field :client_id, class: "form-control" %>
+    <%= form.collection_select :client_id, Client.all, :id, :first_name, { prompt: "Sélectionnez un client" }, { class: "form-control" } %>
   </div>
   <%= form.submit "Envoyer", class: "btn btn-primary" %>
 <% end %>

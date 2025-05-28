@@ -1,25 +1,37 @@
-<h1>Liste des devis</h1>
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom px-4 py-3 shadow-sm">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold text-primary" href="#">Estim.io</a>
+    <div>
+      <%= link_to "Créer un nouveau devis", new_quote_path, class: "btn btn-outline-primary me-2" %>
+      <%= link_to "Déconnexion", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-link text-danger" %>
+    </div>
+  </div>
+</nav>
 
-<table>
-  <thead>
-    <tr>
-      <th>Titre</th>
-      <th>Type de projet</th>
-      <th>Date</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @quotes.each do |quote| %>
-      <tr>
-        <td><%= link_to quote.title, quote_path(quote) %></td>
-        <td><%= quote.project_type %></td>
-        <td><%= quote.created_at.strftime("%d/%m/%Y") %></td>
-        <td>
-          <%= link_to 'Modifier', edit_quote_path(quote), class: 'btn btn-primary' %>
-          <%= link_to 'Supprimer', quote_path(quote), method: :delete, data: { confirm: 'Es-tu sûr(e) de vouloir supprimer ce devis ?' }, class: 'btn btn-danger' %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="container mt-5">
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th scope="col">Titre</th>
+          <th scope="col">Type de projet</th>
+          <th scope="col">Date</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @quotes.each do |quote| %>
+          <tr>
+            <td><%= link_to quote.title, quote_path(quote), class: "text-decoration-none text-dark fw-semibold" %></td>
+            <td><%= quote.project_type %></td>
+            <td><%= quote.created_at.strftime("%d/%m/%Y") %></td>
+            <td>
+              <%= link_to 'Modifier', edit_quote_path(quote), class: 'btn btn-sm btn-outline-secondary me-2' %>
+              <%= link_to 'Supprimer', quote_path(quote), method: :delete, data: { confirm: 'Es-tu sûr(e) de vouloir supprimer ce devis ?' }, class: 'btn btn-sm btn-outline-danger' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

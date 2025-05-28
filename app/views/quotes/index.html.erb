@@ -4,7 +4,7 @@
     <div>
       <%= link_to "Créer un nouveau devis", new_quote_path, class: "btn btn-outline-primary me-2" %>
       <%= link_to "Mes clients", clients_path, class: "btn btn-outline-primary me-2" %>
-      <%= link_to "Déconnexion", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-link text-danger" %>
+      <%= link_to "Déconnexion", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-link text-danger text-decoration-none" %>
     </div>
   </div>
 </nav>

@@ -22,7 +22,6 @@ class QuotesController < ApplicationController
   end
 
   def delete
-
   end
 
   private

@@ -7,8 +7,10 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-craftman = Craftman.create!(
-  first_name: "Axel",
+user = User.create!(
+  email: "test@test.com",
+  password: "123456",
+  first_name: "Jean",
   last_name: "Alvarade",
   siret: "12345678900013",
   company_name: "Toitures Alvarade",
@@ -19,18 +21,6 @@ craftman = Craftman.create!(
 client = Client.create!(
   first_name: "Jean",
   last_name: "Durand",
-  address: "8 rue des Lilas, 69000 Lyon"
-)
-
-ai_message = AiMessage.create!(
-  description: "Roof renovation",
-  content: "Remove old tiles and replace with new zinc plates"
-)
-
-Quote.create!(
-  craftman: craftman,
-  client: client,
-  ai_message: ai_message,
-  title: "Toiture 80m² zinc",
-  project_type: "Rénovation toiture"
+  address: "8 rue des Lilas, 69000 Lyon",
+  user_id: user.id
 )

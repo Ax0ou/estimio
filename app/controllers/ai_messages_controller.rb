@@ -6,13 +6,13 @@ class AiMessagesController < ApplicationController
 
   def create
     @quote = Quote.find(params[:quote_id])
-    @ai_message = @quote.ai_messages.build(ai_message_params)
+    @ai_message = @quote.ai_messages.build(ai_message_params.merge(role: "user"))
 
     if @ai_message.save
       @chat = RubyLLM.chat
       prompt = "#{system_prompt}\n\nUser input: #{@ai_message.description}"
       response = @chat.with_instructions(system_prompt).ask(prompt)
-      AiMessage.create!(description: response.content, quote: @quote)
+      AiMessage.create!(description: response.content, quote: @quote, role: "assistant")
       # build_conversation_history
       # Appel de la gem RubyLLM avec le prompt utilisateur
       # @ai_message.update(content: @chat.with_instructions(system_prompt).ask(@ai_message.description).content)

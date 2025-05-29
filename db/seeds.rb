@@ -7,16 +7,20 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-client = Client.create!(
-  first_name: "Axel",
-  last_name: "Alvarade",
-  address: "12 rue du zinc, 75000 Paris",
-  user_id: 1
-)
 
 user = User.create!(
-  first_name: "Axel",
+  email: "test@test.com",
+  password: "123456",
+  first_name: "Jean",
   last_name: "Alvarade",
-  email: "charles.de.fontenay@gmail.com",
-  encrypted_password: "helloestimio"
+  siret: "12345678900013",
+  company_name: "Toitures Alvarade",
+  address: "12 rue du zinc, 75000 Paris",
+  phone_number: "+33612345678"
+)
+client = Client.create!(
+  first_name: "Jean",
+  last_name: "Durand",
+  address: "8 rue des Lilas, 69000 Lyon",
+  user_id: user.id
 )

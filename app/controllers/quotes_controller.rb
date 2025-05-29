@@ -1,11 +1,10 @@
 class QuotesController < ApplicationController
-  before_action :set_quote, only: [:show, :destroy]
-
   def index
     @quotes = Quote.all
   end
 
   def show
+    @quote = Quote.find(params[:id])
   end
 
   def new
@@ -22,16 +21,10 @@ class QuotesController < ApplicationController
     end
   end
 
-  def destroy
-    @quote.destroy
-    redirect_to quotes_path, status: :see_other
+  def delete
   end
 
   private
-
-  def set_quote
-    @quote = Quote.find(params[:id])
-  end
 
   def quote_params
     params.require(:quote).permit(:title, :project_type, :client_id)

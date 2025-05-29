@@ -6,14 +6,15 @@ class AiMessagesController < ApplicationController
 
   def create
     @quote = Quote.find(params[:quote_id])
-    @ai_message = @quote.ai_messages.build(ai_message_params)
-    @ai_message.prompt = "#{system_prompt}\n\nUser input: #{@ai_message.description}"
+    @ai_message = @quote.ai_messages.build(ai_message_params.merge(role: "user"))
 
     if @ai_message.save
-      # Appel de la gem RubyLLM avec le prompt utilisateur
       @chat = RubyLLM.chat
-      @ai_message.update(content: @chat.with_instructions(system_prompt).ask(@ai_message.description).content)
-      # Stocker la réponse dans le modèle
+      build_conversation_history if @quote.ai_messages.count >= 2
+
+      response = @chat.with_instructions(system_prompt).ask(@ai_message.description)
+      AiMessage.create!(description: response.content, quote: @quote, role: "assistant")
+
       redirect_to quote_path(@quote)
     else
       render :new, status: :unprocessable_entity
@@ -21,6 +22,12 @@ class AiMessagesController < ApplicationController
   end
 
   private
+
+  def build_conversation_history
+    @quote.ai_messages.each do |ai_message|
+      @chat.add_message(content: ai_message.description, role: ai_message.role)
+    end
+  end
 
   def ai_message_params
     params.require(:ai_message).permit(:description)

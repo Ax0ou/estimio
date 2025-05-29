@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_05_27_104010) do
+ActiveRecord::Schema[7.1].define(version: 2025_05_29_125422) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,6 +22,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_27_104010) do
     t.datetime "updated_at", null: false
     t.text "prompt"
     t.text "ai_response"
+    t.string "role"
     t.index ["quote_id"], name: "index_ai_messages_on_quote_id"
   end
 

@@ -1,46 +1,40 @@
-<h4 class="mb-4 bg-white">Project: <%= @quote.title %> --- Client: <%= @quote.client.last_name %></h4>
+<div class="container py-5">
+  <h2 class="mb-5 text-center display-6">🛠 <%= @quote.title %> </h2>
 
-<% @quote.ai_messages.each do |msg| %>
-<div class="card border-white shadow-sm mb-4">
-  <div class="mb-3">
-    <div class="a4-container mx-auto my-5 p-5 bg-white shadow rounded position-relative">
-
-      <!-- Infos du client (en haut à droite) -->
-      <div class="mt-4 mb-4 text-end">
-        <h5 class="fw-bold mb-1"><%= @quote.client.first_name %> <%= @quote.client.last_name %></h5>
-        <h5 class="mb-0"><%= @quote.client.address %></h5>
-      </div>
-
-      <!-- Infos de l'artisan (current_user) aligné à gauche, en dessous -->
-      <div class="mb-5 text-start">
-        <h5 class="fw-bold mb-1"><%= current_user.company_name %></h5>
-        <h5 class="mb-0"><%= current_user.address %></h5>
-        <h5 class="mb-0">SIRET : <%= current_user.siret %></h5>
-        <h5 class="mb-0">Tel : <%= current_user.phone_number %></h5>
-      </div>
-
-      <!-- Contenu généré par l'IA -->
-      <div class="ps-3 pt-2 mb-5">
-        <%= raw(msg.content) %>
-      </div>
-
-      <!-- Signatures -->
-      <div class="d-flex justify-content-between mt-5 pt-5">
-        <div>
-          <p class="mb-0">Signature du représentant :</p>
-          <p class="fw-semibold mt-2">Représentant de <%= current_user.company_name %></p>
+  <div class="d-flex flex-column gap-4">
+    <% @quote.ai_messages.each do |msg| %>
+      <!-- Message utilisateur -->
+      <% if msg.role == "user" %>
+        <div class="d-flex justify-content-start">
+          <div class="bg-white border rounded shadow-sm px-4 py-3" style="max-width: 60%;">
+            <div class="text-dark"><%= raw(msg.description) %></div>
+          </div>
         </div>
-        <div class="text-end">
-          <p class="mb-0">Signature du client :</p>
-          <p class="fw-semibold mt-2"><%= @quote.client.first_name %> <%= @quote.client.last_name %></p>
+      <% elsif msg.role == "assistant" %>
+        <!-- Réponse IA -->
+        <div class="d-flex justify-content-end">
+          <div class="bg-light border rounded shadow-sm px-4 py-3" style="max-width: 60%;">
+            <div class="text-dark text-end"><%= raw(msg.description) %></div>
+          </div>
         </div>
-      </div>
+      <% end %>
+    <% end %>
+  </div>
 
+  <!-- Formulaire "chatbox" -->
+  <div class="card shadow-sm mt-5">
+    <div class="card-body">
+      <h5 class="card-title mb-3 text-center">Envoyer un nouveau message</h5>
+      <%= form_with model: [@quote, AiMessage.new], local: true do |form| %>
+        <div class="input-group">
+          <%= form.text_area :description, rows: 2, class: "form-control", placeholder: "Posez une question à l'IA..." %>
+          <button class="btn btn-primary" type="submit">Envoyer</button>
+        </div>
+      <% end %>
     </div>
   </div>
-</div>
-<% end %>
 
-<div class="mt-4">
-  <%= link_to "← Retour à mes devis", quotes_path, class: "btn btn-outline-secondary" %>
+  <div class="text-center mt-4">
+    <%= link_to "← Retour à mes devis", quotes_path, class: "btn btn-outline-secondary" %>
+  </div>
 </div>

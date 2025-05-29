@@ -1,27 +1,40 @@
-<h2 class="mb-4">Messages IA 🧠</h2>
+<div class="container py-5">
+  <h2 class="mb-5 text-center display-6">🛠 <%= @quote.title %> </h2>
 
-<% @quote.ai_messages.each do |msg| %>
-  <div class="card shadow-sm mb-4">
-    <div class="card-body">
-      <div class="mb-3">
-        <span class="fw-bold text-primary">🗨️ Vous :</span>
-        <div class="ps-3 pt-2 border-start">
-          <%= raw(msg.content) %>
+  <div class="d-flex flex-column gap-4">
+    <% @quote.ai_messages.each do |msg| %>
+      <!-- Message utilisateur -->
+      <div class="d-flex justify-content-start">
+        <div class="bg-white border rounded shadow-sm px-4 py-3" style="max-width: 60%;">
+          <div class="text-dark"><%= raw(msg.description) %></div>
         </div>
       </div>
 
       <% if msg.ai_response.present? %>
-        <div>
-          <span class="fw-bold text-success">🤖 IA :</span>
-          <div class="ps-3 pt-2 border-start bg-light">
-            <%= raw(msg.ai_response) %>
+        <!-- Réponse IA -->
+        <div class="d-flex justify-content-end">
+          <div class="bg-light border rounded shadow-sm px-4 py-3" style="max-width: 60%;">
+            <div class="text-dark text-end"><%= raw(msg.ai_response) %></div>
           </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <!-- Formulaire "chatbox" -->
+  <div class="card shadow-sm mt-5">
+    <div class="card-body">
+      <h5 class="card-title mb-3 text-center">Envoyer un nouveau message</h5>
+      <%= form_with model: [@quote, AiMessage.new], local: true do |form| %>
+        <div class="input-group">
+          <%= form.text_area :content, rows: 2, class: "form-control", placeholder: "Posez une question à l'IA..." %>
+          <button class="btn btn-primary" type="submit">Envoyer</button>
         </div>
       <% end %>
     </div>
   </div>
-<% end %>
 
-<div class="mt-4">
-  <%= link_to "← Retour à mes devis", quotes_path, class: "btn btn-outline-secondary" %>
+  <div class="text-center mt-4">
+    <%= link_to "← Retour à mes devis", quotes_path, class: "btn btn-outline-secondary" %>
+  </div>
 </div>

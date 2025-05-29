@@ -7,12 +7,15 @@ class AiMessagesController < ApplicationController
   def create
     @quote = Quote.find(params[:quote_id])
     @ai_message = @quote.ai_messages.build(ai_message_params)
-    @ai_message.prompt = "#{system_prompt}\n\nUser input: #{@ai_message.description}"
 
     if @ai_message.save
-      # Appel de la gem RubyLLM avec le prompt utilisateur
       @chat = RubyLLM.chat
-      @ai_message.update(content: @chat.with_instructions(system_prompt).ask(@ai_message.description).content)
+      prompt = "#{system_prompt}\n\nUser input: #{@ai_message.description}"
+      response = @chat.with_instructions(system_prompt).ask(prompt)
+      AiMessage.create!(description: response.content, quote: @quote)
+      # build_conversation_history
+      # Appel de la gem RubyLLM avec le prompt utilisateur
+      # @ai_message.update(content: @chat.with_instructions(system_prompt).ask(@ai_message.description).content)
       # Stocker la réponse dans le modèle
       redirect_to quote_path(@quote)
     else
@@ -21,6 +24,13 @@ class AiMessagesController < ApplicationController
   end
 
   private
+
+  def build_conversation_history
+    @chat = RubyLLM.chat
+    # @quote.ai_messages.each do |ai_message|
+      # @chat.add_message(ai_message)
+    # end
+  end
 
   def ai_message_params
     params.require(:ai_message).permit(:description)

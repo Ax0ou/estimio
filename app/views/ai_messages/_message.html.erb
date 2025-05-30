@@ -1,12 +1,12 @@
  <% if msg.role == "user" %>
-    <div class="d-flex justify-content-start">
+    <div class="d-flex justify-content-start mb-4">
       <div class="bg-white border rounded shadow-sm px-4 py-3" style="max-width: 60%;">
         <div class="text-dark"><%= raw(msg.description) %></div>
       </div>
     </div>
   <% elsif msg.role == "assistant" %>
     <!-- Réponse IA -->
-    <div class="d-flex justify-content-end">
+    <div class="d-flex justify-content-end mb-4">
       <div class="bg-light border rounded shadow-sm px-4 py-3" style="max-width: 60%;">
         <div class="text-dark text-end"><%= raw(msg.description) %></div>
       </div>

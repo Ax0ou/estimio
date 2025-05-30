@@ -1,6 +1,9 @@
 class QuotesController < ApplicationController
   def index
     @quotes = Quote.all
+    @quotes = @quotes.where(project_type: params[:project_type]) if params[:project_type].present? && params[:project_type] != "Tous"
+    @quotes = @quotes.where("DATE(created_at) = ?", params[:date]) if params[:date].present?
+    @quotes = @quotes.where("title ILIKE ?", "%#{params[:title]}%") if params[:title].present?
   end
 
   def show

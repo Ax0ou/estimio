@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom px-4 py-3 shadow-sm">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold text-primary text-decoration-none" href="#" style="pointer-events: none;"><i class="bi bi-hammer"></i> Estim.io</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarEstimio" aria-controls="navbarEstimio" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarEstimio">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%= link_to quotes_path, class: "nav-link" do %>
+            <i class="bi bi-kanban"></i> Tableau de bord
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to clients_path, class: "nav-link" do %>
+            <i class="bi bi-people"></i> Mes clients
+          <% end %>
+        </li>
+        <li><span class="vr mx-2 d-none d-lg-inline"></span></li>
+        <li class="nav-item">
+          <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-link text-danger" do %>
+            <i class="bi bi-box-arrow-right"></i> Déconnexion
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<style>
+.navbar .navbar-brand.text-decoration-none:hover,
+.navbar .navbar-brand.text-decoration-none:focus {
+  text-decoration: none !important;
+  color: #0d6efd !important;
+  cursor: default;
+  background: none !important;
+}
+</style>

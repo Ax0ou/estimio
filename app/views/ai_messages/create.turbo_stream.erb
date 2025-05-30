@@ -1,0 +1,11 @@
+
+<% @quote.ai_messages.order(created_at: :asc).last(2).each do |item| %>
+  <%= turbo_stream.append "messages" do %>
+    <%= render "ai_messages/message", msg: item %>
+  <% end %>
+<% end %>
+
+
+<%= turbo_stream.replace "new_message" do %>
+  <%= render "ai_messages/form", message: AiMessage.new, quote: @quote %>
+<% end %>

@@ -21,3 +21,57 @@
     </div>
   </div>
 </div>
+<div id="audio-recorder" class="mt-4">
+  <div class="d-flex justify-content-center mb-2">
+    <button id="recordButton" class="btn btn-danger me-2">Commencer l'enregistrement</button>
+    <button id="stopButton" class="btn btn-secondary" disabled>Arrêter</button>
+  </div>
+  <div class="text-center">
+    <audio id="audioPlayback" controls></audio>
+  </div>
+</div>
+
+<script>
+  (function() {
+    let mediaRecorder;
+    let audioChunks = [];
+    const recordButton = document.getElementById('recordButton');
+    const stopButton = document.getElementById('stopButton');
+    const audioPlayback = document.getElementById('audioPlayback');
+
+    recordButton.addEventListener('click', async () => {
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          mediaRecorder = new MediaRecorder(stream);
+          mediaRecorder.start();
+          recordButton.disabled = true;
+          stopButton.disabled = false;
+
+          mediaRecorder.addEventListener('dataavailable', event => {
+            audioChunks.push(event.data);
+          });
+
+          mediaRecorder.addEventListener('stop', () => {
+            const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+            const audioUrl = URL.createObjectURL(audioBlob);
+            audioPlayback.src = audioUrl;
+            audioChunks = [];
+          });
+        } catch (err) {
+          alert("Impossible d'accéder au microphone: " + err);
+        }
+      } else {
+        alert("Votre navigateur ne supporte pas l'enregistrement audio.");
+      }
+    });
+
+    stopButton.addEventListener('click', () => {
+      if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+        mediaRecorder.stop();
+        recordButton.disabled = false;
+        stopButton.disabled = true;
+      }
+    });
+  })();
+</script>

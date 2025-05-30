@@ -10,13 +10,16 @@ class AiMessagesController < ApplicationController
     @ai_message.prompt = "#{system_prompt}\n\nUser input: #{@ai_message.description}"
 
     if @ai_message.save
-      # Appel de la gem RubyLLM avec le prompt utilisateur
+      prompt_input = compute_prompt_input(@ai_message)
       @chat = RubyLLM.chat
-      @ai_message.update(content: @chat.with_instructions(system_prompt).ask(@ai_message.description).content)
-      # Stocker la réponse dans le modèle
+      @ai_message.update(content: @chat.with_instructions(system_prompt).ask(prompt_input).content)
       redirect_to quote_path(@quote)
     else
       render :new, status: :unprocessable_entity
+    end
+
+    def compute_prompt_input(ai_message)
+      ai_message.description
     end
   end
 
@@ -30,10 +33,6 @@ class AiMessagesController < ApplicationController
     "Vous êtes un entrepreneur en bâtiment chargé de créer un devis professionnel pour un projet de rénovation en France.
 
     À partir des éléments fournis par le client (photos et/ou description vocale), générez un devis complet et réaliste en HTML clair.
-
-    Le rendu doit respecter la structure et la lisibilité d’un devis professionnel du bâtiment, en incluant les sections suivantes :
-
-    ---
 
     1. En-tête
 

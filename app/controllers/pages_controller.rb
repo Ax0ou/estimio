@@ -3,5 +3,6 @@ class PagesController < ApplicationController
 
   def home
     redirect_to quotes_path if user_signed_in?
+    @hide_navbar = true
   end
 end

@@ -1,42 +1,70 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom px-4 py-3 shadow-sm">
-  <div class="container-fluid">
-    <a class="navbar-brand fw-bold text-primary" href="#">Estim.io</a>
-    <div>
-      <%= link_to "Créer un nouveau devis", new_quote_path, class: "btn btn-outline-primary me-2" %>
-      <%= link_to "Mes clients", clients_path, class: "btn btn-outline-primary me-2" %>
-      <%= link_to "Déconnexion", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-link text-danger text-decoration-none" %>
+<div class="container mt-5">
+  <div class="row mb-4">
+    <div class="col">
+      <h1 class="fw-bold mb-2">Tableau de bord - Devis</h1>
+      <p class="text-muted">Affichage en cartes avec filtres dynamiques.</p>
+    </div>
+    <div class="col-auto align-self-center">
+      <%= link_to "Créer un nouveau devis", new_quote_path, class: "btn btn-primary" %>
     </div>
   </div>
-</nav>
 
-<div class="container mt-5">
-  <div class="table-responsive">
-    <table class="table table-hover align-middle">
-      <thead class="table-light">
-        <tr>
-          <th scope="col">Titre</th>
-          <th scope="col">Type de projet</th>
-          <th scope="col">Date</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% if @quotes.empty? %>
-          <td colspan="4"><em>Aucun devis à afficher</em></td>
-        <% else %>
-          <% @quotes.each do |quote| %>
-            <tr>
-              <td><%= link_to quote.title, quote_path(quote), class: "text-decoration-none text-dark fw-semibold" %></td>
-              <td><%= quote.project_type %></td>
-              <td><%= quote.created_at.strftime("%d/%m/%Y") %></td>
-              <td>
-                <%= link_to 'Modifier', edit_quote_path(quote), class: 'btn btn-sm btn-outline-secondary me-2' %>
-                <%= link_to 'Supprimer', quote_path(quote), data: { turbo_method: :delete, turbo_confirm: 'Etes-vous sûr(e) de vouloir supprimer ce devis ?' }, class: 'btn btn-sm btn-outline-danger' %>
-              </td>
-            </tr>
-          <% end %>
-        <% end %>
-      </tbody>
-    </table>
+  <!-- Filtres -->
+  <div class="row mb-3">
+    <div class="col">
+      <%= form_with url: quotes_path, method: :get, local: true, class: "row g-2 align-items-end" do %>
+        <div class="col-auto">
+          <%= label_tag :project_type, "Type de projet" %>
+          <%= select_tag :project_type, options_for_select(Quote.distinct.pluck(:project_type).compact.unshift("Tous"), params[:project_type]), class: "form-select" %>
+        </div>
+        <div class="col-auto">
+          <%= label_tag :date, "Date" %>
+          <%= date_field_tag :date, params[:date], class: "form-control" %>
+        </div>
+        <div class="col-auto">
+          <%= label_tag :title, "Titre" %>
+          <%= text_field_tag :title, params[:title], class: "form-control", placeholder: "Rechercher un titre..." %>
+        </div>
+        <div class="col-auto">
+          <%= submit_tag "Filtrer", class: "btn btn-outline-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Affichage en cartes -->
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <% if @quotes.empty? %>
+      <div class="col">
+        <div class="alert alert-info text-center">Aucun devis à afficher</div>
+      </div>
+    <% else %>
+      <% @quotes.each do |quote| %>
+        <div class="col">
+          <div class="card shadow-sm h-100">
+            <div class="card-body">
+              <h5 class="card-title"><%= quote.title %></h5>
+              <p class="card-text mb-1">
+                <span class="badge bg-secondary"><i class="bi bi-briefcase"></i> <%= quote.project_type %></span>
+              </p>
+              <p class="card-text text-muted small">
+                <i class="bi bi-calendar"></i> <%= quote.created_at.strftime("%d/%m/%Y") %>
+              </p>
+            </div>
+            <div class="card-footer bg-white border-0 d-flex justify-content-between">
+              <%= link_to edit_quote_path(quote), class: 'btn btn-sm btn-outline-secondary', title: "Modifier" do %>
+                <i class="bi bi-pencil"></i>
+              <% end %>
+              <%= link_to quote_path(quote),
+                    data: { turbo_method: :delete, turbo_confirm: 'Etes-vous sûr(e) de vouloir supprimer ce devis ?' },
+                    class: 'btn btn-sm btn-outline-danger',
+                    title: "Supprimer" do %>
+                <i class="bi bi-trash"></i>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
   </div>
 </div>

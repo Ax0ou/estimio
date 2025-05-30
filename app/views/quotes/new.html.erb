@@ -3,27 +3,37 @@
     <div class="col-md-8">
       <div class="card shadow-sm">
         <div class="card-body">
-          <h2 class="card-title mb-4 text-center">Interagir avec l'IA 🤖</h2>
+          <h2 class="card-title mb-4 text-center text-primary">
+            Initialisation du devis
+          </h2>
+          <p class="text-center text-muted mb-4">
+            Renseignez les informations principales pour démarrer la création de votre devis.
+          </p>
 
           <%= form_for [@quote], local: true do |form| %>
-            <div class="mb-3">
-              <%= form.label :title, "Titre du projet", class: "form-label" %>
-              <%= form.text_field :title, class: "form-control", placeholder: "Ex : Rénovation cuisine" %>
+            <div class="mb-4">
+              <%= form.label :title, "Titre du projet", class: "form-label fw-semibold" %>
+              <%= form.text_field :title, class: "form-control", placeholder: "Ex : Rénovation cuisine", required: true %>
             </div>
 
-            <div class="mb-3">
-              <%= form.label :project_type, "Type de projet", class: "form-label" %>
-              <%= form.text_field :project_type, class: "form-control", placeholder: "Ex : Rénovation, construction..." %>
+            <div class="mb-4">
+              <%= form.label :project_type, "Type de projet", class: "form-label fw-semibold" %>
+              <%= form.text_field :project_type, class: "form-control", placeholder: "Ex : Rénovation, construction...", required: true %>
             </div>
 
-            <div class="mb-3">
-              <%= form.label :client_id, "Client", class: "form-label" %>
-              <%= form.collection_select :client_id, Client.all, :id, :first_name, { prompt: "Sélectionnez un client" }, { class: "form-control" } %>
+            <div class="mb-4">
+              <div class="d-flex justify-content-between align-items-center">
+                <%= form.label :client_id, "Client", class: "form-label fw-semibold mb-0" %>
+                <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#newClientModal">
+                  <i class="bi bi-person-plus"></i> Créer un client
+                </button>
+              </div>
+              <%= form.collection_select :client_id, Client.all, :id, :first_name, { prompt: "Sélectionnez un client" }, { class: "form-control", required: true } %>
             </div>
 
             <div class="d-flex justify-content-between mt-4">
               <%= link_to "← Retour", quotes_path, class: "btn btn-outline-secondary" %>
-              <%= form.submit "Envoyer", class: "btn btn-primary" %>
+              <%= form.submit "Démarrer le devis", class: "btn btn-primary" %>
             </div>
           <% end %>
         </div>

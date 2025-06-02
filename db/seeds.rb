@@ -18,6 +18,7 @@ user = User.create!(
   address: "12 rue du zinc, 75000 Paris",
   phone_number: "+33612345678"
 )
+
 client = Client.create!(
   first_name: "Jean",
   last_name: "Durand",

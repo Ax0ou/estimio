@@ -1,36 +1,6 @@
 <div class="container py-5">
   <h2 class="mb-5 text-center display-6">🛠 <%= @quote.title %> </h2>
 
-
-  <!-- Bloc description texte uniquement -->
-  <div class="mb-4">
-    <label class="form-label fw-semibold" for="description_field">
-      Description du chantier
-    </label>
-    <textarea id="description_field" name="quote[description]" class="form-control" rows="3" placeholder="Décrivez le chantier..."></textarea>
-  </div>
-  <!-- Fin bloc description texte uniquement -->
-
-  <div class="d-flex flex-column gap-4">
-    <% @quote.ai_messages.each do |msg| %>
-      <!-- Message utilisateur -->
-      <% if msg.role == "user" %>
-        <div class="d-flex justify-content-start">
-          <div class="bg-white border rounded shadow-sm px-4 py-3" style="max-width: 60%;">
-            <div class="text-dark"><%= raw(msg.description) %></div>
-          </div>
-        </div>
-      <% elsif msg.role == "assistant" %>
-        <!-- Réponse IA -->
-        <div class="d-flex justify-content-end">
-          <div class="bg-light border rounded shadow-sm px-4 py-3" style="max-width: 60%;">
-            <div class="text-dark text-end"><%= raw(msg.description) %></div>
-          </div>
-        </div>
-      <% end %>
-    <% end %>
-  </div>
-=======
 <div id="messages">
   <%= render "ai_messages/messages", messages:@quote.ai_messages %>
 </div>

@@ -8,24 +8,11 @@ class AiMessagesController < ApplicationController
     @quote = Quote.find(params[:quote_id])
     @ai_message = @quote.ai_messages.build(ai_message_params.merge(role: "user"))
 
-    # Empêche l'envoi d'un message vide
-    if @ai_message.description.blank?
-      flash.now[:alert] = "Veuillez saisir une description ou utiliser l'enregistrement audio."
-      render :new, status: :unprocessable_entity and return
-    end
-
     if @ai_message.save
       @chat = RubyLLM.chat
       build_conversation_history if @quote.ai_messages.count >= 2
 
-      response = @chat.with_instructions(system_prompt).ask(@ai_message.descrip
-      if response&.content.present?
-        AiMessage.create!(description: response.content, quote: @quote, role: "assistant")
-        redirect_to quote_path(@quote)
-      else
-        flash.now[:alert] = "Erreur lors de la génération de la réponse IA."
-        render :new, status: :unprocessable_entity
-
+      response = @chat.with_instructions(system_prompt).ask(@ai_message.description)
       AiMessage.create!(description: response.content, quote: @quote, role: "assistant")
 
       respond_to do |format|

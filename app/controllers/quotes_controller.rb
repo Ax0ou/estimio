@@ -18,7 +18,7 @@ class QuotesController < ApplicationController
     @quote = Quote.new(quote_params)
     @quote.user = current_user
     if @quote.save
-      redirect_to  new_quote_ai_message_path(@quote)
+      redirect_to  quote_path(@quote)
     else
       render :new, status: :unprocessable_entity
     end

@@ -1,6 +1,7 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
 import "@hotwired/turbo-rails"
 import "controllers"
+
 import "controllers/audio_recorder_controller"
 
 document.addEventListener("turbo:load", setupAudioRecorder);
@@ -79,3 +80,4 @@ function setupAudioRecorder() {
     };
   }
 }
+

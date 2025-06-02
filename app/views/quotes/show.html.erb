@@ -1,6 +1,7 @@
 <div class="container py-5">
   <h2 class="mb-5 text-center display-6">🛠 <%= @quote.title %> </h2>
 
+
   <!-- Bloc description texte uniquement -->
   <div class="mb-4">
     <label class="form-label fw-semibold" for="description_field">
@@ -29,18 +30,13 @@
       <% end %>
     <% end %>
   </div>
+=======
+<div id="messages">
+  <%= render "ai_messages/messages", messages:@quote.ai_messages %>
+</div>
 
-  <!-- Formulaire "chatbox" -->
-  <div class="card shadow-sm mt-5">
-    <div class="card-body">
-      <h5 class="card-title mb-3 text-center">Envoyer un nouveau message</h5>
-      <%= form_with model: [@quote, AiMessage.new], local: true do |form| %>
-        <div class="input-group">
-          <%= form.text_area :description, rows: 2, class: "form-control", placeholder: "Posez une question à l'IA..." %>
-          <button class="btn btn-primary" type="submit">Envoyer</button>
-        </div>
-      <% end %>
-    </div>
+  <div id="new_message">
+    <%= render 'ai_messages/form', quote: @quote   %>
   </div>
 
   <div class="text-center mt-4">

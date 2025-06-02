@@ -1,6 +1,15 @@
 <div class="container py-5">
   <h2 class="mb-5 text-center display-6">🛠 <%= @quote.title %> </h2>
 
+  <!-- Bloc description texte uniquement -->
+  <div class="mb-4">
+    <label class="form-label fw-semibold" for="description_field">
+      Description du chantier
+    </label>
+    <textarea id="description_field" name="quote[description]" class="form-control" rows="3" placeholder="Décrivez le chantier..."></textarea>
+  </div>
+  <!-- Fin bloc description texte uniquement -->
+
   <div class="d-flex flex-column gap-4">
     <% @quote.ai_messages.each do |msg| %>
       <!-- Message utilisateur -->

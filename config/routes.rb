@@ -10,4 +10,6 @@ Rails.application.routes.draw do
 
   # Page d'accueil en racine
   root to: "pages#home"
+
+  post "speech_to_text", to: "speech#to_text"
 end

@@ -8,6 +8,17 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+company = Company.create!(
+  name: "Toitures Alvarade",
+  siret: "12345678900013",
+  tva_number: "FR12345678901",
+  number_of_employees: 10,
+  address: "12 rue du zinc, 75000 Paris",
+  city: "Paris",
+  postal_code: "75000"
+)
+
+# Create a user associated with the company
 user = User.create!(
   email: "test@test.com",
   password: "123456",
@@ -16,11 +27,14 @@ user = User.create!(
   siret: "12345678900013",
   company_name: "Toitures Alvarade",
   address: "12 rue du zinc, 75000 Paris",
-  phone_number: "+33612345678"
+  phone_number: "+33612345678",
+  company_id: company.id,
 )
+
+# Create a client associated with the user
 client = Client.create!(
   first_name: "Jean",
   last_name: "Durand",
   address: "8 rue des Lilas, 69000 Lyon",
-  user_id: user.id
+  company_id: company.id
 )

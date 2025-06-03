@@ -14,9 +14,6 @@
     <div class="col">
       <%= form_with url: company_quotes_path, method: :get, local: true, class: "row g-2 align-items-end" do %>
         <div class="col-auto">
-
-        </div>
-        <div class="col-auto">
           <%= label_tag :date, "Date" %>
           <%= date_field_tag :date, params[:date], class: "form-control" %>
         </div>
@@ -64,4 +61,3 @@
     <% end %>
   </div>
 </div>
-

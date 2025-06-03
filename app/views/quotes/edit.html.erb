@@ -1,4 +1,4 @@
-<h2> Votre devis pour <%= "#{@quote.client.first_name} #{@quote.client.last_name}" %> </h2>
+<h2 class="container pt-5" data-controller="sections"> Votre devis pour <%= "#{@quote.client.first_name} #{@quote.client.last_name}" %> </h2>
 
 <div class="container" data-controller="sections">
   <div id="sections" data-sections-target="list">
@@ -9,7 +9,7 @@
     <%= simple_form_for Section.new, url: add_section_quote_path(@quote), method: :post do |f| %>
       <div class="form-group mt-4">
         <%= f.input :description, placeholder: "Nom de la nouvelle tâche" %>
-        <%= f.button :submit, "+ Créer une nouvelle tâche", class: "btn btn-primary" %>
+        <%= f.button :submit, "+ Créer une nouvelle tâche", class: "btn btn-primary w-100" %>
       </div>
     <% end %>
   <% end %>

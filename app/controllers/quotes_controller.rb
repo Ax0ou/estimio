@@ -57,9 +57,7 @@ class QuotesController < ApplicationController
     2.times { @section.line_items.build }
     @section.save
 
-    respond_to do |format|
-      format.turbo_stream
-    end
+    render turbo_stream: turbo_stream.append("sections", partial: "quotes/section", locals: { section: @section })
   end
 
   private

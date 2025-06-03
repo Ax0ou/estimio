@@ -1,0 +1,17 @@
+<div class="row align-items-end mb-2" data-line-items-target="item">
+  <div class="col">
+    <%= text_field_tag "line_item[name][]", line_item.name, placeholder: "Nom", class: "form-control" %>
+  </div>
+  <div class="col">
+    <%= number_field_tag "line_item[quantity][]", line_item.quantity, placeholder: "Qté", class: "form-control" %>
+  </div>
+  <div class="col">
+    <%= number_field_tag "line_item[unit_price][]", line_item.unit_price, step: 0.01, placeholder: "Prix unitaire", class: "form-control" %>
+  </div>
+  <div class="col">
+    <%= number_field_tag "line_item[total_price][]", line_item.quantity.to_f * line_item.unit_price.to_f, placeholder: "Total", class: "form-control", readonly: true %>
+  </div>
+  <div class="col-auto">
+    <button type="button" class="btn btn-sm btn-outline-danger" data-action="click->line-items#remove">–</button>
+  </div>
+</div>

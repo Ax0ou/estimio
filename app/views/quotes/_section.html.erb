@@ -1,0 +1,18 @@
+<div class="section border rounded p-3 mb-4" id="section-<%= section.id %>">
+  <h4><%= section.name %></h4>
+
+  <div class="line-items" data-section-id="<%= section.id %>" data-controller="line-items">
+    <%= render section.line_items %>
+
+    <!-- Ligne vide template cachée pour duplication -->
+    <template data-line-items-target="template">
+      <%= render partial: "quotes/line_item", locals: { line_item: LineItem.new } %>
+    </template>
+
+    <div class="mt-2">
+      <button type="button" class="btn btn-sm btn-outline-primary" data-action="click->line-items#add">
+        + Ajouter une ligne
+      </button>
+    </div>
+  </div>
+</div>

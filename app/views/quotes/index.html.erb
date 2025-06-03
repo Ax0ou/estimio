@@ -14,7 +14,8 @@
     <div class="col">
       <%= form_with url: company_quotes_path, method: :get, local: true, class: "row g-2 align-items-end" do %>
         <div class="col-auto">
-
+          <%= label_tag :project_type, "Type de projet" %>
+          <%= select_tag :project_type, options_for_select(Quote.pluck(:project_type).compact.unshift("Tous"), params[:project_type]), class: "form-select" %>
         </div>
         <div class="col-auto">
           <%= label_tag :date, "Date" %>
@@ -64,4 +65,3 @@
     <% end %>
   </div>
 </div>
-

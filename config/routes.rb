@@ -9,6 +9,9 @@ Rails.application.routes.draw do
 
   resources :clients, only: [:show, :edit, :update, :destroy]
   resources :quotes, only: [:show, :edit, :update, :destroy] do
+    member do
+      post :add_section
+    end
     resources :sections, only: [:new, :create, :index]
   end
 

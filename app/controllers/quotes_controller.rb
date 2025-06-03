@@ -27,7 +27,14 @@ class QuotesController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
+    @company = current_user.company
+    @quote = @company.quotes.find(params[:id])
+    if @quote.destroy
+      redirect_to company_quotes_path(@company), notice: "Devis supprimé avec succès."
+    else
+      redirect_to quote_path(@quote), alert: "Une erreur est survenue lors de la suppression du devis."
+    end
   end
 
   private

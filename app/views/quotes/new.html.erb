@@ -17,11 +17,11 @@
             </div>
 
             <div class="mb-4">
-              <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex justify-content-between align-items-center mb-2">
                 <%= form.label :client_id, "Client", class: "form-label fw-semibold mb-0" %>
-                <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#newClientModal">
+                <%= link_to new_company_client_path(@company), class: "btn btn-sm btn-outline-primary" do %>
                   <i class="bi bi-person-plus"></i> Créer un client
-                </button>
+                <% end %>
               </div>
               <%= form.collection_select :client_id, Client.all, :id, :first_name, { prompt: "Sélectionnez un client" }, { class: "form-control", required: true } %>
             </div>

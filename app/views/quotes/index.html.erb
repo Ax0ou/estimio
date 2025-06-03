@@ -5,17 +5,16 @@
       <p class="text-muted">Affichage en cartes avec filtres dynamiques.</p>
     </div>
     <div class="col-auto align-self-center">
-      <%= link_to "Créer un nouveau devis", new_quote_path, class: "btn btn-primary" %>
+      <%= link_to "Créer un nouveau devis", new_company_quote_path, class: "btn btn-primary" %>
     </div>
   </div>
 
   <!-- Filtres -->
   <div class="row mb-3">
     <div class="col">
-      <%= form_with url: quotes_path, method: :get, local: true, class: "row g-2 align-items-end" do %>
+      <%= form_with url: company_quotes_path, method: :get, local: true, class: "row g-2 align-items-end" do %>
         <div class="col-auto">
-          <%= label_tag :project_type, "Type de projet" %>
-          <%= select_tag :project_type, options_for_select(Quote.distinct.pluck(:project_type).compact.unshift("Tous"), params[:project_type]), class: "form-select" %>
+
         </div>
         <div class="col-auto">
           <%= label_tag :date, "Date" %>
@@ -44,9 +43,6 @@
           <div class="card shadow-sm h-100">
             <div class="card-body">
               <h5 class="card-title"><%= quote.title %></h5>
-              <p class="card-text mb-1">
-                <span class="badge bg-secondary"><i class="bi bi-briefcase"></i> <%= quote.project_type %></span>
-              </p>
               <p class="card-text text-muted small">
                 <i class="bi bi-calendar"></i> <%= quote.created_at.strftime("%d/%m/%Y") %>
               </p>

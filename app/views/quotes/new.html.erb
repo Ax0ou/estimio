@@ -10,15 +10,10 @@
             Renseignez les informations principales pour démarrer la création de votre devis.
           </p>
 
-          <%= form_for [@quote], local: true do |form| %>
+          <%= form_for [@company, @quote], local: true do |form| %>
             <div class="mb-4">
               <%= form.label :title, "Titre du projet", class: "form-label fw-semibold" %>
               <%= form.text_field :title, class: "form-control", placeholder: "Ex : Rénovation cuisine", required: true %>
-            </div>
-
-            <div class="mb-4">
-              <%= form.label :project_type, "Type de projet", class: "form-label fw-semibold" %>
-              <%= form.text_field :project_type, class: "form-control", placeholder: "Ex : Rénovation, construction...", required: true %>
             </div>
 
             <div class="mb-4">
@@ -32,7 +27,7 @@
             </div>
 
             <div class="d-flex justify-content-between mt-4">
-              <%= link_to "← Retour", quotes_path, class: "btn btn-outline-secondary" %>
+              <%= link_to "← Retour", company_quotes_path, class: "btn btn-outline-secondary" %>
               <%= form.submit "Démarrer le devis", class: "btn btn-primary" %>
             </div>
           <% end %>

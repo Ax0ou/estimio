@@ -6,13 +6,14 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarEstimio">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <% if user_signed_in?%>
         <li class="nav-item">
-          <%= link_to quotes_path, class: "nav-link" do %>
+          <%= link_to company_quotes_path(current_user.company), class: "nav-link" do %>
             <i class="bi bi-kanban"></i> Tableau de bord
           <% end %>
         </li>
         <li class="nav-item">
-          <%= link_to clients_path, class: "nav-link" do %>
+          <%= link_to company_clients_path(current_user.company), class: "nav-link" do %>
             <i class="bi bi-people"></i> Mes clients
           <% end %>
         </li>
@@ -22,6 +23,7 @@
             <i class="bi bi-box-arrow-right"></i> Déconnexion
           <% end %>
         </li>
+        <% end %>
       </ul>
     </div>
   </div>

@@ -24,12 +24,41 @@ class QuotesController < ApplicationController
     end
   end
 
+  def edit
+    @quote = Quote.includes(section: :line_items).find(params[:id])
+  end
+
+  def update
+    @quote = Quote.find(params[:id])
+    if @quote.update(quote_params)
+      redirect_to quote_path(@quote), notice: "Devis mis à jour."
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def delete
   end
 
   private
 
   def quote_params
-    params.require(:quote).permit(:title, :project_type, :client_id)
+    params.require(:quote).permit(
+    :title,
+    :client_id,
+    sections_attributes: [
+      :id,
+      :name,
+      :_destroy,
+      { line_items_attributes: %i[
+        id
+        name
+        quantity
+        unit_price
+        total_price
+        _destroy
+      ] }
+    ]
+  )
   end
 end

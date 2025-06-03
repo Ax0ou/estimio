@@ -1,0 +1,15 @@
+<h2> Votre devis pour <%= @quote.client.first_name @quote.client.last_name %> </h2>
+
+<%= simple_form_for @quote do |f| %>
+  <%= f.input :title %>
+
+  <div id="sections-container">
+    <%= f.simple_fields_for :sections do |section_form| %>
+      <%= render 'section_fields', f: section_form %>
+    <% end %>
+  </div>
+
+  <button type="button" id="add-section" class="btn btn-primary mt-3">+ Ajouter une section</button>
+
+  <%= f.button :submit, "Sauvegarder le devis", class: "btn btn-success mt-4" %>
+<% end %>

@@ -1,12 +1,23 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  # Routes des devis
-  resources :quotes, only: [:index, :new, :create, :show, :edit, :update, :destroy] do
+
+  resources :companies, only: [] do
+    resources :clients, only: [:index, :new, :create]
+    resources :quotes, only: [:index, :new, :create]
+  end
+
+  resources :clients, only: [:show, :edit, :update, :destroy]
+  resources :quotes, only: [:show, :edit, :update, :destroy] do
+    resources :sections, only: [:new, :create, :index]
+  end
+
+  resources :sections, only: [:show, :edit, :update, :destroy] do
+    resources :line_items, only: [:new, :create]
     resources :ai_messages, only: [:new, :create]
   end
 
-  resources :clients
+  resources :line_items, only: [:edit, :update, :destroy]
 
   # Page d'accueil en racine
   root to: "pages#home"

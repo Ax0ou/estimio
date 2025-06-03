@@ -1,5 +1,5 @@
 class AiMessage < ApplicationRecord
-  belongs_to :quote
+  belongs_to :section
 
   # validates :prompt, presence: true
 end

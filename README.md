@@ -1,6 +1,6 @@
 Verifier route pour supprimer un line item
 
-bouton c'est un link to vers la ligne 1 et turbo method delete
+bouton c'est un link to vers la method delete du controller et turbo method delete
 
 Clique sur le bouton --> Emmene vers methode line item destroy
 

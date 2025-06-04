@@ -37,8 +37,10 @@
       <%#= number_field_tag "line_item[total_price][]", line_item.price || "-", placeholder: "Total", class: "form-control", readonly: true %>
     </div>
     <div class="col-auto">
-      <%= f.submit line_item.persisted? ? "save" : "add", class: "btn btn-sm btn-outline-primary" %>
-      <button type="button" class="btn btn-sm btn-outline-danger" data-action="click->line-items#remove">–</button>
+      <%= f.submit line_item.persisted? ? "Save" : "Add", class: "btn btn-sm btn-outline-primary" %>
+      <% if line_item.persisted? %>
+        <%= link_to "Remove", line_item_path(line_item), data: { turbo_method: :delete }, class: "btn btn-sm btn-outline-danger" %>
+      <% end %>
     </div>
   <% end %>
 </div>

@@ -14,6 +14,8 @@ gem "pg", "~> 1.1"
 # AI gem
 gem "ruby_llm"
 
+gem 'ruby-openai'
+
 # Je rajoute la gem .env qui permet de securiser votre clé API (ALVRD <3)
 gem 'dotenv-rails'
 

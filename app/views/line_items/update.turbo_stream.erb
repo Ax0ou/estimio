@@ -1,0 +1,3 @@
+<%= turbo_stream.replace(dom_id(@line_item),
+  partial: "quotes/line_item",
+  locals: { line_item: @line_item }) %>

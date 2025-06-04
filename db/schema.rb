@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_06_02_134105) do
+ActiveRecord::Schema[7.1].define(version: 2025_06_04_143847) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -69,6 +69,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_02_134105) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "company_id"
+    t.integer "status", default: 0, null: false
     t.index ["client_id"], name: "index_quotes_on_client_id"
     t.index ["company_id"], name: "index_quotes_on_company_id"
   end
@@ -79,15 +80,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_02_134105) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["quote_id"], name: "index_sections_on_quote_id"
-  end
-
-  create_table "solid_cable_messages", force: :cascade do |t|
-    t.text "channel"
-    t.text "payload"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["channel"], name: "index_solid_cable_messages_on_channel"
-    t.index ["created_at"], name: "index_solid_cable_messages_on_created_at"
   end
 
   create_table "users", force: :cascade do |t|

@@ -24,7 +24,7 @@ company = Company.create!(
 
 # Create a user associated with the company
 User.create!(
-  email: 'test@test.com',
+  email: 'test@testor.com',
   password: '123456',
   first_name: 'Jean',
   last_name: 'Alvarade',

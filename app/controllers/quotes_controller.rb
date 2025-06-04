@@ -21,14 +21,15 @@ class QuotesController < ApplicationController
     @quote = @company.quotes.new(quote_params)
 
     if @quote.save
-      redirect_to  quote_path(@quote)
+      redirect_to edit_quote_path(@quote)
     else
       render :new, status: :unprocessable_entity
     end
   end
 
   def edit
-    @quote = Quote.includes(section: :line_items).find(params[:id])
+    @quote = Quote.find(params[:id])
+    client = Client.find(@quote.client_id)
   end
 
   def update
@@ -47,6 +48,15 @@ class QuotesController < ApplicationController
       redirect_to company_quotes_path(@company), notice: "Devis supprimé avec succès."
     else
       redirect_to quote_path(@quote), alert: "Une erreur est survenue lors de la suppression du devis."
+    end
+  end
+
+  def add_section
+    @quote = Quote.find(params[:id])
+    @section = @quote.sections.create(description: params[:section][:description])
+    @section.save
+    respond_to do |format|
+      format.turbo_stream
     end
   end
 

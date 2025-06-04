@@ -1,0 +1,11 @@
+  <%= simple_form_for LineItem.new,
+    url: section_line_items_path(section),
+    method: :post,
+    data: {
+      turbo_stream: true,
+    } do |f| %>
+    <div class="form-group mt-4">
+      <%= render "quotes/line_item", section: section  %>
+      <%= link_to "+ Ajouter une nouvelle sous-tâche", section_line_items_path(section) %>
+    </div>
+  <% end %>

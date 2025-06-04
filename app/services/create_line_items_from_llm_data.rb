@@ -1,15 +1,16 @@
-class CreateLneItemsFromLLMData
-  def initialize(llm_data)
+class CreateLineItemsFromLlmData
+  def initialize(llm_data, section:)
     @llm_data = llm_data
+    @section = section
   end
 
   def call
     line_items = @llm_data.map do |item_data|
       LineItem.create!(
-        section_id: item_data[:section_id],
-        description: item_data[:description],
-        quantity: item_data[:quantity],
-        price_per_unit: item_data[:price_per_unit]
+        section: @section,
+        description: item_data["description"],
+        quantity: item_data["quantity"],
+        price_per_unit: item_data["price_per_unit"]
       )
     end
 

@@ -1,8 +1,6 @@
 class LlmService
-  def initialize(section:, transcript: nil)
-    @section = section
+  def initialize(transcript: nil)
     @description = transcript || section.description
-    @quote = section.quote
   end
 
   def call
@@ -44,13 +42,11 @@ class LlmService
       Dans le json, Chaque élément du tableau (line item) doit contenir un champ section_id identique pour toutes les lignes, correspondant à l'identifiant unique de la section traitée.
       [
         {
-          "section_id": #{@section.id},
           "description": "Pose de carrelage",
           "quantity": 2,
           "price_per_unit": 80
         },
         {
-          "section_id": #{@section.id},
           "description": "Carrelage 60x60",
           "quantity": 20,
           "price_per_unit": 50,

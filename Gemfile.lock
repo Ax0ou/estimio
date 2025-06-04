@@ -275,6 +275,10 @@ GEM
       actionpack (>= 5.2)
       railties (>= 5.2)
     rexml (3.4.1)
+    ruby-openai (8.1.0)
+      event_stream_parser (>= 0.3.0, < 2.0.0)
+      faraday (>= 1)
+      faraday-multipart (>= 1)
     ruby_llm (1.2.0)
       base64
       event_stream_parser (~> 1)
@@ -365,6 +369,7 @@ DEPENDENCIES
   pry-byebug
   puma (>= 5.0)
   rails (~> 7.1.5, >= 7.1.5.1)
+  ruby-openai
   ruby_llm
   sassc-rails
   selenium-webdriver

@@ -15,5 +15,12 @@
         + Ajouter une ligne
       </button>
     </div>
+
+    <div class="container">
+      <%= simple_form_for :transcript, url: add_line_items_with_llm_section_path(section) do |f| %>
+        <%= f.input :text %>
+        <%= f.submit 'ok' %>
+      <% end %>
+    </div>
   </div>
 </div>

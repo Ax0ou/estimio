@@ -53,11 +53,11 @@ class QuotesController < ApplicationController
 
   def add_section
     @quote = Quote.find(params[:id])
-    @section = @quote.sections.create(description: params[:section_description])
-    2.times { @section.line_items.build }
+    @section = @quote.sections.create(description: params[:section][:description])
     @section.save
-
-    render turbo_stream: turbo_stream.append("sections", partial: "quotes/section", locals: { section: @section })
+    respond_to do |format|
+      format.turbo_stream
+    end
   end
 
   private

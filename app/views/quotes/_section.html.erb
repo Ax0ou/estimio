@@ -1,13 +1,14 @@
 <div class="section border rounded p-3 mb-4" id="section-<%= section.id %>">
-  <h4><%= section.name %></h4>
+  <h4><%= section.description %></h4>
 
   <div class="line-items" data-section-id="<%= section.id %>" data-controller="line-items">
-    <%= render section.line_items %>
+    <div id="<%= section.id %>-line-items">
+      <% section.line_items.each do |line_item| %>
+        <%= render "quotes/line_item", line_item: line_item %>
+      <% end %>
+    </div>
 
-    <!-- Ligne vide template cachée pour duplication -->
-    <template data-line-items-target="template">
-      <%= render partial: "quotes/line_item", locals: { line_item: LineItem.new } %>
-    </template>
+    <%= render "quotes/line_item", line_item: section.line_items.new %>
 
     <div class="mt-2">
       <button type="button" class="btn btn-sm btn-outline-primary" data-action="click->line-items#add">

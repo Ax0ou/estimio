@@ -1,17 +1,44 @@
-<div class="row align-items-end mb-2" data-line-items-target="item">
-  <div class="col">
-    <%= text_field_tag "line_item[name][]", line_item.name, placeholder: "Nom", class: "form-control" %>
-  </div>
-  <div class="col">
-    <%= number_field_tag "line_item[quantity][]", line_item.quantity, placeholder: "Qté", class: "form-control" %>
-  </div>
-  <div class="col">
-    <%= number_field_tag "line_item[unit_price][]", line_item.unit_price, step: 0.01, placeholder: "Prix unitaire", class: "form-control" %>
-  </div>
-  <div class="col">
-    <%= number_field_tag "line_item[total_price][]", line_item.quantity.to_f * line_item.unit_price.to_f, placeholder: "Total", class: "form-control", readonly: true %>
-  </div>
-  <div class="col-auto">
-    <button type="button" class="btn btn-sm btn-outline-danger" data-action="click->line-items#remove">–</button>
-  </div>
+<div id="<%= line_item.persisted? ? dom_id(line_item) : "section_#{line_item.section.id}_new_line_item" %>" class="row align-items-end mb-2" data-line-items-target="item">
+  <%= simple_form_for line_item.persisted? ? line_item : [line_item.section, line_item],
+    html: {
+      class: "d-flex",
+      id: ("#{line_item.section.id}_new_li" if line_item.new_record?),
+    },
+    data: {
+      controller: "submit-form-on-change",
+      # action: "change->submit-form-on-change#submit",
+    } do |f| %>
+    <div class="col">
+      <%#= text_field_tag "line_item[name][]", line_item.description, placeholder: "Nom", class: "form-control" %>
+      <%= f.input :description,
+          wrapper: false,
+          placeholder: "Nom",
+          input_html: { class: "w-auto" } %>
+    </div>
+    <div class="col">
+      <%= f.input :quantity,
+          wrapper: false,
+          placeholder: "Qté",
+          input_html: { class: "w-auto" }%>
+      <%#= number_field_tag "line_item[quantity][]", line_item.quantity, placeholder: "Qté", class: "form-control" %>
+    </div>
+    <div class="col">
+      <%= f.input :price_per_unit,
+          wrapper: false,
+          placeholder: "Prix unitaire",
+          input_html: { step: 0.01, class: "w-auto" }%>
+      <%#= number_field_tag "line_item[unit_price][]", line_item.price_per_unit, step: 0.01, placeholder: "Prix unitaire", class: "form-control" %>
+    </div>
+    <div class="col">
+      <%= f.input :price,
+          wrapper: false,
+          placeholder: "Total",
+          input_html: { readonly: true, class: "w-auto" }%>
+      <%#= number_field_tag "line_item[total_price][]", line_item.price || "-", placeholder: "Total", class: "form-control", readonly: true %>
+    </div>
+    <div class="col-auto">
+      <%= f.submit line_item.persisted? ? "save" : "add", class: "btn btn-sm btn-outline-primary" %>
+      <button type="button" class="btn btn-sm btn-outline-danger" data-action="click->line-items#remove">–</button>
+    </div>
+  <% end %>
 </div>

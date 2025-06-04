@@ -1,0 +1,8 @@
+<%= turbo_stream.append("#{@section.id}-line-items",
+  partial: "quotes/line_item",
+  locals: { line_item: @line_item }) %>
+
+
+<%= turbo_stream.replace("section_#{@line_item.section.id}_new_line_item",
+  partial: "quotes/line_item",
+  locals: { line_item: @line_item.section.line_items.new }) %>

@@ -8,6 +8,10 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+Client.destroy_all
+User.destroy_all
+Company.destroy_all
+
 company = Company.create!(
   name: 'Toitures Alvarade',
   siret: '12345678900013',

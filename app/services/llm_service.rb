@@ -3,12 +3,16 @@ class LlmService
     @description = transcript || section.description
   end
 
+  def extract_raw_json(content)
+    content.gsub(/```json|```/, "").strip
+  end
+
   def call
     prompt = system_prompt
 
     response = OpenAI::Client.new.chat(
       parameters: {
-        model: "gpt-4",
+        model: "gpt-4o",
         messages: [
           { role: "system", content: prompt },
           { role: "user", content: @description }
@@ -18,10 +22,19 @@ class LlmService
     )
 
     content = response.dig("choices", 0, "message", "content")
-    json = JSON.parse(content)
+    clean_content = sanitize_llm_response(content)
+    JSON.parse(clean_content)
+  rescue JSON::ParserError => e
+    Rails.logger.error("❌ Erreur de parsing JSON : #{e.message}")
+    { error: 'Invalid JSON', raw: content }
   end
 
   private
+
+  def sanitize_llm_response(content)
+  # Supprime les délimitations Markdown éventuelles comme ```json ou ```
+    content.gsub(/```json|```/, "").strip
+  end
 
   def system_prompt
     <<~PROMPT

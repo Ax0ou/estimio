@@ -1,24 +1,20 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
-/* Fond bleu personnalisé pour la navbar */
+// Graphical variables
+@import "config/fonts";
+@import "config/colors";
+@import "config/bootstrap_variables";
+
+// External libraries
+@import "bootstrap";
+@import "font-awesome";
+
+// Your CSS partials
+@import "components/index";
+@import "pages/index";
+
 .bg-custom-blue {
-  background-color: #1e3a8a; /* bleu profond */
+  background-color: #1e3a8a;
 }
 
-/* Couleur crème pour le texte */
 .text-creme {
   color: #fff8e7 !important;
 }
@@ -27,7 +23,6 @@
   color: #fff0d6 !important;
 }
 
-/* Bouton crème rempli */
 .btn-creme-filled {
   background-color: #fff8e7;
   border: 1px solid #ffe8b3;
@@ -41,7 +36,7 @@
   border-color: #ffdf99;
 }
 
-/* Bouton crème contour (outline) */
+
 .btn-creme-outline {
   background-color: transparent;
   border: 1px solid #fff8e7;
@@ -59,13 +54,13 @@
 }
 
 .input-creme {
-  background-color: #fff8e7;       /* Fond crème */
-  border: 1px solid #ffe8b3;       /* Bordure crème pâle */
-  color: #1e3a8a;                  /* Texte bleu */
+  background-color: #fff8e7;
+  border: 1px solid #ffe8b3;
+  color: #1e3a8a;
 }
 
 .input-creme::placeholder {
-  color: #aaa;                     /* Optionnel pour contraste clair */
+  color: #aaa;
 }
 
 .input-creme:focus {
@@ -73,7 +68,7 @@
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
-/* Déjà défini plus haut, mais rappelé pour contexte */
+
 .btn-creme-filled {
   background-color: #fff8e7;
   border: 1px solid #ffe8b3;
@@ -87,7 +82,7 @@
   border-color: #ffdf99;
 }
 .text-primary-blue {
-  color: #1e3a8a; /* bleu profond */
+  color: #1e3a8a;
 }
 
 .btn-creme-filled {
@@ -106,22 +101,22 @@
 
 
 .text-primary {
-  color: #1e3a8a !important; /* Bleu profond */
+  color: #1e3a8a !important;
 }
 
 .text-creme {
-  color: #fff8e7 !important; /* Crème clair */
+  color: #fff8e7 !important;
 }
 
-/* Optionnel : hover sur liens titre dans le tableau */
+
 a.text-primary:hover {
   color: #1451b3;
   text-decoration: underline;
 }
 
 .a4-container {
-    width: 1100px; /* largeur élargie */
-    min-height: 1200px; /* un peu plus de hauteur aussi */
+    width: 1100px;
+    min-height: 1200px;
     background-color: white;
     border: 1px solid #ddd;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);

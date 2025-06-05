@@ -1,0 +1,8 @@
+<%= turbo_stream.append("sections",
+  partial: "quotes/section",
+  locals: { section: @section }) %>
+
+
+<%= turbo_stream.replace("new_section",
+  partial: "quotes/new_section",
+  locals: { quote: @quote }) %>

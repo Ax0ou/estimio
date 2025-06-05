@@ -1,0 +1,26 @@
+<div class="section border rounded p-3 mb-4" id="section-<%= section.id %>">
+  <h4><%= section.description %></h4>
+
+  <div class="line-items" data-section-id="<%= section.id %>" data-controller="line-items">
+    <div id="<%= section.id %>-line-items">
+      <% section.line_items.each do |line_item| %>
+        <%= render "quotes/line_item", line_item: line_item %>
+      <% end %>
+    </div>
+
+    <%= render "quotes/line_item", line_item: section.line_items.new %>
+
+    <div class="mt-2">
+      <button type="button" class="btn btn-sm btn-outline-primary" data-action="click->line-items#add">
+        + Ajouter une ligne
+      </button>
+    </div>
+
+    <div class="container">
+      <%= simple_form_for :transcript, url: add_line_items_with_llm_section_path(section) do |f| %>
+        <%= f.input :text %>
+        <%= f.submit 'ok' %>
+      <% end %>
+    </div>
+  </div>
+</div>

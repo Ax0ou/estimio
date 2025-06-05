@@ -8,6 +8,10 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+Client.destroy_all
+User.destroy_all
+Company.destroy_all
+
 company = Company.create!(
   name: 'Toitures Alvarade',
   siret: '12345678900013',
@@ -20,7 +24,7 @@ company = Company.create!(
 
 # Create a user associated with the company
 User.create!(
-  email: 'test@test.com',
+  email: 'test@testor.com',
   password: '123456',
   first_name: 'Jean',
   last_name: 'Alvarade',

@@ -14,6 +14,8 @@ gem "pg", "~> 1.1"
 # AI gem
 gem "ruby_llm"
 
+gem 'ruby-openai'
+
 # Je rajoute la gem .env qui permet de securiser votre clé API (ALVRD <3)
 gem 'dotenv-rails'
 
@@ -30,6 +32,10 @@ gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
 
+gem "autoprefixer-rails"
+gem "font-awesome-sass", "~> 6.1"
+gem "sassc-rails"
+gem "bootstrap", "~> 5.2"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
@@ -50,6 +56,9 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
+# Allows for easy form types
+gem 'simple_form'
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
@@ -67,6 +76,7 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+  gem "pry-byebug"
 end
 
 group :test do

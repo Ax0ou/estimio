@@ -23,6 +23,7 @@ class QuotesController < ApplicationController
     if @quote.save
       flash_success("Devis créé avec succès.")
       redirect_to quote_path(@quote)
+      redirect_to edit_quote_path(@quote)
     else
       flash_error("Erreur lors de la création du devis.")
       render :new, status: :unprocessable_entity
@@ -30,7 +31,8 @@ class QuotesController < ApplicationController
   end
 
   def edit
-    @quote = Quote.includes(section: :line_items).find(params[:id])
+    @quote = Quote.find(params[:id])
+    client = Client.find(@quote.client_id)
   end
 
   def update
@@ -69,6 +71,13 @@ class QuotesController < ApplicationController
     end
 
     redirect_to company_quotes_path
+  def add_section
+    @quote = Quote.find(params[:id])
+    @section = @quote.sections.create(description: params[:section][:description])
+    @section.save
+    respond_to do |format|
+      format.turbo_stream
+    end
   end
 
   private

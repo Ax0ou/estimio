@@ -174,4 +174,10 @@ a.text-primary:hover {
 
 .shadow-hover-right:hover {
   box-shadow: 5px 0 15px rgba(0, 0, 0, 0.15);
+  
+.handle {
+cursor: grab;
+user-select: none;
+font-size: 1.2rem;
+color: #666;
 }

@@ -8,25 +8,16 @@ class LlmService
   end
 
   def call
-    prompt = system_prompt
 
-    response = OpenAI::Client.new.chat(
-      parameters: {
-        model: "gpt-4o",
-        messages: [
-          { role: "system", content: prompt },
-          { role: "user", content: @description }
-        ],
-        temperature: 0.4
-      }
-    )
+    chat = RubyLLM.chat.with_instructions(system_prompt)
+    chat.add_message(content: @description, role: "user")
 
-    content = response.dig("choices", 0, "message", "content")
-    clean_content = sanitize_llm_response(content)
+    response = chat.ask
+    clean_content = sanitize_llm_response(response.content)
     JSON.parse(clean_content)
-  rescue JSON::ParserError => e
+    rescue JSON::ParserError => e
     Rails.logger.error("❌ Erreur de parsing JSON : #{e.message}")
-    { error: 'Invalid JSON', raw: content }
+    { error: 'Invalid JSON', raw: response.content }
   end
 
   private

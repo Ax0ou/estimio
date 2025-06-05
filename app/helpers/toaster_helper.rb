@@ -1,4 +1,4 @@
-module ApplicationHelper
+module ToasterHelper
   def toaster_icon(flash_type)
     case flash_type.to_s
     when "notice", "success" then "bi-check-circle-fill"

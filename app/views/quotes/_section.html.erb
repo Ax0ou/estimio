@@ -2,10 +2,18 @@
   <h4><%= section.description %></h4>
 
   <div class="line-items" data-section-id="<%= section.id %>" data-controller="line-items">
-    <div id="<%= section.id %>-line-items">
-      <% section.line_items.each do |line_item| %>
-        <%= render "quotes/line_item", line_item: line_item %>
-      <% end %>
+
+    <div data-controller="line-items-sort"
+         data-line-items-sort-url-value="<%= reorder_line_items_path %>">
+
+      <div data-line-items-sort-target="list" id="<%= section.id %>-line-items">
+        <% section.line_items.each do |line_item| %>
+          <div data-id="<%= line_item.id %>" class="draggable-line-item d-flex align-items-center gap-2">
+            <span class="handle">☰</span>
+            <%= render "quotes/line_item", line_item: line_item %>
+          </div>
+        <% end %>
+      </div>
     </div>
 
     <%= render "quotes/line_item", line_item: section.line_items.new %>

@@ -37,6 +37,13 @@ class LineItemsController < ApplicationController
     end
   end
 
+  def reorder
+    params[:order].each_with_index do |id, index|
+      LineItem.where(id: id).update_all(position: index)
+    end
+    head :ok
+  end
+
   private
 
   def line_item_params

@@ -26,6 +26,8 @@ Rails.application.routes.draw do
 
   resources :line_items, only: [:edit, :update, :destroy]
 
+  post "/line_items/reorder", to: "line_items#reorder", as: :reorder_line_items
+
   # Page d'accueil en racine
   root to: "pages#home"
 end

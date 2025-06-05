@@ -47,7 +47,7 @@
   </div>
   <div class="card-footer text-end">
     <p><strong>Total HT : <%= number_with_delimiter(quote.total_ht)%></strong></p>
-    <p><strong>TVA : <%= number_with_delimiter(quote.total_ttc - quote.total_ht)%> </strong></p>
-    <p><strong>Total TTC : <%= number_with_delimiter(quote.total_ttc)%></strong></p>
+    <p><strong>TVA : <%= number_with_delimiter((quote.total_ttc - quote.total_ht).round(2))%> </strong></p>
+    <p><strong>Total TTC : <%= number_with_delimiter(quote.total_ttc.round(2))%></strong></p>
   </div>
 </div>

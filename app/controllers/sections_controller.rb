@@ -24,5 +24,15 @@ class SectionsController < ApplicationController
   rescue => e
     render json: { error: e.message }, status: :unprocessable_entity
   end
-end
 
+  def destroy
+    @section = Section.find(params[:id])
+    if @section.destroy
+      respond_to do |format|
+        format.turbo_stream
+      end
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+end

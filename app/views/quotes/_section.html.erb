@@ -3,6 +3,8 @@
 
   <div class="line-items" data-section-id="<%= section.id %>" data-controller="line-items">
 
+  <%= link_to "Remove", section_path(section), data: { turbo_method: :delete }, class: "btn btn-sm btn-outline-danger" %>
+
     <div data-controller="line-items-sort"
          data-line-items-sort-url-value="<%= reorder_line_items_path %>">
 

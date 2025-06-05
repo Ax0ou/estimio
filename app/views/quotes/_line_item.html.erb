@@ -12,7 +12,6 @@
       <span class="handle">☰</span>
     <% end %>
     <div class="col">
-      <%#= text_field_tag "line_item[name][]", line_item.description, placeholder: "Nom", class: "form-control" %>
       <%= f.input :description,
           wrapper: false,
           placeholder: "Nom",
@@ -23,21 +22,32 @@
           wrapper: false,
           placeholder: "Qté",
           input_html: { class: "w-auto" }%>
-      <%#= number_field_tag "line_item[quantity][]", line_item.quantity, placeholder: "Qté", class: "form-control" %>
+    </div>
+    <div class="col">
+      <%= f.input :unit,
+          wrapper: false,
+          collection: [
+            ['u', 'u'],
+            ['m²', 'm²'],
+            ['ml', 'ml'],
+            ['h', 'h'],
+            ['m³', 'm³'],
+            ['kg', 'kg']
+          ],
+          input_html: { class: "w-auto" },
+          include_blank: false %>
     </div>
     <div class="col">
       <%= f.input :price_per_unit,
           wrapper: false,
           placeholder: "Prix unitaire",
           input_html: { step: 0.01, class: "w-auto" }%>
-      <%#= number_field_tag "line_item[unit_price][]", line_item.price_per_unit, step: 0.01, placeholder: "Prix unitaire", class: "form-control" %>
     </div>
     <div class="col">
       <%= f.input :price,
           wrapper: false,
           placeholder: "Total",
           input_html: { readonly: true, class: "w-auto" }%>
-      <%#= number_field_tag "line_item[total_price][]", line_item.price || "-", placeholder: "Total", class: "form-control", readonly: true %>
     </div>
     <div class="col-auto">
       <%= f.submit line_item.persisted? ? "Save" : "Add", class: "btn btn-sm btn-outline-primary" %>

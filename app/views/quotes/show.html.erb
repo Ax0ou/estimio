@@ -1,15 +1,13 @@
 <div class="container py-5">
-  <h2 class="mb-5 text-center display-6">🛠 <%= @quote.title %> </h2>
 
-<div id="messages">
-  <%= render "ai_messages/messages", messages:@quote.ai_messages %>
-</div>
+  <%= render "quotes/quote_content", quote: @quote %>
 
-  <div id="new_message">
-    <%= render 'ai_messages/form', section: @quote   %>
+  <div class="text-center">
+    <%= link_to 'Download PDF', download_pdf_quote_path(@quote) %>
+  </div>
+  <br>
+  <div class="text-center">
+    <%= link_to "← Retour à mes devis", company_quotes_path(@quote.company), class: "btn btn-outline-secondary" %>
   </div>
 
-  <div class="text-center mt-4">
-    <%= link_to "← Retour à mes devis", company_quotes_path, class: "btn btn-outline-secondary" %>
-  </div>
 </div>

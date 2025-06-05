@@ -12,7 +12,7 @@ gem "sprockets-rails"
 gem "pg", "~> 1.1"
 
 # AI gem
-gem "ruby_llm"
+gem 'ruby_llm', '1.3.0'
 
 gem 'ruby-openai'
 

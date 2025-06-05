@@ -167,3 +167,11 @@ a.text-primary:hover {
     opacity: 1;
   }
 }
+
+.shadow-hover-right {
+  transition: box-shadow 0.2s ease;
+}
+
+.shadow-hover-right:hover {
+  box-shadow: 5px 0 15px rgba(0, 0, 0, 0.15);
+}

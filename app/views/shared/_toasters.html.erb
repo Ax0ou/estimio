@@ -1,0 +1,38 @@
+<!-- Container pour les toasters -->
+<div class="toast-container position-fixed bottom-0 start-0 p-3" style="z-index: 1100;">
+  <% flash.each do |type, message| %>
+    <% next if message.blank? %>
+    <div class="toast align-items-center <%= toaster_background_class(type) %> <%= toaster_text_class(type) %> border-0 shadow-lg"
+         role="alert" aria-live="assertive" aria-atomic="true"
+         data-bs-autohide="true" data-bs-delay="4000"
+         style="backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
+      <div class="d-flex">
+        <div class="toast-body d-flex align-items-center">
+          <i class="bi <%= toaster_icon(type) %> me-2 fs-5"></i>
+          <span><strong><%= toaster_header_text(type) %></strong> : <%= message %></span>
+        </div>
+        <button type="button" class="btn-close <%= type == 'warning' ? 'btn-close-dark' : 'btn-close-white' %> me-2 m-auto"
+                data-bs-dismiss="toast" aria-label="Fermer"></button>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<!-- JavaScript pour initialiser les toasters -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var toastElements = document.querySelectorAll('.toast');
+  toastElements.forEach(function(toastElement) {
+    var toast = new bootstrap.Toast(toastElement);
+    toast.show();
+  });
+});
+
+document.addEventListener('turbo:load', function() {
+  var toastElements = document.querySelectorAll('.toast');
+  toastElements.forEach(function(toastElement) {
+    var toast = new bootstrap.Toast(toastElement);
+    toast.show();
+  });
+});
+</script>

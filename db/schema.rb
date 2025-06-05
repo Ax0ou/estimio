@@ -70,6 +70,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_05_123904) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "company_id"
+    t.integer "status", default: 0, null: false
     t.index ["client_id"], name: "index_quotes_on_client_id"
     t.index ["company_id"], name: "index_quotes_on_company_id"
   end

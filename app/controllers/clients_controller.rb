@@ -17,8 +17,9 @@ class ClientsController < ApplicationController
     @client = @company.clients.new(client_params)
 
     if @client.save
-      redirect_to company_clients_path, notice: "Client créé avec succès."
+      redirect_to company_clients_path(@company), notice: "Le client #{@client.first_name} #{@client.last_name} a été créé avec succès"
     else
+      flash.now[:alert] = "Impossible de créer le client. Veuillez vérifier les informations saisies"
       render :new, status: :unprocessable_entity
     end
   end
@@ -26,8 +27,9 @@ class ClientsController < ApplicationController
   def update
     @client = @company.clients.find(params[:id])
     if @client.update(client_params)
-      redirect_to company_clients_path(@company), notice: "Client mis à jour avec succès."
+      redirect_to company_clients_path(@company), notice: "Les informations du client ont été mises à jour"
     else
+      flash.now[:alert] = "Erreur lors de la mise à jour"
       render :edit, status: :unprocessable_entity
     end
   end

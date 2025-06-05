@@ -24,10 +24,24 @@
       </button>
     </div>
 
-    <div class="container">
+    <div class="container" data-controller="audio-recorder">
       <%= simple_form_for :transcript, url: add_line_items_with_llm_section_path(section) do |f| %>
-        <%= f.input :text %>
-        <%= f.submit 'ok' %>
+        <%= f.input :text, input_html: { data: { "audio-recorder-target": "textArea" } } %>
+
+        <div class="d-flex gap-2 align-items-center">
+          <%= f.submit 'OK', class: "btn btn-primary" %>
+
+          <button type="button"
+                  data-action="click->audio-recorder#toggle"
+                  data-audio-recorder-target="recordButton"
+                  class="btn btn-outline-secondary btn-sm">
+            <i class="bi bi-mic-fill"></i>
+          </button>
+
+          <span data-audio-recorder-target="status" class="text-danger small" style="display: none;">
+            🔴 Enregistrement...
+          </span>
+        </div>
       <% end %>
     </div>
   </div>

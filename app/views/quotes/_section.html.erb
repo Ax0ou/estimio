@@ -2,10 +2,17 @@
   <h4><%= section.description %></h4>
 
   <div class="line-items" data-section-id="<%= section.id %>" data-controller="line-items">
-    <div id="<%= section.id %>-line-items">
-      <% section.line_items.each do |line_item| %>
-        <%= render "quotes/line_item", line_item: line_item %>
-      <% end %>
+
+    <div data-controller="line-items-sort"
+         data-line-items-sort-url-value="<%= reorder_line_items_path %>">
+
+      <div data-line-items-sort-target="list" id="<%= section.id %>-line-items">
+        <% section.line_items.each do |line_item| %>
+          <div data-id="<%= line_item.id %>" class="draggable-line-item d-flex align-items-center gap-2">
+            <%= render "quotes/line_item", line_item: line_item %>
+          </div>
+        <% end %>
+      </div>
     </div>
 
     <%= render "quotes/line_item", line_item: section.line_items.new %>
@@ -16,10 +23,24 @@
       </button>
     </div>
 
-    <div class="container">
+    <div class="container" data-controller="audio-recorder">
       <%= simple_form_for :transcript, url: add_line_items_with_llm_section_path(section) do |f| %>
-        <%= f.input :text %>
-        <%= f.submit 'ok' %>
+        <%= f.input :text, input_html: { data: { "audio-recorder-target": "textArea" } } %>
+
+        <div class="d-flex gap-2 align-items-center">
+          <%= f.submit 'OK', class: "btn btn-primary" %>
+
+          <button type="button"
+                  data-action="click->audio-recorder#toggle"
+                  data-audio-recorder-target="recordButton"
+                  class="btn btn-outline-secondary btn-sm">
+            <i class="bi bi-mic-fill"></i>
+          </button>
+
+          <span data-audio-recorder-target="status" class="text-danger small" style="display: none;">
+            🔴 Enregistrement...
+          </span>
+        </div>
       <% end %>
     </div>
   </div>

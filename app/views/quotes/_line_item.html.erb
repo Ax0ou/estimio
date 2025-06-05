@@ -8,6 +8,9 @@
       controller: "submit-form-on-change",
       # action: "change->submit-form-on-change#submit",
     } do |f| %>
+    <% if line_item.persisted? %>
+      <span class="handle">☰</span>
+    <% end %>
     <div class="col">
       <%#= text_field_tag "line_item[name][]", line_item.description, placeholder: "Nom", class: "form-control" %>
       <%= f.input :description,

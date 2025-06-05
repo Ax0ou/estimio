@@ -9,7 +9,6 @@
       <div data-line-items-sort-target="list" id="<%= section.id %>-line-items">
         <% section.line_items.each do |line_item| %>
           <div data-id="<%= line_item.id %>" class="draggable-line-item d-flex align-items-center gap-2">
-            <span class="handle">☰</span>
             <%= render "quotes/line_item", line_item: line_item %>
           </div>
         <% end %>

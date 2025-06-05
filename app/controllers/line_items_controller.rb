@@ -47,11 +47,6 @@ class LineItemsController < ApplicationController
   private
 
   def line_item_params
-    params.require(:line_item).permit(
-      :description,
-      :quantity,
-      :unit_price,
-      :price
-    )
+    params.require(:line_item).permit(:description, :quantity, :unit, :price_per_unit, :price)
   end
 end

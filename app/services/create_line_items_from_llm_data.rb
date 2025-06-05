@@ -10,6 +10,7 @@ class CreateLineItemsFromLlmData
         section: @section,
         description: item_data["description"],
         quantity: item_data["quantity"],
+        unit: item_data["unit"] || "u",
         price_per_unit: item_data["price_per_unit"]
       )
     end

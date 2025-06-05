@@ -167,3 +167,10 @@ a.text-primary:hover {
     opacity: 1;
   }
 }
+
+.handle {
+  cursor: grab;
+  user-select: none;
+  font-size: 1.2rem;
+  color: #666;
+}

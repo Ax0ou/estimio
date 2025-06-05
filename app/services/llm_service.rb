@@ -9,10 +9,10 @@ class LlmService
 
   def call
 
-    chat = RubyLLM.chat.with_instructions(system_prompt)
+    chat = RubyLLM.chat
     chat.add_message(content: @description, role: "user")
+    response = chat.with_instructions(system_prompt).ask(@description)
 
-    response = chat.ask
     clean_content = sanitize_llm_response(response.content)
     JSON.parse(clean_content)
     rescue JSON::ParserError => e

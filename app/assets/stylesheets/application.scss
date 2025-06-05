@@ -124,6 +124,18 @@ a.text-primary:hover {
     padding: 2rem;
   }
 
+.dragging {
+  opacity: 1;
+  transform: scale(1.01);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  cursor: grabbing;
+  z-index: 9999;
+}
+
+.hidden-original {
+  visibility: hidden !important;
+}
+
 /* Toasters translucides */
 .toast {
   backdrop-filter: blur(10px);

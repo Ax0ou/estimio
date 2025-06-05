@@ -9,6 +9,23 @@ class QuotesController < ApplicationController
 
   def show
     @quote = Quote.find(params[:id])
+    # respond_to do |format|
+    #   format.html
+    #   format.pdf do
+    #     render(
+    #       pdf: "quote_#{@quote.id}"
+    #     )
+    #   end
+    # end
+  end
+  
+  def download_pdf
+    @quote = Quote.find(params[:id])
+    render(
+      pdf: "quote_#{@quote.id}",
+      template: 'quotes/pdf',
+      layout: 'pdf'
+    )
   end
 
   def new

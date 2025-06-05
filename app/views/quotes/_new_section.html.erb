@@ -1,7 +1,8 @@
-<%#= turbo_frame_tag "new_section" do %>
+<%= turbo_frame_tag "new_section" do %>
   <%= simple_form_for Section.new,
     url: add_section_quote_path(quote),
     method: :post,
+    local: false,
     data: {
       turbo_stream: true,
     } do |f| %>
@@ -10,4 +11,4 @@
       <%= f.button :submit, "+ Créer une nouvelle tâche", class: "btn btn-primary w-100" %>
     </div>
   <% end %>
-<%# end %>
+<% end %>

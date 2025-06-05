@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :sections, only: [:show, :edit, :update, :destroy] do
     member do
       post :add_line_items_with_llm
+      post :transcribe_audio
     end
     resources :line_items, only: [:new, :create]
     resources :ai_messages, only: [:new, :create]

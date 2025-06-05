@@ -36,6 +36,9 @@ gem "autoprefixer-rails"
 gem "font-awesome-sass", "~> 6.1"
 gem "sassc-rails"
 gem "bootstrap", "~> 5.2"
+
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 

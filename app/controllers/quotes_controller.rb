@@ -9,6 +9,15 @@ class QuotesController < ApplicationController
 
   def show
     @quote = Quote.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render(
+          pdf: "quote_#{@quote.id}",
+          inline: render_to_string(template: "quotes/show", locals: { quote: @quotes }, formats: :html, layout: false),
+        )
+      end
+    end
   end
 
   def new

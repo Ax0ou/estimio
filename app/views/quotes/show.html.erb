@@ -1,15 +1,65 @@
 <div class="container py-5">
-  <h2 class="mb-5 text-center display-6">🛠 <%= @quote.title %> </h2>
 
-<div id="messages">
-  <%= render "ai_messages/messages", messages:@quote.ai_messages %>
-</div>
+  <h2 class="mb-5 text-center display-6">🛠 <%= @quote.title %></h2>
 
-  <div id="new_message">
-    <%= render 'ai_messages/form', section: @quote   %>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <p><strong>Client :</strong> <%= "#{@quote.client.first_name} #{@quote.client.last_name}" %></p></p>
+      <p><strong>Date :</strong> <%= l(@quote.created_at.to_date) %></p>
+    </div>
   </div>
 
-  <div class="text-center mt-4">
-    <%= link_to "← Retour à mes devis", company_quotes_path, class: "btn btn-outline-secondary" %>
+
+  <div class="card mb-4">
+    <div class="card-header">
+      <strong>Détails du devis</strong>
+    </div>
+    <div class="card-body p-0">
+      <table class="table mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>Description</th>
+            <th>Qté</th>
+            <th>PU</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @quote.sections.each do |section|%>
+            <tr>
+              <td colspan="3" class="fw-bold"><%= section.description %>
+              </td>
+              <td class="fw-bold"><%=number_with_delimiter(section.total_ht) %></td>
+            </tr>
+            <% section.line_items.each do |item|%>
+              <tr>
+                <td><%= item.description %></td>
+                <td><%= item.quantity %></td>
+                <td><%= number_to_currency(item.price_per_unit) %></td>
+                <td><%= number_to_currency(item.price) %></td>
+              </tr>
+            <% end %>
+            <tr>
+              <td colspan="4"></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer text-end">
+      <p><strong>Total HT : <%= number_with_delimiter(@quote.total_ht)%></strong></p>
+      <p><strong>TVA : <%= number_with_delimiter(@quote.total_ttc - @quote.total_ht)%> </strong></p>
+      <p><strong>Total TTC : <%= number_with_delimiter(@quote.total_ttc)%></strong></p>
+    </div>
   </div>
+
+  <div class="text-center">
+    <%= link_to "Voir le PDF", "#{quote_path(@quote)}.pdf", class: "btn btn-outline-secondary" %>
+  </div>
+  <br>
+  <div class="text-center">
+    <%= link_to "← Retour à mes devis", company_quotes_path(@quote.company), class: "btn btn-outline-secondary" %>
+  </div>
+
 </div>

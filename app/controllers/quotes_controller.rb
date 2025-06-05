@@ -75,8 +75,14 @@ class QuotesController < ApplicationController
   def add_section
     @quote = Quote.find(params[:id])
     @section = @quote.sections.create(description: params[:section][:description])
-    respond_to do |format|
-      format.turbo_stream
+
+    if @section.persisted?
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to edit_quote_path(@quote), notice: "Section ajoutée avec succès." }
+      end
+    else
+      redirect_to edit_quote_path(@quote), alert: "Erreur lors de la création de la section."
     end
   end
 

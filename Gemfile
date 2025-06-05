@@ -32,6 +32,7 @@ gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
 
+
 gem "autoprefixer-rails"
 gem "font-awesome-sass", "~> 6.1"
 gem "sassc-rails"

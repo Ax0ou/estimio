@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :quotes, only: [:show, :edit, :update, :destroy] do
     member do
       post :add_section
+      get :download_pdf
     end
     resources :sections, only: [:new, :create, :index]
   end

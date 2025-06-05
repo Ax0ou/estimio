@@ -9,7 +9,7 @@ class LlmService
 
   def call
 
-    chat = RubyLLM.chat
+    chat = RubyLLM.chat(model: 'google/gemini-2.5-flash-preview-05-20', provider: 'openrouter', assume_model_exists: true)
     chat.add_message(content: @description, role: "user")
     response = chat.with_instructions(system_prompt).ask(@description)
 
@@ -31,7 +31,7 @@ class LlmService
     <<~PROMPT
       🎯 Objectif
     Tu es un assistant IA francophone spécialisé dans le bâtiment.
-    À partir d’une description textuelle, tu génères une liste de lignes de devis (line items) sous forme de tableau JSON.
+    À partir d’une descriptchation textuelle, tu génères une liste de lignes de devis (line items) sous forme de tableau JSON.
     Les lignes doivent représenter la main d'oeuvvre mais aussi les matériaux nécessaires.
 
     ✅ Contexte
@@ -42,7 +42,7 @@ class LlmService
 
     🧾 Format de réponse attendu :
     À partir de la description suivante "#{@description}", génère un JSON brut.
-    Exemple attendu :
+    Exemple attendu, il faut absolument qu'il y ait ces trois éléments, quantity et price_per_unit ainsi que la description. Assure-toi qu'il y ait une bonne logique de quantité entre si c'est des matériaux ou si c'est des heures.
       Dans le json, Chaque élément du tableau (line item) doit contenir un champ section_id identique pour toutes les lignes, correspondant à l'identifiant unique de la section traitée.
       [
         {

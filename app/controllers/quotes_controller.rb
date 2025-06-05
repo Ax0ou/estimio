@@ -67,7 +67,7 @@ class QuotesController < ApplicationController
     @quote = @company.quotes.find(params[:id])
     if @quote.destroy
       flash_success("Devis supprimé avec succès.")
-      redirect_to company_quotes_path
+      redirect_to company_quotes_path(current_user.company)
     else
       flash_error("Une erreur est survenue lors de la suppression du devis.")
       redirect_to quote_path(@quote)

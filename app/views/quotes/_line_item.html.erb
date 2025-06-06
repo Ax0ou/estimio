@@ -1,58 +1,94 @@
-<div id="<%= line_item.persisted? ? dom_id(line_item) : "section_#{line_item.section.id}_new_line_item" %>" class="row align-items-end mb-2" data-line-items-target="item">
+<div id="<%= dom_id(line_item, line_item.persisted? ? nil : "new_line_item_for_section_#{line_item.section_id}") %>"
+     class="line-item-card card mb-2 shadow-sm"
+     data-line-items-target="item"
+     data-controller="line-item-calculator">
   <%= simple_form_for line_item.persisted? ? line_item : [line_item.section, line_item],
     html: {
-      class: "d-flex",
-      id: ("#{line_item.section.id}_new_li" if line_item.new_record?),
+      class: "row g-2 align-items-center p-2",
+      id: (("edit_line_item_#{line_item.id}" if line_item.persisted?) || ("new_line_item_form_for_section_#{line_item.section_id}" unless line_item.persisted?)),
     },
     data: {
       controller: "submit-form-on-change",
       # action: "change->submit-form-on-change#submit",
     } do |f| %>
+
     <% if line_item.persisted? %>
-      <span class="handle">☰</span>
+      <div class="col-auto handle" style="cursor: grab; touch-action: none;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-grip-vertical" viewBox="0 0 16 16">
+          <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+        </svg>
+      </div>
+    <% else %>
+      <div class="col-auto" style="width: 24px;"></div>
     <% end %>
-    <div class="col">
+
+    <div class="col-md-4" data-controller="description-expander">
       <%= f.input :description,
+          as: :text, # Assure que c'est un textarea
           wrapper: false,
-          placeholder: "Nom",
-          input_html: { class: "w-auto" } %>
+          label: false,
+          placeholder: "Description",
+          input_html: {
+            class: "form-control form-control-sm description-field", # Classe pour le style et JS
+            rows: 1, # Hauteur initiale d'une ligne
+            "data-description-expander-target": "field",
+            "data-action": "mouseenter->description-expander#handleMouseEnter mouseleave->description-expander#handleMouseLeave focus->description-expander#handleFocus blur->description-expander#handleBlur"
+          } %>
     </div>
-    <div class="col">
+
+    <div class="col-md-1">
       <%= f.input :quantity,
           wrapper: false,
+          label: false,
           placeholder: "Qté",
-          input_html: { class: "w-auto" }%>
+          input_html: {
+            class: "form-control form-control-sm",
+            "data-line-item-calculator-target": "quantity",
+            "data-action": "input->line-item-calculator#updateTotal"
+          } %>
     </div>
-    <div class="col">
+
+    <div class="col-md-1">
       <%= f.input :unit,
           wrapper: false,
-          collection: [
-            ['u', 'u'],
-            ['m²', 'm²'],
-            ['ml', 'ml'],
-            ['h', 'h'],
-            ['m³', 'm³'],
-            ['kg', 'kg']
-          ],
-          input_html: { class: "w-auto" },
+          label: false,
+          collection: LineItem::UNITS,
+          input_html: { class: "form-select form-select-sm w-auto" },
           include_blank: false %>
     </div>
-    <div class="col">
+
+    <div class="col-md-2">
       <%= f.input :price_per_unit,
           wrapper: false,
-          placeholder: "Prix unitaire",
-          input_html: { step: 0.01, class: "w-auto" }%>
+          label: false,
+          placeholder: "Prix unit.",
+          input_html: {
+            step: 0.01,
+            class: "form-control form-control-sm",
+            "data-line-item-calculator-target": "pricePerUnit",
+            "data-action": "input->line-item-calculator#updateTotal"
+          } %>
     </div>
-    <div class="col">
+
+    <div class="col-md-2">
       <%= f.input :price,
           wrapper: false,
+          label: false,
           placeholder: "Total",
-          input_html: { readonly: true, class: "w-auto" }%>
+          input_html: {
+            readonly: true,
+            class: "form-control form-control-sm",
+            "data-line-item-calculator-target": "price"
+          } %>
     </div>
-    <div class="col-auto">
-      <%= f.submit line_item.persisted? ? "Save" : "Add", class: "btn btn-sm btn-outline-primary" %>
+
+    <div class="col-auto d-flex align-items-center gap-1">
       <% if line_item.persisted? %>
-        <%= link_to "Remove", line_item_path(line_item), data: { turbo_method: :delete }, class: "btn btn-sm btn-outline-danger" %>
+        <%= link_to content_tag(:i, nil, class: "bi bi-trash"), line_item_path(line_item), data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?" }, class: "btn btn-sm btn-danger" %>
+      <% else %>
+        <%= f.button :submit, class: "btn btn-sm btn-secondary" do %>
+          <i class="bi bi-plus-square"></i>
+        <% end %>
       <% end %>
     </div>
   <% end %>

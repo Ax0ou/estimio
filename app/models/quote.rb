@@ -5,6 +5,7 @@ class Quote < ApplicationRecord
   belongs_to :client
 
   enum status: { a_traiter: 0, envoye: 1 }
+
   def total_ht
     sections.sum do |section|
       section.total_ht

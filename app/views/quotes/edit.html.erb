@@ -7,7 +7,15 @@
     <% end %>
   </div>
 
-  <%= render "quotes/new_section", quote: @quote %>
+  <div class="mt-4" data-controller="sections">
+    <button type="button" class="btn btn-outline-primary w-100" data-action="click->sections#showNewSectionForm">
+      + Ajouter une section
+    </button>
+
+    <div data-sections-target="newSectionFormContainer" class="mt-3" style="display: none;">
+      <%= render "quotes/new_section", quote: @quote %>
+    </div>
+  </div>
 
 
   <turbo-frame id="quote_visualize_button">

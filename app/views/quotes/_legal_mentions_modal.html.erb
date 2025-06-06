@@ -1,0 +1,35 @@
+<!-- Modal Bootstrap -->
+<div class="modal fade" id="legalMentionsModal" tabindex="-1" aria-labelledby="legalMentionsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= form_with(model: @quote, url: update_legal_mentions_quote_path(@quote), method: :patch, local: true, data: { turbo: false }) do |form| %>
+        <div class="modal-header">
+          <h5 class="modal-title" id="legalMentionsModalLabel">Modifier les mentions légales</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="mb-3">
+            <%= form.label :validity_duration, "Durée de validité" %>
+            <%= form.text_field :validity_duration, class: "form-control", placeholder: "Ex : 30 jours" %>
+          </div>
+
+          <div class="mb-3">
+            <%= form.label :execution_delay, "Délais d’exécution" %>
+            <%= form.text_field :execution_delay, class: "form-control", placeholder: "Ex : Sous 15 jours après accord" %>
+          </div>
+
+          <div class="mb-3">
+            <%= form.label :payment_terms, "Modalités de paiement" %>
+            <%= form.text_field :payment_terms, class: "form-control", placeholder: "Ex : 30 % à la commande, solde à la livraison" %>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <%= form.submit "Enregistrer", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

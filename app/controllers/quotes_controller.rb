@@ -67,7 +67,7 @@ class QuotesController < ApplicationController
     @quote = @company.quotes.find(params[:id])
     if @quote.destroy
       flash_success("Devis supprimé avec succès.")
-      redirect_to company_quotes_path
+      redirect_to company_quotes_path(current_user.company)
     else
       flash_error("Une erreur est survenue lors de la suppression du devis.")
       redirect_to quote_path(@quote)
@@ -92,8 +92,14 @@ class QuotesController < ApplicationController
   def add_section
     @quote = Quote.find(params[:id])
     @section = @quote.sections.create(description: params[:section][:description])
-    respond_to do |format|
-      format.turbo_stream
+
+    if @section.persisted?
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to edit_quote_path(@quote), notice: "Section ajoutée avec succès." }
+      end
+    else
+      redirect_to edit_quote_path(@quote), alert: "Erreur lors de la création de la section."
     end
   end
 

@@ -1,6 +1,14 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom px-4 py-3 shadow-sm">
   <div class="container-fluid">
-    <a class="navbar-brand fw-bold text-primary text-decoration-none" href="#" style="pointer-events: none;"><i class="bi bi-hammer"></i> Estim.io</a>
+    <% if user_signed_in? %>
+      <%= link_to company_quotes_path(current_user.company), class: "navbar-brand fw-bold text-primary text-decoration-none" do %>
+        <i class="bi bi-hammer"></i> Estim.io
+      <% end %>
+    <% else %>
+      <%= link_to root_path, class: "navbar-brand fw-bold text-primary text-decoration-none" do %>
+        <i class="bi bi-hammer"></i> Estim.io
+      <% end %>
+    <% end %>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarEstimio" aria-controls="navbarEstimio" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

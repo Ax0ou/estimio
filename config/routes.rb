@@ -19,12 +19,15 @@ Rails.application.routes.draw do
   resources :sections, only: [:show, :edit, :update, :destroy] do
     member do
       post :add_line_items_with_llm
+      post :transcribe_audio
     end
     resources :line_items, only: [:new, :create]
     resources :ai_messages, only: [:new, :create]
   end
 
   resources :line_items, only: [:edit, :update, :destroy]
+
+  post "/line_items/reorder", to: "line_items#reorder", as: :reorder_line_items
 
   # Page d'accueil en racine
   root to: "pages#home"

@@ -2,6 +2,9 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 
+// import "bootstrap"
+
+
 // import "controllers/audio_recorder_controller"
 
 // document.addEventListener("turbo:load", setupAudioRecorder);

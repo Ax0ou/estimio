@@ -37,14 +37,16 @@ class LineItemsController < ApplicationController
     end
   end
 
+  def reorder
+    params[:order].each_with_index do |id, index|
+      LineItem.where(id: id).update_all(position: index)
+    end
+    head :ok
+  end
+
   private
 
   def line_item_params
-    params.require(:line_item).permit(
-      :description,
-      :quantity,
-      :unit_price,
-      :price
-    )
+    params.require(:line_item).permit(:description, :quantity, :unit, :price_per_unit, :price)
   end
 end

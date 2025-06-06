@@ -12,7 +12,7 @@ gem "sprockets-rails"
 gem "pg", "~> 1.1"
 
 # AI gem
-gem "ruby_llm"
+gem 'ruby_llm', '1.3.0'
 
 gem 'ruby-openai'
 
@@ -32,13 +32,15 @@ gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
 
+
 gem "autoprefixer-rails"
 gem "font-awesome-sass", "~> 6.1"
 gem "sassc-rails"
 gem "bootstrap", "~> 5.2"
 
 gem 'wicked_pdf'
-gem 'wkhtmltopdf-binary'
+gem 'wkhtmltopdf-binary', group: :development
+gem 'wkhtmltopdf-heroku', '3.0.0', group: :production
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 

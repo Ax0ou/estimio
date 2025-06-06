@@ -31,8 +31,8 @@
   <!-- Affichage en cartes -->
   <div class="row row-cols-1 row-cols-md-3 g-4">
     <% if @quotes.empty? %>
-      <div class="col">
-        <div class="alert alert-info text-center">Aucun devis à afficher</div>
+      <div class="col-12">
+        <div class="px-4 py-3 mb-4 rounded" style="max-width: 600px; background-color: #EAF1FE; color: #0C6EFD; border: 1px solid #0C6EFD;">Aucun devis à afficher</div>
       </div>
     <% else %>
       <% @quotes.each do |quote| %>
@@ -45,7 +45,7 @@
               </p>
             </div>
             <div class="card-footer bg-white border-0 d-flex justify-content-between">
-              <%= link_to quote_path(quote), class: 'btn btn-sm btn-outline-secondary', title: "Modifier" do %>
+              <%= link_to edit_quote_path(quote), class: 'btn btn-sm btn-outline-secondary', title: "Modifier" do %>
                 <i class="bi bi-pencil"></i>
               <% end %>
               <%= link_to quote_path(quote),

@@ -65,6 +65,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_06_110638) do
     t.index ["section_id"], name: "index_line_items_on_section_id"
   end
 
+  create_table "products", force: :cascade do |t|
+    t.string "name"
+    t.decimal "price"
+    t.string "unit"
+    t.bigint "company_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_products_on_company_id"
+  end
+
   create_table "quotes", force: :cascade do |t|
     t.string "title"
     t.bigint "client_id", null: false
@@ -108,6 +118,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_06_110638) do
   add_foreign_key "ai_messages", "sections"
   add_foreign_key "clients", "companies"
   add_foreign_key "line_items", "sections"
+  add_foreign_key "products", "companies"
   add_foreign_key "quotes", "clients"
   add_foreign_key "quotes", "companies"
   add_foreign_key "sections", "quotes"

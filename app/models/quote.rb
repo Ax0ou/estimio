@@ -7,10 +7,13 @@ class Quote < ApplicationRecord
   enum status: { a_traiter: 0, envoye: 1 }
 
   def total_ht
-    sections.sum do |section|
-      section.total_ht
-
+    total = 0
+    sections.each do |section|
+      section.line_items.each do |line_item|
+        total += line_item.price.to_f 
+      end
     end
+    total
   end
 
   def total_ttc

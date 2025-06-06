@@ -1,1 +1,5 @@
 <%= turbo_stream.remove("section-#{@section.id}") %>
+
+<% if @section.quote.sections.empty? %>
+  <%= turbo_stream.remove("visualize-button") %>
+<% end %>

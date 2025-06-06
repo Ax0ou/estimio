@@ -1,5 +1,6 @@
 <%#= turbo_frame_tag "new_section" do %>
-<%= simple_form_for [@quote, Section.new],
+<%= simple_form_for Section.new,
+    url: add_section_quote_path(quote),
     html: { class: "d-flex gap-2 align-items-start" },
     data: { turbo_stream: true, action: "submit->sections#submitForm" } do |f| %>
 

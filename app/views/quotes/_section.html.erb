@@ -30,26 +30,34 @@
 
     <%= render "quotes/line_item", line_item: section.line_items.new %>
 
-    <div class="card shadow-sm mt-4">
+    <div class="card shadow-sm mt-4 ai-section-card">
       <div class="card-body">
         <h5 class="card-title mb-3">Ajouter des éléments par IA</h5>
         <div data-controller="audio-recorder">
-          <%= simple_form_for :transcript, url: add_line_items_with_llm_section_path(section) do |f| %>
+          <%= simple_form_for :transcript, url: add_line_items_with_llm_section_path(section), html: { data: { controller: "form-validation", action: "submit->form-validation#validate" } } do |f| %>
             <%= f.input :text,
                           label: "Décrivez les éléments à ajouter (vous pouvez aussi utiliser le micro) :",
-                          required: false,
-                          input_html: { data: { "audio-recorder-target": "textArea" }, rows: 3, class: "form-control-sm" },
-                          placeholder: "Ex: 2h de ponçage et mise en peinture de 5m² de mur en blanc...",
+                          required: false, # Changed from true
+                          input_html: { data: { "audio-recorder-target": "textArea", "form-validation-target": "input" }, rows: 3, class: "form-control-sm" }, # Added form-validation-target
+                          placeholder: "Ex: Deux heures de ponçage et la mise en peinture de cinq mètres carrés de mur en blanc...", # Updated placeholder
                           label_html: { class: "form-label" } %>
+            <div class="invalid-feedback" data-form-validation-target="error"></div>
 
             <div class="d-flex gap-2 align-items-center mt-2">
               <%= f.submit 'Analyser la description', class: "btn btn-primary btn-sm" %>
 
               <button type="button"
-                      data-action="click->audio-recorder#toggle"
+                      data-action="click->audio-recorder#toggleRecording"
                       data-audio-recorder-target="recordButton"
                       class="btn btn-outline-secondary btn-sm">
                 <i class="bi bi-mic-fill"></i>
+              </button>
+
+              <button type="button"
+                      data-action="click->audio-recorder#stopRecording"
+                      data-audio-recorder-target="stopButton"
+                      class="btn btn-danger btn-sm" style="display: none;">
+                <i class="bi bi-stop-fill"></i> Stop
               </button>
 
               <span data-audio-recorder-target="status" class="text-danger small" style="display: none;">

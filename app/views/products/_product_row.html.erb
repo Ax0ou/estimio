@@ -1,0 +1,68 @@
+<%= turbo_frame_tag dom_id(product) do %>
+  <!-- Ligne d'affichage (display) -->
+  <tr data-controller="editable-row" data-editable-row-target="display">
+    <td><%= product.name %></td>
+    <td><%= number_to_currency(product.price, unit: "€", format: "%n %u") %></td>
+    <td><%= Product::UNIT_LABELS[product.unit] %></td>
+    <td class="text-end">
+      <button
+        type="button"
+        class="btn btn-sm btn-outline-secondary me-2"
+        data-action="click->editable-row#edit"
+      >
+        ✏️ Modifier
+      </button>
+      <%= link_to "🗑️ Supprimer",
+                  product_path(product),
+                  method: :delete,
+                  data: { turbo_confirm: "Supprimer ce produit ?" },
+                  class: "btn btn-sm btn-outline-danger" %>
+    </td>
+  </tr>
+
+  <!-- Ligne formulaire (edit), cachée par défaut -->
+  <tr class="d-none" data-editable-row-target="form">
+    <td colspan="4" class="p-0">
+      <%= form_with model: product,
+                    local: true,
+                    data: { turbo_frame: dom_id(product) } do |f| %>
+        <div class="d-flex align-items-center px-2 py-1 gap-2">
+          <!-- Champ name -->
+          <div class="flex-grow-1">
+            <%= f.text_field :name,
+                             class: "form-control form-control-sm",
+                             placeholder: "Nom" %>
+          </div>
+
+          <!-- Champ price -->
+          <div style="width: 100px;">
+            <%= f.number_field :price,
+                               step: 0.01,
+                               class: "form-control form-control-sm",
+                               placeholder: "Prix" %>
+          </div>
+
+          <!-- Champ unit -->
+          <div style="width: 120px;">
+            <%= f.select :unit,
+                         Product::UNIT_LABELS.map { |k, v| [v, k] },
+                         {},
+                         class: "form-select form-select-sm" %>
+          </div>
+
+          <!-- Bouton Save & Annuler -->
+          <div class="d-flex gap-2 ms-auto">
+            <%= f.submit "💾", class: "btn btn-sm btn-success" %>
+            <button
+              type="button"
+              class="btn btn-sm btn-secondary"
+              data-action="click->editable-row#cancel"
+            >
+              Annuler
+            </button>
+          </div>
+        </div>
+      <% end %>
+    </td>
+  </tr>
+<% end %>

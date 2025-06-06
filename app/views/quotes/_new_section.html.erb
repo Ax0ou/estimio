@@ -1,14 +1,23 @@
-<%= turbo_frame_tag "new_section" do %>
-  <%= simple_form_for Section.new,
-    url: add_section_quote_path(quote),
-    method: :post,
-    local: false,
-    data: {
-      turbo_stream: true,
-    } do |f| %>
-    <div class="form-group mt-4">
-      <%= f.input :description, placeholder: "Nom de la nouvelle tâche" %>
-      <%= f.button :submit, "+ Créer une nouvelle tâche", class: "btn btn-primary w-100" %>
+
+<%#= turbo_frame_tag "new_section" do %>
+<%= simple_form_for Section.new,
+  url: add_section_quote_path(quote),
+  method: :post,
+  data: { turbo_stream: true } do |f| %>
+
+  <div class="form-group mt-4 row align-items-center">
+    <div class="col-md-8">
+      <%= f.input :description,
+          placeholder: "Nom de la nouvelle tâche",
+          label: false,
+          input_html: { class: "form-control" } %>
     </div>
-  <% end %>
+
+    <div class="col-md-4 d-flex justify-content-end">
+      <%= f.button :submit,
+          "+ Créer une nouvelle tâche",
+          class: "btn btn-secondary px-4 shadow-hover-right" %>
+    </div>
+  </div>
 <% end %>
+<%# end %>

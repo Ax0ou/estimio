@@ -9,5 +9,8 @@
 
   <%= render "quotes/new_section", quote: @quote %>
 
-  <%= link_to "Visualiser le devis", quote_path(@quote), class: "btn btn-primary w-100 mt-3" %>
+
+  <turbo-frame id="quote_visualize_button">
+    <%= render "quotes/visualize_button", quote: @quote %>
+  </turbo-frame>
 </div>

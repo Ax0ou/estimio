@@ -1,4 +1,4 @@
-<h2 class="container pt-5" data-controller="sections"> Votre devis pour <%= "#{@quote.client.first_name} #{@quote.client.last_name}" %> </h2>
+<h2 class="container pt-5"> Votre devis pour <%= "#{@quote.client.first_name} #{@quote.client.last_name}" %> </h2>
 
 <div class="container" data-controller="sections">
   <div id="sections" data-sections-target="list">
@@ -7,7 +7,7 @@
     <% end %>
   </div>
 
-  <div class="mt-4" data-controller="sections">
+  <div class="mt-4">
     <button type="button" class="btn btn-outline-primary w-100" data-action="click->sections#showNewSectionForm">
       + Ajouter une section
     </button>

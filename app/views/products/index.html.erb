@@ -1,0 +1,40 @@
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0">🧰 Mes produits</h1>
+    <div class="d-flex gap-2">
+      <%= link_to "➕ Nouveau produit", new_product_path, class: "btn btn-primary" %>
+    </div>
+  </div>
+
+  <% if @products.any? %>
+    <div class="table-responsive shadow-sm rounded">
+      <table class="table table-striped table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Prix</th>
+            <th scope="col">Unité</th>
+            <th scope="col" class="text-end"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @products.each do |product| %>
+            <tr>
+              <td><%= product.name %></td>
+              <td><%= number_to_currency(product.price, unit: "€", format: "%n %u") %></td>
+              <td><%= Product::UNIT_LABELS[product.unit] %></td>
+              <td class="text-end">
+                <%= link_to "✏️ Modifier", edit_product_path(product), class: "btn btn-sm btn-outline-secondary me-2" %>
+                <%= link_to "🗑️ Supprimer", product_path(product), data: { turbo_method: :delete, turbo_confirm: "Supprimer ce produit ?" }, class: "btn btn-sm btn-outline-danger" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <div class="alert alert-info" role="alert">
+      Aucun produit enregistré pour le moment.
+    </div>
+  <% end %>
+</div>

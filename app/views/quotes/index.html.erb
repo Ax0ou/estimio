@@ -28,32 +28,102 @@
     </div>
   </div>
 
-  <!-- Affichage en cartes -->
-  <div class="row row-cols-1 row-cols-md-3 g-4">
+  <!-- Affichage en cartes améliorées -->
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
     <% if @quotes.empty? %>
       <div class="col-12">
-        <div class="px-4 py-3 mb-4 rounded" style="max-width: 600px; background-color: #EAF1FE; color: #0C6EFD; border: 1px solid #0C6EFD;">Aucun devis à afficher</div>
+        <div class="px-4 py-3 mb-4 rounded" style="max-width: 600px; background-color: #EAF1FE; color: #0C6EFD; border: 1px solid #0C6EFD;">
+          Aucun devis à afficher
+        </div>
       </div>
     <% else %>
       <% @quotes.each do |quote| %>
         <div class="col">
-          <div class="card shadow-sm h-100">
-            <div class="card-body">
-              <h5 class="card-title"><%= quote.title %></h5>
-              <p class="card-text text-muted small">
-                <i class="bi bi-calendar"></i> <%= quote.created_at.strftime("%d/%m/%Y") %>
-              </p>
+          <div class="card quote-card-enhanced shadow-sm h-100" data-status="<%= quote.try(:status) || 'brouillon' %>">
+            <!-- Header avec statut -->
+            <div class="card-header bg-transparent border-0 d-flex justify-content-between align-items-start pt-3">
+              <div class="flex-grow-1">
+                <h5 class="card-title mb-1 fw-bold">
+                  <%= link_to quote.title, edit_quote_path(quote), class: "text-decoration-none text-dark stretched-link" %>
+                </h5>
+                <% if quote.try(:client)&.first_name.present? %>
+                  <p class="text-muted small mb-0">
+                    <i class="bi bi-person-circle me-1"></i><%= quote.client.full_name %>
+                  </p>
+                <% end %>
+              </div>
+              <!-- Badge de statut -->
+              <%= quote_status_badge(quote) %>
             </div>
-            <div class="card-footer bg-white border-0 d-flex justify-content-between">
-              <%= link_to edit_quote_path(quote), class: 'btn btn-sm btn-outline-secondary', title: "Modifier" do %>
-                <i class="bi bi-pencil"></i>
-              <% end %>
-              <%= link_to quote_path(quote),
-                    data: { turbo_method: :delete, turbo_confirm: 'Etes-vous sûr(e) de vouloir supprimer ce devis ?' },
-                    class: 'btn btn-sm btn-outline-danger',
-                    title: "Supprimer" do %>
-                <i class="bi bi-trash"></i>
-              <% end %>
+
+            <div class="card-body pt-2">
+              <!-- Montant principal -->
+              <div class="text-center mb-3">
+                <% total_amount = quote_total_amount(quote) %>
+                <% if total_amount %>
+                  <h3 class="fw-bold text-primary mb-0">
+                    <%= total_amount %>
+                  </h3>
+                  <small class="text-muted">HT</small>
+                <% else %>
+                  <h3 class="fw-bold text-muted mb-0">-</h3>
+                  <small class="text-muted">À estimer</small>
+                <% end %>
+              </div>
+
+              <!-- Métriques -->
+              <div class="row text-center mb-3">
+                <div class="col-6">
+                  <div class="border-end">
+                    <div class="fw-semibold">
+                      <%= quote.sections.count %>
+                    </div>
+                    <small class="text-muted">Sections</small>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="fw-semibold">
+                    <%= time_ago_in_words(quote.created_at) %>
+                  </div>
+                  <small class="text-muted">Créé</small>
+                </div>
+              </div>
+
+              <!-- Timeline -->
+              <div class="mb-3">
+                <div class="d-flex justify-content-between text-muted small mb-1">
+                  <span>Créé le <%= quote.created_at.strftime("%d/%m/%Y") %></span>
+                  <% if quote.updated_at != quote.created_at %>
+                    <span>Modifié le <%= quote.updated_at.strftime("%d/%m/%Y") %></span>
+                  <% end %>
+                </div>
+                <!-- Barre de progression visuelle -->
+                <div class="progress" style="height: 3px;">
+                  <div class="progress-bar bg-secondary" style="width: <%= quote_progress_percentage(quote) %>%"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Actions Footer -->
+            <div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center">
+              <div class="btn-group btn-group-sm" style="position: relative; z-index: 2;">
+                <%= link_to edit_quote_path(quote), class: 'btn btn-outline-primary', title: "Modifier" do %>
+                  <i class="bi bi-pencil-square"></i>
+                <% end %>
+                <%= link_to "#", class: 'btn btn-outline-success', title: "PDF" do %>
+                  <i class="bi bi-file-earmark-pdf"></i>
+                <% end %>
+                <%= link_to quote_path(quote),
+                      data: { turbo_method: :delete, turbo_confirm: 'Êtes-vous sûr(e) ?' },
+                      class: 'btn btn-outline-danger',
+                      title: "Supprimer",
+                      style: "position: relative; z-index: 2;" do %>
+                  <i class="bi bi-trash3"></i>
+                <% end %>
+              </div>
+
+              <!-- Indicateur de priorité ou urgence -->
+              <%= quote_age_indicator(quote) %>
             </div>
           </div>
         </div>

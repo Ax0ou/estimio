@@ -42,6 +42,19 @@
                           placeholder: "Ex: Deux heures de ponçage et la mise en peinture de cinq mètres carrés de mur en blanc...", # Updated placeholder
                           label_html: { class: "form-label" } %>
             <div class="invalid-feedback" data-form-validation-target="error"></div>
+            
+            <!-- Zone de transcription en temps réel -->
+            <div data-audio-recorder-target="liveTranscription" class="mt-2 p-3 bg-light border rounded" style="display: none;">
+              <div class="d-flex align-items-center mb-2">
+                <div class="spinner-border spinner-border-sm text-primary me-2" role="status">
+                  <span class="visually-hidden">Transcription en cours...</span>
+                </div>
+                <small class="text-primary fw-bold">Transcription en temps réel</small>
+              </div>
+              <div data-audio-recorder-target="liveText" class="border-start border-primary border-3 ps-3 fs-6">
+                <!-- Le texte transcrit apparaîtra ici -->
+              </div>
+            </div>
 
             <div class="d-flex gap-2 align-items-center mt-2">
               <%= f.submit 'Analyser la description', class: "btn btn-primary btn-sm" %>

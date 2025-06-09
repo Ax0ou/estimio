@@ -7,6 +7,15 @@ class ClientsController < ApplicationController
 
   def show
     @client = Client.find(params[:id])
+    @quotes = @client.quotes
+
+    @ht_total = @quotes.map(&:total_ht).sum
+
+    @ht_totals_by_status = {
+      "à traiter" => @quotes.select { |q| q.status == "à traiter" }.map(&:total_ht).sum,
+      "en cours"  => @quotes.select { |q| q.status == "en cours" }.map(&:total_ht).sum,
+      "réalisé"   => @quotes.select { |q| q.status == "réalisé" }.map(&:total_ht).sum
+    }
   end
 
   def new

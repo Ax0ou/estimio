@@ -4,16 +4,10 @@ class Quote < ApplicationRecord
   belongs_to :company
   belongs_to :client
 
-  enum status: { a_traiter: 0, envoye: 1 }
+  enum status: { a_traiter: 0, envoye: 1, en_cours: 2, realise: 3 }
 
   def total_ht
-    total = 0
-    sections.each do |section|
-      section.line_items.each do |line_item|
-        total += line_item.price.to_f 
-      end
-    end
-    total
+    sections.includes(:line_items).sum(&:total_ht)
   end
 
   def total_ttc

@@ -3,3 +3,11 @@
 <% if @section.quote.sections.empty? %>
   <%= turbo_stream.remove("visualize-button") %>
 <% end %>
+
+<%= turbo_stream.replace "quote-total",
+  partial: "quotes/quote_total",
+  locals: { quote: @section.quote } %>
+
+<% if @section.quote.sections.empty? %>
+  <%= turbo_stream.remove("quote-total") %>
+<% end %>

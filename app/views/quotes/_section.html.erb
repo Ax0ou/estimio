@@ -1,10 +1,14 @@
-<div class="section border rounded p-3 mb-4" id="section-<%= section.id %>">
+<div class="section border rounded p-3 mb-4 position-relative" id="section-<%= section.id %>">
+  <%= link_to section_path(section),
+              data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer cette section et toutes ses lignes ?" },
+              class: "btn btn-sm btn-outline-danger position-absolute top-0 end-0 m-2",
+              title: "Supprimer la section" do %>
+    <i class="bi bi-x-lg"></i>
+  <% end %>
+
   <h4><%= section.description %></h4>
 
   <div class="line-items" data-section-id="<%= section.id %>" data-controller="line-items">
-
-  <%= link_to "Remove Section", section_path(section), data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer cette section et toutes ses lignes ?" }, class: "btn btn-sm btn-outline-danger mb-2" %>
-
     <div class="sticky-header bg-light py-2 mb-2 rounded" style="position: sticky; top: 0; z-index: 100;">
       <div class="row text-center align-items-center">
         <div class="col-auto" style="width: 40px;"></div>
@@ -36,11 +40,11 @@
         <div data-controller="audio-recorder">
           <%= simple_form_for :transcript, url: add_line_items_with_llm_section_path(section), html: { data: { controller: "form-validation", action: "submit->form-validation#validate" } } do |f| %>
             <%= f.input :text,
-                          label: "Décrivez les éléments à ajouter (vous pouvez aussi utiliser le micro) :",
-                          required: false, # Changed from true
-                          input_html: { data: { "audio-recorder-target": "textArea", "form-validation-target": "input" }, rows: 3, class: "form-control-sm" }, # Added form-validation-target
-                          placeholder: "Ex: Deux heures de ponçage et la mise en peinture de cinq mètres carrés de mur en blanc...", # Updated placeholder
-                          label_html: { class: "form-label" } %>
+                        label: "Décrivez les éléments à ajouter (vous pouvez aussi utiliser le micro) :",
+                        required: false,
+                        input_html: { data: { "audio-recorder-target": "textArea", "form-validation-target": "input" }, rows: 3, class: "form-control-sm" },
+                        placeholder: "Ex: Deux heures de ponçage et la mise en peinture de cinq mètres carrés de mur en blanc...",
+                        label_html: { class: "form-label" } %>
             <div class="invalid-feedback" data-form-validation-target="error"></div>
 
             <div class="d-flex gap-2 align-items-center mt-2">
@@ -67,6 +71,10 @@
           <% end %>
         </div>
       </div>
+    </div>
+
+    <div class="card shadow-sm mt-4 ai-section-card">
+      <%= render "quotes/section_total", section: section %>
     </div>
   </div>
 </div>

@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   before_action :set_product, only: %i[show edit update destroy]
 
   def index
-    @products = Product.all
+    @products = Product.by_created_at
   end
 
   def show
@@ -27,6 +27,8 @@ class ProductsController < ApplicationController
 
   def update
     if @product.update(product_params)
+      @products = Product.by_created_at
+
       respond_to do |format|
         format.turbo_stream
         format.html { redirect_to products_path, notice: "Produit mis à jour avec succès." }

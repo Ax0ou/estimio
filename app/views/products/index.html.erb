@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h1 class="h3 mb-0">🧰 Mes produits</h1>
     <div class="d-flex gap-2">
-      <%= link_to "➕ Nouveau produit", new_product_path, class: "btn btn-primary" %>
+      <button type="button" class="btn btn-primary" data-action="click->new-product-line#add">➕ Nouveau produit</button>
     </div>
   </div>
 
@@ -17,51 +17,8 @@
             <th scope="col" class="text-end"></th>
           </tr>
         </thead>
-        <tbody>
-          <% @products.each do |product| %>
-            <tr data-controller="editable-row">
-              <!-- Nom -->
-              <td>
-                <span data-editable-row-target="display"><%= product.name %></span>
-                <%= form_with model: product, local: true, data: { turbo_frame: "_top" }, html: { class: "d-none", data: { editable_row_target: "form" } } do |f| %>
-                  <%= f.text_field :name, class: "form-control form-control-sm", value: product.name %>
-                <% end %>
-              </td>
-
-              <!-- Prix -->
-              <td>
-                <span data-editable-row-target="display"><%= number_to_currency(product.price, unit: "€", format: "%n %u") %></span>
-                <%= form_with model: product, local: true, data: { turbo_frame: "_top" }, html: { class: "d-none", data: { editable_row_target: "form" } } do |f| %>
-                  <%= f.number_field :price, step: 0.01, class: "form-control form-control-sm", value: product.price %>
-                <% end %>
-              </td>
-
-              <!-- Unité -->
-              <td>
-                <span data-editable-row-target="display"><%= Product::UNIT_LABELS[product.unit] %></span>
-                <%= form_with model: product, local: true, data: { turbo_frame: "_top" }, html: { class: "d-none", data: { editable_row_target: "form" } } do |f| %>
-                  <%= f.select :unit, Product::UNIT_LABELS.map { |k, v| [v, k] }, {}, class: "form-select form-select-sm", selected: product.unit %>
-                <% end %>
-              </td>
-
-              <!-- Actions -->
-              <td class="text-end">
-                <!-- Mode affichage -->
-                <div data-editable-row-target="display">
-                  <button type="button" class="btn btn-sm btn-outline-secondary me-2" data-action="click->editable-row#edit">✏️ Modifier</button>
-                  <%= link_to "🗑️ Supprimer", product_path(product), data: { turbo_method: :delete, turbo_confirm: "Supprimer ce produit ?" }, class: "btn btn-sm btn-outline-danger" %>
-                </div>
-
-                <!-- Mode édition -->
-                <div class="d-none d-flex gap-2" data-editable-row-target="form">
-                  <%= form_with model: product, local: true, data: { turbo_frame: "_top" }, html: { class: "d-flex gap-2 align-items-center mb-0" } do |f| %>
-                    <%= f.submit "💾", class: "btn btn-sm btn-success" %>
-                    <button type="button" class="btn btn-sm btn-secondary" data-action="click->editable-row#cancel">Annuler</button>
-                  <% end %>
-                </div>
-              </td>
-            </tr>
-          <% end %>
+        <tbody id="products">
+          <%= render @products %>
         </tbody>
       </table>
     </div>

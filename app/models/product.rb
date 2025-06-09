@@ -15,5 +15,8 @@ class Product < ApplicationRecord
   }
 
   belongs_to :company
+
+  scope :by_created_at, -> { order(created_at: :desc) }
+
   validates :unit, inclusion: { in: UNITS }
 end

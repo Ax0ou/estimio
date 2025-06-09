@@ -2,7 +2,7 @@
   <%= form_with model: product, id: "product-form-#{product.id}" do |f| %>
     <input type="hidden" name="_method" value="patch" form="<%= "product-form-#{product.id}" %>">
     <!-- Nom -->
-    <td>
+    <td class="text-wrap" style="max-width: 300px">
       <span data-editable-row-target="display"><%= product.name %></span>
         <%= f.text_field :name, class: "form-control form-control-sm", value: product.name, class: "d-none", data: { editable_row_target: "form" }, form: "product-form-#{product.id}" %>
     </td>
@@ -35,6 +35,3 @@
     </td>
   <% end %>
 </tr>
-
-
-

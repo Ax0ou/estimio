@@ -28,7 +28,9 @@ Rails.application.routes.draw do
 
   resources :line_items, only: [:edit, :update, :destroy]
 
-  resources :products
+  resources :products do
+    post :import, on: :collection
+  end
 
   post "/line_items/reorder", to: "line_items#reorder", as: :reorder_line_items
 

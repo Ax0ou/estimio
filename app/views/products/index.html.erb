@@ -3,7 +3,7 @@
     <h1 class="h3 mb-0">🧰 Mes produits</h1>
     <div class="d-flex gap-2">
       <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#newProductModal">➕ Nouveau produit</button>
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newProductModal">🪄 Générer avec l'IA</button>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#importProductsModal">🪄 Générer avec l'IA</button>
     </div>
   </div>
 
@@ -54,6 +54,30 @@
           <div class="mb-4">
             <%= f.label :price, "Prix", class: "form-label fw-semibold" %>
             <%= f.number_field :price, step: 0.01, class: "form-control rounded-3", required: true %>
+          </div>
+
+          <div class="modal-footer border-top-0 d-flex justify-content-end gap-2">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+            <%= f.submit "Créer", class: "btn btn-primary px-4" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="importProductsModal" tabindex="-1" aria-labelledby="importProductsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4 shadow-lg border-0">
+      <div class="modal-header bg-light border-bottom-0">
+        <h1 class="modal-title fs-5 fw-semibold text-primary" id="exampleModalLabel">Importez vos derniers devis</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body py-4 px-4">
+        <%= form_with(url: import_products_path, method: :post, data: { turbo: false }) do |f| %>
+          <div class="mb-3">
+            <%= f.label :files, "Devis", class: "form-label fw-semibold" %>
+            <%= f.file_field :files, class: "form-control rounded-3", required: true, multiple: true %>
           </div>
 
           <div class="modal-footer border-top-0 d-flex justify-content-end gap-2">

@@ -46,6 +46,15 @@ class ProductsController < ApplicationController
     redirect_to products_path, notice: "Produit supprimé."
   end
 
+  def import
+    if params[:files].present?
+      ProductImportService.call(params[:files], current_user.company)
+      redirect_to products_path, notice: "Produits importés avec succès."
+    else
+      redirect_to products_path, alert: "Aucun produit à importer."
+    end
+  end
+
   private
 
   def set_product

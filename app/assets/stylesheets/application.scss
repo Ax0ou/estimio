@@ -373,3 +373,32 @@ body {
     }
   }
 }
+
+// Désactiver les validations visuelles Bootstrap sur les line items
+.line-item-card {
+  .form-control.is-valid,
+  .form-select.is-valid {
+    border-color: #ced4da !important;
+    background-image: none !important;
+
+    &:focus {
+      border-color: #86b7fe !important;
+      box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25) !important;
+    }
+  }
+
+  // Supprimer complètement les feedback de validation pour les line items
+  .valid-feedback,
+  .invalid-feedback {
+    display: none !important;
+  }
+
+  // S'assurer que les validations visuelles n'apparaissent pas
+  .is-valid {
+    background-image: none !important;
+  }
+
+  .is-invalid {
+    background-image: none !important;
+  }
+}

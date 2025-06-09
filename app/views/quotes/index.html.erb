@@ -107,20 +107,23 @@
             <!-- Actions Footer -->
             <div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center">
               <div class="btn-group btn-group-sm" style="position: relative; z-index: 2;">
-                <%= link_to edit_quote_path(quote), class: 'btn btn-outline-primary', title: "Modifier" do %>
+                <%= link_to edit_quote_path(quote), class: 'btn btn-outline-primary rounded', title: "Modifier" do %>
                   <i class="bi bi-pencil-square"></i>
                 <% end %>
-                <%= link_to "#", class: 'btn btn-outline-success', title: "PDF" do %>
+
+                <%= link_to "#", class: 'btn btn-outline-success rounded', title: "PDF" do %>
                   <i class="bi bi-file-earmark-pdf"></i>
                 <% end %>
+
                 <%= link_to quote_path(quote),
-                      data: { turbo_method: :delete, turbo_confirm: 'Êtes-vous sûr(e) ?' },
-                      class: 'btn btn-outline-danger',
-                      title: "Supprimer",
-                      style: "position: relative; z-index: 2;" do %>
+                            data: { turbo_method: :delete, turbo_confirm: 'Êtes-vous sûr(e) ?' },
+                            class: 'btn btn-outline-danger rounded',
+                            title: "Supprimer",
+                            style: "position: relative; z-index: 2;" do %>
                   <i class="bi bi-trash3"></i>
                 <% end %>
               </div>
+
 
               <!-- Indicateur de priorité ou urgence -->
               <%= quote_age_indicator(quote) %>

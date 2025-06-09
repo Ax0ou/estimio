@@ -1,1 +1,5 @@
 <%= turbo_stream.remove(dom_id(@line_item)) %>
+
+<%= turbo_stream.replace "section-#{@line_item.section_id}-total",
+  partial: "quotes/section_total",
+  locals: { section: @line_item.section } %>

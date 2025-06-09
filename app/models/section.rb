@@ -5,13 +5,12 @@ class Section < ApplicationRecord
 
   def total_ht
     total = 0
-    line_items.sum do |line_item|
-
-      total += line_item.price
-
+    line_items.each do |line_item|
+      total += line_item.price.to_f
     end
     total
   end
+
 
   def total_ttc
     total_ht * 1.1

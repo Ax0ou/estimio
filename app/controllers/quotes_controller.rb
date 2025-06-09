@@ -122,10 +122,6 @@ class QuotesController < ApplicationController
   end
 
   def quote_params
-    params.require(:quote).permit(:validity_duration, :execution_delay, :payment_terms)
-  end
-
-  def quote_params
     params.require(:quote).permit(
       :title,
       :client_id,

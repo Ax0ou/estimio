@@ -1,3 +1,5 @@
-<% if quote.sections.any? %>
-  <%= link_to "Visualiser le devis", quote_path(quote), class: "btn btn-primary w-100 mt-3", id: "visualize-button", data:{turbo:false} %>
-<% end %>
+<div class="mb-5">
+  <% if quote.sections.any? %>
+    <%= link_to "Visualiser le devis", quote_path(quote), class: "btn btn-primary w-100 mt-3", id: "visualize-button", data:{turbo:false} %>
+  <% end %>
+</div>

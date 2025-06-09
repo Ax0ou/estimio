@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
 
-
   resources :companies, only: [] do
     resources :clients, only: [:index, :new, :create]
     resources :quotes, only: [:index, :new, :create]

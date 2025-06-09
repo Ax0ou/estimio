@@ -7,6 +7,7 @@ class ClientsController < ApplicationController
 
   def show
     @client = Client.find(params[:id])
+    @quotes = @client.quotes
   end
 
   def new

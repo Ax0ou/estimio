@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_06_06_105350) do
+ActiveRecord::Schema[7.1].define(version: 2025_06_06_110638) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -82,6 +82,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_06_105350) do
     t.datetime "updated_at", null: false
     t.bigint "company_id"
     t.integer "status", default: 0, null: false
+    t.string "validity_duration"
+    t.string "execution_delay"
+    t.string "payment_terms"
     t.index ["client_id"], name: "index_quotes_on_client_id"
     t.index ["company_id"], name: "index_quotes_on_company_id"
   end

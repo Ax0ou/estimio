@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     member do
       post :add_section
       get :download_pdf
+      patch :update_legal_mentions
     end
     resources :sections, only: [:new, :create, :index]
   end

@@ -1,4 +1,5 @@
 class LineItem < ApplicationRecord
+  UNITS = ['u', 'm²', 'ml', 'h', 'm³', 'kg'].freeze
   belongs_to :section
   before_save :set_price
 

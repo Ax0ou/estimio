@@ -6,3 +6,7 @@
 <%= turbo_stream.replace("new_section",
   partial: "quotes/new_section",
   locals: { quote: @quote }) %>
+
+<%= turbo_stream.replace "quote_visualize_button",
+  partial: "quotes/visualize_button",
+  locals: { quote: @quote } %>

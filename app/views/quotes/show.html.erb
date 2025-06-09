@@ -2,6 +2,23 @@
 
   <%= render "quotes/quote_content", quote: @quote %>
 
+ <div class="mt-4 small text-start text-muted">
+  <p><strong>Numéro de devis :</strong> <%= @quote.id %></p>
+  <p><strong>Date d’émission :</strong> <%= l(@quote.created_at.to_date) %></p>
+<div class="mt-4 small text-start text-muted">
+  <p><strong>Durée de validité :</strong> <%= @quote.validity_duration.presence || "30 jours" %></p>
+  <p><strong>Délais d’exécution :</strong> <%= @quote.execution_delay.presence || "Sous 15 jours après réception de l'accord" %></p>
+  <p><strong>Modalités de paiement :</strong> <%= @quote.payment_terms.presence || "30 % à la commande, solde à la livraison." %></p>
+</div>
+<%= render "legal_mentions_modal", quote: @quote %>
+
+<div class="text-start mt-3">
+  <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#legalMentionsModal">
+    Modifier les mentions légales
+  </button>
+</div>
+</div>
+
   <div class="text-center">
     <%= link_to 'Download PDF', download_pdf_quote_path(@quote) %>
   </div>

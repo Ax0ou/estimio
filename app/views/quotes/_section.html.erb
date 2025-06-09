@@ -3,14 +3,25 @@
 
   <div class="line-items" data-section-id="<%= section.id %>" data-controller="line-items">
 
-  <%= link_to "Remove", section_path(section), data: { turbo_method: :delete }, class: "btn btn-sm btn-outline-danger" %>
+  <%= link_to "Remove Section", section_path(section), data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer cette section et toutes ses lignes ?" }, class: "btn btn-sm btn-outline-danger mb-2" %>
+
+    <div class="sticky-header bg-light py-2 mb-2 rounded" style="position: sticky; top: 0; z-index: 100;">
+      <div class="row text-center align-items-center">
+        <div class="col-auto" style="width: 40px;"></div>
+        <div class="col-md-4">Description</div>
+        <div class="col-md-1">Quantité</div>
+        <div class="col-md-1">Unité</div>
+        <div class="col-md-2">Prix unitaire</div>
+        <div class="col-md-2">Prix total</div>
+      </div>
+    </div>
 
     <div data-controller="line-items-sort"
          data-line-items-sort-url-value="<%= reorder_line_items_path %>">
 
       <div data-line-items-sort-target="list" id="<%= section.id %>-line-items">
-        <% section.line_items.each do |line_item| %>
-          <div data-id="<%= line_item.id %>" class="draggable-line-item d-flex align-items-center gap-2">
+        <% section.line_items.order(:position).each do |line_item| %>
+          <div data-id="<%= line_item.id %>" class="draggable-line-item">
             <%= render "quotes/line_item", line_item: line_item %>
           </div>
         <% end %>
@@ -19,31 +30,43 @@
 
     <%= render "quotes/line_item", line_item: section.line_items.new %>
 
-    <div class="mt-2">
-      <button type="button" class="btn btn-sm btn-outline-primary" data-action="click->line-items#add">
-        + Ajouter une ligne
-      </button>
-    </div>
+    <div class="card shadow-sm mt-4 ai-section-card">
+      <div class="card-body">
+        <h5 class="card-title mb-3">Ajouter des éléments par IA</h5>
+        <div data-controller="audio-recorder">
+          <%= simple_form_for :transcript, url: add_line_items_with_llm_section_path(section), html: { data: { controller: "form-validation", action: "submit->form-validation#validate" } } do |f| %>
+            <%= f.input :text,
+                          label: "Décrivez les éléments à ajouter (vous pouvez aussi utiliser le micro) :",
+                          required: false, # Changed from true
+                          input_html: { data: { "audio-recorder-target": "textArea", "form-validation-target": "input" }, rows: 3, class: "form-control-sm" }, # Added form-validation-target
+                          placeholder: "Ex: Deux heures de ponçage et la mise en peinture de cinq mètres carrés de mur en blanc...", # Updated placeholder
+                          label_html: { class: "form-label" } %>
+            <div class="invalid-feedback" data-form-validation-target="error"></div>
 
-    <div class="container" data-controller="audio-recorder">
-      <%= simple_form_for :transcript, url: add_line_items_with_llm_section_path(section) do |f| %>
-        <%= f.input :text, input_html: { data: { "audio-recorder-target": "textArea" } } %>
+            <div class="d-flex gap-2 align-items-center mt-2">
+              <%= f.submit 'Analyser la description', class: "btn btn-primary btn-sm" %>
 
-        <div class="d-flex gap-2 align-items-center">
-          <%= f.submit 'OK', class: "btn btn-primary" %>
+              <button type="button"
+                      data-action="click->audio-recorder#toggle"
+                      data-audio-recorder-target="recordButton"
+                      class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-mic-fill"></i>
+              </button>
 
-          <button type="button"
-                  data-action="click->audio-recorder#toggle"
-                  data-audio-recorder-target="recordButton"
-                  class="btn btn-outline-secondary btn-sm">
-            <i class="bi bi-mic-fill"></i>
-          </button>
+              <button type="button"
+                      data-action="click->audio-recorder#stopRecording"
+                      data-audio-recorder-target="stopButton"
+                      class="btn btn-danger btn-sm" style="display: none;">
+                <i class="bi bi-stop-fill"></i> Stop
+              </button>
 
-          <span data-audio-recorder-target="status" class="text-danger small" style="display: none;">
-            🔴 Enregistrement...
-          </span>
+              <span data-audio-recorder-target="status" class="text-danger small" style="display: none;">
+                🔴 Enregistrement...
+              </span>
+            </div>
+          <% end %>
         </div>
-      <% end %>
+      </div>
     </div>
   </div>
 </div>

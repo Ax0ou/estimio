@@ -1,10 +1,10 @@
 <div id="<%= dom_id(line_item, line_item.persisted? ? nil : "new_line_item_for_section_#{line_item.section_id}") %>"
-     class="line-item-card card mb-2 shadow-sm"
+     class="line-item-card mb-2 bg-white"
      data-line-items-target="item"
      data-controller="line-item-calculator">
   <%= simple_form_for line_item.persisted? ? line_item : [line_item.section, line_item],
     html: {
-      class: "row g-2 align-items-center p-2",
+      class: "row container-fluid g-2 align-items-center p-2",
       id: (("edit_line_item_#{line_item.id}" if line_item.persisted?) || ("new_line_item_form_for_section_#{line_item.section_id}" unless line_item.persisted?)),
     },
     data: {
@@ -29,7 +29,7 @@
           label: false,
           placeholder: "Description",
           input_html: {
-            class: "form-control form-control-sm description-field", # Classe pour le style et JS
+            class: "form-control form-control-sm description-field bg-white rounded-3", # Classe pour le style et JS
             rows: 1, # Hauteur initiale d'une ligne
             "data-description-expander-target": "field",
             "data-action": "mouseenter->description-expander#handleMouseEnter mouseleave->description-expander#handleMouseLeave focus->description-expander#handleFocus blur->description-expander#handleBlur"
@@ -42,7 +42,7 @@
           label: false,
           placeholder: "Qté",
           input_html: {
-            class: "form-control form-control-sm",
+            class: "form-control form-control-sm bg-white rounded-3",
             "data-line-item-calculator-target": "quantity",
             "data-action": "input->line-item-calculator#updateTotal"
           } %>
@@ -53,7 +53,7 @@
           wrapper: false,
           label: false,
           collection: LineItem::UNITS,
-          input_html: { class: "form-select form-select-sm w-auto" },
+          input_html: { class: "form-select form-select-sm w-auto bg-white rounded-3" },
           include_blank: false %>
     </div>
 
@@ -64,7 +64,7 @@
           placeholder: "Prix unit.",
           input_html: {
             step: 0.01,
-            class: "form-control form-control-sm",
+            class: "form-control form-control-sm bg-white rounded-3",
             "data-line-item-calculator-target": "pricePerUnit",
             "data-action": "input->line-item-calculator#updateTotal"
           } %>
@@ -77,18 +77,25 @@
           placeholder: "Total",
           input_html: {
             readonly: true,
-            class: "form-control form-control-sm",
+            class: "form-control form-control-sm form-control bg-white rounded-3",
             "data-line-item-calculator-target": "price"
           } %>
     </div>
 
     <div class="col-auto d-flex align-items-center gap-1">
       <% if line_item.persisted? %>
-        <%= link_to content_tag(:i, nil, class: "bi bi-trash"), line_item_path(line_item), data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?" }, class: "btn btn-sm btn-danger" %>
-      <% else %>
-        <%= f.button :submit, class: "btn btn-sm btn-secondary" do %>
-          <i class="bi bi-plus-square"></i>
+        <%= link_to line_item_path(line_item), data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?" } do %>
+          <i class="fa-regular fa-circle-xmark"></i>
         <% end %>
+      <% else %>
+
+
+
+      <div class="line-item-button-container position-relative">
+        <p>+</p>
+        <%= f.submit "", class: "btn btn-sm line-item-button", style: "width: 30px"%>
+      </div>
+
       <% end %>
     </div>
   <% end %>

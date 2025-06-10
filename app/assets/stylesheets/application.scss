@@ -449,6 +449,26 @@ body {
     }
   }
 }
+
+// .ia-loading-overlay {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   background: rgba(255,255,255,0.8);
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   z-index: 50;
+//   border-radius: 0.5rem;
+// }
+
+// .lottie-container {
+//   width: 150px;
+//   height: 150px;
+// }
+
 // Désactiver les validations visuelles Bootstrap sur les line items
 .line-item-card {
   .form-control.is-valid,
@@ -476,9 +496,12 @@ body {
   .is-invalid {
     background-image: none !important;
   }
+}
+
 .container.py-5.d-flex.justify-content-center.align-items-start {
   background: #fff !important;
 }
+
 .shadow-lg.rounded-4.p-0,
 .bg-white.rounded-4.shadow-sm.p-4.mb-4.border,
 .bg-white.rounded-4.shadow-sm.p-4.border,
@@ -557,6 +580,7 @@ body {
   width: 100%;
   max-width: 900px;
 }
+
 .bg-white.rounded-4.shadow-sm.p-4.mb-4.border,
 .bg-white.rounded-4.shadow-sm.p-4.border,
 .bg-white.rounded-4.shadow-sm.p-3.mt-4.border.text-center.small,
@@ -564,6 +588,7 @@ body {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
 }
+
 @media (max-width: 991px) {
   .container.py-5.d-flex.justify-content-center.align-items-start {
     padding-left: 0.5rem !important;
@@ -582,7 +607,9 @@ body {
   gap: 1.2rem !important;
   justify-content: center !important;
 }
+
 .bg-white.rounded-4.shadow-sm.p-4.border.text-center.small,
+
 .bg-white.rounded-4.shadow-sm.p-4.border {
   min-width: 340px;
   max-width: 380px;
@@ -592,6 +619,7 @@ body {
   flex-direction: column;
   justify-content: center;
 }
+
 @media (max-width: 900px) {
   .bg-white.rounded-4.shadow-sm.p-4.border.text-center.small,
   .bg-white.rounded-4.shadow-sm.p-4.border {
@@ -610,20 +638,28 @@ body {
   border-bottom: 1.5px solid #e0e0e0 !important;
   box-shadow: 0 2px 8px rgba(30,58,138,0.04);
 }
+
 .navbar .navbar-brand, .navbar .nav-link, .navbar .navbar-brand.text-primary {
   color: #1e3a8a !important;
 }
+
 .navbar .nav-link.active, .navbar .nav-link:focus, .navbar .nav-link:hover {
   color: #0a58ca !important;
   background: #f5f5f5 !important;
   border-radius: 8px;
 }
+
 .navbar .text-creme, .navbar .btn-creme-outline, .navbar .btn-creme-filled {
   color: #fff8e7 !important;
 }
+
 .navbar .fw-semibold, .navbar .small {
   color: #003366 !important;
 }
+
+.fa-regular {
+  color: red;
+  font-size: larger;
 
 .section-separator td {
   background: #f6f2e7 !important;
@@ -643,3 +679,9 @@ body {
   letter-spacing: 0.01em;
 
 }
+
+// .fa-regular:hover {
+//   color: white;
+//   background-color: red;
+//   border-radius: 50%;
+// }

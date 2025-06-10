@@ -10,6 +10,8 @@
   partial: "quotes/section_total",
   locals: { section: @section } %>
 
+<%= turbo_stream.invoke("ia-loading#hide") %>
+
 <%= turbo_stream.replace "quote-total",
   partial: "quotes/quote_total",
   locals: { quote: @line_item.section.quote } %>

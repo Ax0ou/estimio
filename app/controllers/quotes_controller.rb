@@ -103,44 +103,25 @@ class QuotesController < ApplicationController
     end
   end
 
-  def update_legal_mentions
-    @quote = Quote.find(params[:id])
-    if @quote.update(legal_mentions_params)
-      respond_to do |format|
-        format.html { redirect_to @quote, notice: "Mentions légales mises à jour avec succès." }
-        format.turbo_stream if request.format.turbo_stream?
-      end
-    else
-      render :show, status: :unprocessable_entity
-    end
-  end
-
   private
-
-  def legal_mentions_params
-    params.require(:quote).permit(:validity_duration, :execution_delay, :payment_terms)
-  end
 
   def quote_params
     params.require(:quote).permit(
       :title,
       :client_id,
-      :project_type, # Ajouté pour cohérence
-      :validity_duration,
-      :execution_delay,
-      :payment_terms,
+      :project_type,  # Ajouté pour cohérence
       sections_attributes: [
         :id,
         :name,
         :_destroy,
-        line_items_attributes: %i[
+        { line_items_attributes: %i[
           id
           name
           quantity
           unit_price
           total_price
           _destroy
-        ]
+        ] }
       ]
     )
   end

@@ -1,32 +1,141 @@
-<div class="container py-5">
+<div class="container py-5 d-flex justify-content-center align-items-start" style="min-height: 100vh; background: #f6f2e7;">
+  <div class="shadow-lg rounded-4 p-0" style="max-width: 900px; width: 100%; background: #f9f9f7; border: 1px solid #e0e0e0;">
+    <div class="d-flex justify-content-between align-items-center p-4 border-bottom" style="background: #f6f2e7; border-radius: 24px 24px 0 0;">
+      <div class="d-flex align-items-center gap-3">
+        <div class="bg-primary text-white rounded-3 d-flex justify-content-center align-items-center" style="width: 48px; height: 48px; font-size: 2rem;">
+          <i class="bi bi-hammer"></i>
+        </div>
+        <div>
+          <div class="fw-bold fs-4" style="color: #1e3a8a;">Estimio</div>
+          <div class="small text-muted">Solutions de rénovation</div>
+        </div>
+      </div>
+      <div class="text-end small">
+        <div class="fw-semibold">contact@estimio.com</div>
+        <div>01 23 45 67 89</div>
+        <div><a href="https://www.estimio.com" target="_blank" class="text-decoration-none text-primary">www.estimio.com</a></div>
+      </div>
+    </div>
 
-  <%= render "quotes/quote_content", quote: @quote %>
+    <div class="p-4 pb-0">
+      <div class="row g-3 mb-4">
+        <div class="col-12">
+          <div class="bg-white rounded-4 shadow-sm p-4 mb-2 border w-100" style="min-height: 90px; max-width: none;">
+            <div class="d-flex flex-column align-items-center gap-2 mb-2">
+              <i class="bi bi-folder2-open text-primary fs-4"></i>
+              <div class="text-center w-100">
+                <div class="fw-bold fs-5"><%= @quote.title %></div>
+                <div class="text-muted small">Devis détaillé pour les travaux de rénovation complète d’une chambre de 40m²</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="bg-white rounded-4 shadow-sm p-4 border mb-2">
+            <div class="fw-semibold text-muted mb-1">Devis</div>
+            <div class="fs-5 fw-bold mb-2">DEVIS-<%= @quote.id.to_s.rjust(7, '0') %></div>
+            <div class="small text-muted mb-1"><i class="bi bi-calendar-event me-1"></i>Date: <%= l(@quote.created_at.to_date) %></div>
+            <div class="small text-muted"><i class="bi bi-clock-history me-1"></i>Validité: <%= @quote.validity_duration.presence || "30 jours" %></div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="bg-white rounded-4 shadow-sm p-4 border mb-2">
+            <div class="fw-semibold text-muted mb-1">Client</div>
+            <div class="fs-5 fw-bold mb-1"><%= @quote.client.first_name %> <%= @quote.client.last_name %></div>
+            <div class="small text-muted mb-1"><%= @quote.client.address %></div>
+            <div class="small text-muted"><%= @quote.client.email %></div>
+            <div class="small text-muted"><%= @quote.client.phone_number %></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
- <div class="mt-4 small text-start text-muted">
-  <p><strong>Numéro de devis :</strong> <%= @quote.id %></p>
-  <p><strong>Date d’émission :</strong> <%= l(@quote.created_at.to_date) %></p>
-<div class="mt-4 small text-start text-muted">
-  <p><strong>Durée de validité :</strong> <%= @quote.validity_duration.presence || "30 jours" %></p>
-  <p><strong>Délais d’exécution :</strong> <%= @quote.execution_delay.presence || "Sous 15 jours après réception de l'accord" %></p>
-  <p><strong>Modalités de paiement :</strong> <%= @quote.payment_terms.presence || "30 % à la commande, solde à la livraison." %></p>
-</div>
-<%= render "legal_mentions_modal", quote: @quote %>
+    <div class="p-4 rounded-4 shadow mb-4" style="background-color: #fffaf4;">
+      <div class="table-responsive">
+        <table class="table align-middle mb-0" style="border-radius: 12px; overflow: hidden;">
+          <thead style="background: #1e3a8a; color: #fff;">
+            <tr>
+              <th style="border-top-left-radius: 12px;">Description</th>
+              <th>Quantité</th>
+              <th>Unité</th>
+              <th>Prix unitaire</th>
+              <th style="border-top-right-radius: 12px;">Total HT</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @quote.sections.each do |section| %>
+              <% section.line_items.each do |item| %>
+                <tr>
+                  <td><%= item.description %></td>
+                  <td><%= item.quantity %></td>
+                  <td><%= item.unit %></td>
+                  <td><%= number_to_currency(item.price_per_unit, unit: "€", separator: ",", delimiter: " ") %></td>
+                  <td class="fw-bold"><%= number_to_currency(item.price, unit: "€", separator: ",", delimiter: " ") %></td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-<div class="text-start mt-3">
-  <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#legalMentionsModal">
-    Modifier les mentions légales
-  </button>
-</div>
-</div>
+    <div class="d-flex flex-wrap justify-content-between align-items-stretch gap-4 mb-4">
+      <div class="bg-white rounded-4 shadow-sm p-4 border text-center small d-flex flex-column justify-content-between" style="min-width: 320px; max-width: 350px; flex: 1 1 320px;">
+        <div class="fw-semibold mb-1 d-flex justify-content-center align-items-center gap-2">
+          Mentions légales
+          <button class="btn btn-outline-primary btn-sm ms-2" data-bs-toggle="modal" data-bs-target="#legalMentionsModal">
+            ✎ Modifier
+          </button>
+        </div>
+        <div class="text-muted mb-1" style="font-size: 0.95em;">
+          Estimio SARL - SIRET 123 456 789 00102 - RCS Paris B 123 456 789<br>
+          TVA intracommunautaire : FR 12 345 678 901 - Capital social : 10 000€<br>
+          12 rue des Entrepreneurs, 75015 Paris
+        </div>
+      </div>
+      <div class="bg-white rounded-4 shadow-sm p-4 border" style="min-width: 320px; max-width: 350px; flex: 1 1 320px;">
+        <div class="d-flex justify-content-between mb-2">
+          <span class="fw-semibold">Sous-total HT:</span>
+          <span><%= number_to_currency(@quote.total_ht, unit: "€", separator: ",", delimiter: " ") %></span>
+        </div>
+        <div class="d-flex justify-content-between mb-2">
+          <span class="fw-semibold">TVA (10%)</span>
+          <span><%= number_to_currency((@quote.total_ttc - @quote.total_ht).round(2), unit: "€", separator: ",", delimiter: " ") %></span>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="fw-bold fs-5">Total TTC:</span>
+          <span class="fw-bold fs-5 text-primary"><%= number_to_currency(@quote.total_ttc.round(2), unit: "€", separator: ",", delimiter: " ") %></span>
+        </div>
+      </div>
+    </div>
+    <%= render "legal_mentions_modal", quote: @quote %>
 
-  <div class="text-center">
-    <%= link_to 'Download PDF', download_pdf_quote_path(@quote) %>
+    <div class="row g-3 mb-4">
+      <div class="col-md-4">
+        <div class="bg-white rounded-4 shadow-sm p-3 h-100 border d-flex flex-column justify-content-between">
+          <div class="fw-semibold mb-1"><i class="bi bi-clock-history me-1"></i>Délai d’exécution</div>
+          <div class="small text-muted flex-grow-1">Sous 15 jours après réception de l’accord</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="bg-white rounded-4 shadow-sm p-3 h-100 border d-flex flex-column justify-content-between">
+          <div class="fw-semibold mb-1"><i class="bi bi-credit-card-2-front me-1"></i>Conditions de paiement</div>
+          <div class="small text-muted flex-grow-1">30% à la commande, solde à la livraison</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="bg-white rounded-4 shadow-sm p-3 h-100 border d-flex flex-column justify-content-between">
+          <div class="fw-semibold mb-1"><i class="bi bi-calendar-check me-1"></i>Validité de l’offre</div>
+          <div class="small text-muted flex-grow-1">Ce devis est valable 30 jours à compter de sa date d’émission</div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex flex-wrap gap-2 justify-content-center mb-4">
+      <a href="<%= edit_quote_path(@quote) %>" class="btn btn-outline-secondary">← Retour au devis</a>
+      <a href="<%= download_pdf_quote_path(@quote) %>" class="btn btn-outline-primary">Télécharger PDF</a>
+    </div>
   </div>
-  <br>
-  <div class="text-center">
-    <%= link_to "← Retour à mes devis", company_quotes_path(@quote.company), class: "btn btn-outline-secondary" %>
-  </div>
-
 </div>
 
 

@@ -1,4 +1,4 @@
-<div id="<%= dom_id(section) %>" class="section border rounded p-3 mb-4 position-relative bg-white" id="section-<%= section.id %>" data-controller="ia-loading">
+<div id="<%= dom_id(section) %>" class="section border rounded p-3 mb-4 position-relative bg-white" data-controller="ia-loading">
   <%= link_to section_path(section),
           data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer cette section et toutes ses lignes ?" },
           class: "btn btn-sm btn-outline-danger position-absolute top-0 end-0 m-2",
@@ -6,17 +6,17 @@
     <i class="bi bi-x-lg"></i>
   <% end %>
 
-  <h4><%= section.description %></h4>
+  <h4><strong><%= section.description %></strong></h4>
 
   <div class="line-items" data-section-id="<%= section.id %>" data-controller="line-items">
-    <div class="sticky-header bg-light py-2 mb-2 rounded bg-white" style="position: sticky; top: 0; z-index: 100;">
-      <div class="row text-center align-items-center">
+    <div class="sticky-header bg-light py-2 rounded bg-white" style="position: sticky; top: 0; z-index: 100;">
+      <div class="row align-items-center">
         <div class="col-auto" style="width: 40px;"></div>
         <div class="col-md-4">Description</div>
-        <div class="col-md-1">Quantité</div>
-        <div class="col-md-1">Unité</div>
-        <div class="col-md-2">Prix unitaire</div>
-        <div class="col-md-2">Prix total</div>
+        <div class="col-md-1 px-0 push">Quantité</div>
+        <div class="col-md-1 px-0 push">Unité</div>
+        <div class="col-md-2 px-0 push">Prix unitaire</div>
+        <div class="col-md-2 px-0">Prix total</div>
       </div>
     </div>
 
@@ -32,9 +32,13 @@
       </div>
     </div>
 
-    <%= render "quotes/line_item", line_item: section.line_items.new %>
+    <%= render "quotes/line_item", line_item: section.line_items.new, class:"ml-2" %>
 
-    <div class="card shadow-sm mt-4 ai-section-card">
+    <div class="mt-4 ai-section-card border-no bg-white">
+      <%= render "quotes/section_total", section: section %>
+    </div>
+
+    <div class="card shadow-sm mt-4 ai-section-card bg-white">
       <div class="card-body">
         <h5 class="card-title mb-3">Ajouter des éléments par IA</h5>
         <div data-controller="audio-recorder">
@@ -73,9 +77,6 @@
       </div>
     </div>
 
-    <div class="card shadow-sm mt-4 ai-section-card">
-      <%= render "quotes/section_total", section: section %>
-    </div>
   </div>
 
   <div data-ia-loading-target="overlay" style="position: absolute; bottom: 0px; right: 0px; left: 0px; top: 0px; background: rgba(254, 254, 254, 0.97); z-index: 10000; display: flex; justify-content: center; align-items: center; display: none" id="loading-animation">

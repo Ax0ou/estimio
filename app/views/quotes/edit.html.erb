@@ -17,6 +17,11 @@
     </div>
   </div>
 
+  <% if !@quote.sections.empty? %>
+    <div id="quote-total">
+      <%= render "quotes/quote_total", quote: @quote %>
+    </div>
+  <% end %>
 
   <turbo-frame id="quote_visualize_button">
     <%= render "quotes/visualize_button", quote: @quote %>

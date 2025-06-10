@@ -15,12 +15,17 @@
     <div class="collapse navbar-collapse" id="navbarEstimio">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <% if user_signed_in?%>
-        <li class="nav-item">
+        <li class="nav-item me-3">
           <%= link_to company_quotes_path(current_user.company), class: "nav-link" do %>
             <i class="bi bi-kanban"></i> Tableau de bord
           <% end %>
         </li>
-        <li class="nav-item">
+        <li class="nav-item me-3">
+          <%= link_to products_path, class: "nav-link" do %>
+            <i class="bi bi-tools"></i> Produits
+          <% end %>
+        </li>
+        <li class="nav-item me-3">
           <%= link_to company_clients_path(current_user.company), class: "nav-link" do %>
             <i class="bi bi-people"></i> Mes clients
           <% end %>

@@ -1,0 +1,37 @@
+<tr data-controller="editable-row">
+  <%= form_with model: product, id: "product-form-#{product.id}" do |f| %>
+    <input type="hidden" name="_method" value="patch" form="<%= "product-form-#{product.id}" %>">
+    <!-- Nom -->
+    <td class="text-wrap" style="max-width: 300px">
+      <span data-editable-row-target="display"><%= product.name %></span>
+        <%= f.text_field :name, class: "form-control form-control-sm", value: product.name, class: "d-none", data: { editable_row_target: "form" }, form: "product-form-#{product.id}" %>
+    </td>
+
+    <!-- Prix -->
+    <td>
+      <span data-editable-row-target="display"><%= number_to_currency(product.price, unit: "€", format: "%n %u") %></span>
+      <%= f.number_field :price, step: 0.01, class: "form-control form-control-sm", value: product.price,  class: "d-none", data: { editable_row_target: "form" }, form: "product-form-#{product.id}" %>
+    </td>
+
+    <!-- Unité -->
+    <td>
+      <span data-editable-row-target="display"><%= Product::UNIT_LABELS[product.unit] %></span>
+        <%= f.select :unit, Product::UNIT_LABELS.map { |k, v| [v, k] }, {}, class: "d-none form-select form-select-sm", data: { editable_row_target: "form" }, selected: product.unit, form: "product-form-#{product.id}" %>
+    </td>
+
+    <!-- Actions -->
+    <td class="text-end">
+      <!-- Mode affichage -->
+      <div data-editable-row-target="display">
+        <button type="button" class="btn btn-sm btn-outline-secondary me-2" data-action="click->editable-row#edit">✏️ Modifier</button>
+        <%= link_to "🗑️ Supprimer", product_path(product), data: { turbo_method: :delete, turbo_confirm: "Supprimer ce produit ?" }, class: "btn btn-sm btn-outline-danger", form: "product-form-#{product.id}" %>
+      </div>
+
+      <!-- Mode édition -->
+      <div class="d-none d-flex gap-2 align-items-center mb-0" data-editable-row-target="form">
+          <%= f.submit "💾", class: "btn btn-sm btn-success", form: "product-form-#{product.id}" %>
+          <button type="button" class="btn btn-sm btn-secondary" data-action="click->editable-row#cancel">Annuler</button>
+      </div>
+    </td>
+  <% end %>
+</tr>

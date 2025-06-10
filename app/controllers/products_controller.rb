@@ -3,6 +3,15 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.by_created_at
+    if params[:query].present?
+      @products = @products.where("name ILIKE ?", "%#{params[:query]}%")
+    end
+    @products = @products.page(params[:page]).per(25)
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def show
@@ -29,7 +38,7 @@ class ProductsController < ApplicationController
 
   def update
     if @product.update(product_params)
-      @products = Product.by_created_at
+      @products = Product.by_created_at.page(params[:page]).per(25)
       @product.company = current_user.company
 
       respond_to do |format|

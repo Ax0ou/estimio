@@ -69,15 +69,48 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body py-4 px-4">
-        <%= form_with(url: import_products_path, method: :post, data: { turbo: false }) do |f| %>
-          <div class="mb-3">
-            <%= f.label :files, "Devis", class: "form-label fw-semibold" %>
-            <%= f.file_field :files, class: "form-control rounded-3", required: true, multiple: true %>
+        <%= form_with(url: import_products_path, method: :post, data: { turbo: false, controller: "import-products" }) do |f| %>
+          <div class="mb-4" data-import-products-target="dropZone">
+            <div class="border-2 border-dashed rounded-4 p-5 text-center"
+                 style="border: 2px dashed #dee2e6; background: #f8f9fa; cursor: pointer;"
+                 data-action="click->import-products#triggerFileInput dragover->import-products#handleDragOver dragenter->import-products#handleDragEnter dragleave->import-products#handleDragLeave drop->import-products#handleDrop">
+              <div class="mb-3">
+                <i class="bi bi-cloud-arrow-up text-primary" style="font-size: 2.5rem;"></i>
+              </div>
+              <h5 class="text-primary mb-2">Glissez vos devis ici</h5>
+              <p class="text-muted mb-3">ou cliquez pour sélectionner vos fichiers</p>
+              <p class="text-muted small mb-0">Formats acceptés : PDF, DOC, DOCX, JPG, PNG</p>
+            </div>
+            <%= f.file_field :files,
+                class: "d-none",
+                required: true,
+                multiple: true,
+                accept: ".pdf,.doc,.docx,.jpg,.jpeg,.png",
+                data: {
+                  import_products_target: "fileInput",
+                  action: "change->import-products#handleFiles"
+                } %>
+          </div>
+
+          <div class="selected-files mb-4" data-import-products-target="fileList">
+            <!-- Les fichiers sélectionnés seront affichés ici -->
           </div>
 
           <div class="modal-footer border-top-0 d-flex justify-content-end gap-2">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-            <%= f.submit "Créer", class: "btn btn-primary px-4" %>
+            <%= f.submit "Importer", class: "btn btn-primary px-4", data: { import_products_target: "submitButton" } %>
+          </div>
+
+          <div class="position-absolute top-0 start-0 w-100 h-100 bg-white bg-opacity-90 d-none"
+               data-import-products-target="loadingOverlay"
+               style="z-index: 1050;">
+            <div class="d-flex flex-column align-items-center justify-content-center h-100">
+              <div class="spinner-grow text-primary mb-3" role="status" style="width: 3rem; height: 3rem;">
+                <span class="visually-hidden">Chargement...</span>
+              </div>
+              <h5 class="text-primary mb-2">Importation en cours</h5>
+              <p class="text-muted mb-0">Veuillez patienter pendant que nous traitons vos fichiers...</p>
+            </div>
           </div>
         <% end %>
       </div>

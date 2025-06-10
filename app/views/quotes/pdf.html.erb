@@ -1,3 +1,1 @@
-<div class="container">
-  <%= render "quotes/quote_content", quote: @quote %>
-</div>
+<%= render template: 'quotes/show', locals: { quote: @quote } %>

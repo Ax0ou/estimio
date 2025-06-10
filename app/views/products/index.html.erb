@@ -1,0 +1,119 @@
+<div class="container my-5" style="max-width: 1100px;">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold mb-0">Mes produits</h2>
+    <div class="d-flex gap-2">
+      <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#newProductModal">➕ Nouveau produit</button>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#importProductsModal">🪄 Générer avec l'IA</button>
+    </div>
+  </div>
+
+  <div class="mb-4 d-flex justify-content-center">
+    <%= form_with url: products_path, method: :get, local: true, class: "w-100", style: "max-width: 600px;", data: { controller: "products-search", products_search_target: "form" } do %>
+      <div class="input-group">
+        <%= search_field_tag :query, params[:query], class: "form-control form-control-lg rounded-pill shadow-sm", placeholder: "Rechercher un produit...", style: "background: #f8f9fa; border: 1px solid #e0e0e0;", id: "product-search-input", data: { action: "input->products-search#search" } %>
+        <% if params[:query].present? %>
+          <a href="<%= products_path %>" class="btn btn-link text-secondary" style="margin-left: -48px; z-index: 2;">
+            <i class="bi bi-x-circle"></i>
+          </a>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div id="products">
+    <%= render "products/table", products: @products %>
+  </div>
+</div>
+
+<div class="modal fade" id="newProductModal" tabindex="-1" aria-labelledby="newProductModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4 shadow-lg border-0">
+      <div class="modal-header bg-light border-bottom-0">
+        <h1 class="modal-title fs-5 fw-semibold text-primary" id="exampleModalLabel">Nouveau produit</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body py-4 px-4">
+        <%= form_with(model: Product.new, url: products_path, method: :post, local: true, data: { turbo: false }) do |f| %>
+          <div class="mb-3">
+            <%= f.label :name, "Nom", class: "form-label fw-semibold" %>
+            <%= f.text_field :name, class: "form-control rounded-3", required: true %>
+          </div>
+
+          <div class="mb-3">
+            <%= f.label :unit, "Unité", class: "form-label fw-semibold" %>
+            <%= f.select :unit,options_for_select(Product::UNIT_LABELS.map { |key, label| [label, key] }),
+              { prompt: "Choisir une unité" },
+              class: "form-select rounded-3", required: true %>
+          </div>
+
+          <div class="mb-4">
+            <%= f.label :price, "Prix", class: "form-label fw-semibold" %>
+            <%= f.number_field :price, step: 0.01, class: "form-control rounded-3", required: true %>
+          </div>
+
+          <div class="modal-footer border-top-0 d-flex justify-content-end gap-2">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+            <%= f.submit "Créer", class: "btn btn-primary px-4" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="importProductsModal" tabindex="-1" aria-labelledby="importProductsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4 shadow-lg border-0">
+      <div class="modal-header bg-light border-bottom-0">
+        <h1 class="modal-title fs-5 fw-semibold text-primary" id="exampleModalLabel">Importez vos derniers devis</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body py-4 px-4">
+        <%= form_with(url: import_products_path, method: :post, data: { turbo: false, controller: "import-products" }) do |f| %>
+          <div class="mb-4" data-import-products-target="dropZone">
+            <div class="border-2 border-dashed rounded-4 p-5 text-center"
+                 style="border: 2px dashed #dee2e6; background: #f8f9fa; cursor: pointer;"
+                 data-action="click->import-products#triggerFileInput dragover->import-products#handleDragOver dragenter->import-products#handleDragEnter dragleave->import-products#handleDragLeave drop->import-products#handleDrop">
+              <div class="mb-3">
+                <i class="bi bi-cloud-arrow-up text-primary" style="font-size: 2.5rem;"></i>
+              </div>
+              <h5 class="text-primary mb-2">Glissez vos devis ici</h5>
+              <p class="text-muted mb-3">ou cliquez pour sélectionner vos fichiers</p>
+              <p class="text-muted small mb-0">Formats acceptés : PDF, DOC, DOCX, JPG, PNG</p>
+            </div>
+            <%= f.file_field :files,
+                class: "d-none",
+                required: true,
+                multiple: true,
+                accept: ".pdf,.doc,.docx,.jpg,.jpeg,.png",
+                data: {
+                  import_products_target: "fileInput",
+                  action: "change->import-products#handleFiles"
+                } %>
+          </div>
+
+          <div class="selected-files mb-4" data-import-products-target="fileList">
+            <!-- Les fichiers sélectionnés seront affichés ici -->
+          </div>
+
+          <div class="modal-footer border-top-0 d-flex justify-content-end gap-2">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+            <%= f.submit "Importer", class: "btn btn-primary px-4", data: { import_products_target: "submitButton" } %>
+          </div>
+
+          <div class="position-absolute top-0 start-0 w-100 h-100 bg-white bg-opacity-90 d-none"
+               data-import-products-target="loadingOverlay"
+               style="z-index: 1050;">
+            <div class="d-flex flex-column align-items-center justify-content-center h-100">
+              <div class="spinner-grow text-primary mb-3" role="status" style="width: 3rem; height: 3rem;">
+                <span class="visually-hidden">Chargement...</span>
+              </div>
+              <h5 class="text-primary mb-2">Importation en cours</h5>
+              <p class="text-muted mb-0">Veuillez patienter pendant que nous traitons vos fichiers...</p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

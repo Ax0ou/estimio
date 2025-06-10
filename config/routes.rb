@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
 
-
   resources :companies, only: [] do
     resources :clients, only: [:index, :new, :create]
     resources :quotes, only: [:index, :new, :create]
@@ -27,6 +26,10 @@ Rails.application.routes.draw do
   end
 
   resources :line_items, only: [:edit, :update, :destroy]
+
+  resources :products do
+    post :import, on: :collection
+  end
 
   post "/line_items/reorder", to: "line_items#reorder", as: :reorder_line_items
 

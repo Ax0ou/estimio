@@ -2,7 +2,14 @@
   partial: "quotes/line_item",
   locals: { line_item: @line_item }) %>
 
-
 <%= turbo_stream.replace("section_#{@line_item.section.id}_new_line_item",
   partial: "quotes/line_item",
   locals: { line_item: @line_item.section.line_items.new }) %>
+
+<%= turbo_stream.replace "section-#{@section.id}-total",
+  partial: "quotes/section_total",
+  locals: { section: @section } %>
+
+<%= turbo_stream.replace "quote-total",
+  partial: "quotes/quote_total",
+  locals: { quote: @line_item.section.quote } %>

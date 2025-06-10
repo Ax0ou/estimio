@@ -45,32 +45,39 @@ class LlmService
       - price_per_unit : prix unitaire en euros
 
       Unités à utiliser :
-      - "u" pour unités/pièces (équipements, appareils)
-      - "m²" pour surfaces (carrelage, peinture, isolation)
-      - "ml" pour longueurs (plinthes, tuyaux)
-      - "h" pour heures de main-d'œuvre
-      - "m³" pour volumes (béton, terre)
-      - "kg" pour matériaux en vrac
+      "u"     => "unité",
+      "m²"    => "mètre carré",
+      "h"     => "heure",
+      "kg"    => "kilogramme",
+      "m³"    => "mètre cube",
+      "j"     => "jour",
+      "g"     => "gramme",
+      "t"     => "tonne",
+      "l"     => "litre",
+      "m"     => "mètre"
+
+      Dans un premier temps, consulte la base de données de produits de l'artisan pour récupérer les prix unitaires des matériaux et services courants.
+      Voici la liste #{Product.pluck(:name, :price, :unit).map { |name, price, unit| "#{name} (#{price} €/#{unit})" }.join(', ')}
 
       Exemple attendu :
-    🧾 Format de réponse attendu :
-    À partir de la description suivante "#{@description}", génère un JSON brut.
-    Exemple attendu, il faut absolument qu'il y ait ces trois éléments, quantity et price_per_unit ainsi que la description. Assure-toi qu'il y ait une bonne logique de quantité entre si c'est des matériaux ou si c'est des heures.
-      Dans le json, Chaque élément du tableau (line item) doit contenir un champ section_id identique pour toutes les lignes, correspondant à l'identifiant unique de la section traitée.
-      [
-        {
-          "description": "Pose de carrelage",
-          "quantity": 20,
-          "unit": "m²",
-          "price_per_unit": 80
-        },
-        {
-          "description": "Main d'œuvre pose",
-          "quantity": 4,
-          "unit": "h",
-          "price_per_unit": 50
-        }
-      ]
+      🧾 Format de réponse attendu :
+      À partir de la description suivante "#{@description}", génère un JSON brut.
+      Exemple attendu, il faut absolument qu'il y ait ces trois éléments, quantity et price_per_unit ainsi que la description. Assure-toi qu'il y ait une bonne logique de quantité entre si c'est des matériaux ou si c'est des heures.
+        Dans le json, Chaque élément du tableau (line item) doit contenir un champ section_id identique pour toutes les lignes, correspondant à l'identifiant unique de la section traitée.
+        [
+          {
+            "description": "Pose de carrelage",
+            "quantity": 20,
+            "unit": "m²",
+            "price_per_unit": 80
+          },
+          {
+            "description": "Main d'œuvre pose",
+            "quantity": 4,
+            "unit": "h",
+            "price_per_unit": 50
+          }
+        ]
     PROMPT
   end
 end

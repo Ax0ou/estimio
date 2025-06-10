@@ -1,15 +1,15 @@
-<div class="section border rounded p-3 mb-4 position-relative" id="section-<%= section.id %>">
+<div id="<%= dom_id(section) %>" class="section border rounded p-3 mb-4 position-relative bg-white" id="section-<%= section.id %>" data-controller="ia-loading">
   <%= link_to section_path(section),
-              data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer cette section et toutes ses lignes ?" },
-              class: "btn btn-sm btn-outline-danger position-absolute top-0 end-0 m-2",
-              title: "Supprimer la section" do %>
+          data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer cette section et toutes ses lignes ?" },
+          class: "btn btn-sm btn-outline-danger position-absolute top-0 end-0 m-2",
+          title: "Supprimer la section" do %>
     <i class="bi bi-x-lg"></i>
   <% end %>
 
   <h4><%= section.description %></h4>
 
   <div class="line-items" data-section-id="<%= section.id %>" data-controller="line-items">
-    <div class="sticky-header bg-light py-2 mb-2 rounded" style="position: sticky; top: 0; z-index: 100;">
+    <div class="sticky-header bg-light py-2 mb-2 rounded bg-white" style="position: sticky; top: 0; z-index: 100;">
       <div class="row text-center align-items-center">
         <div class="col-auto" style="width: 40px;"></div>
         <div class="col-md-4">Description</div>
@@ -21,7 +21,7 @@
     </div>
 
     <div data-controller="line-items-sort"
-         data-line-items-sort-url-value="<%= reorder_line_items_path %>">
+        data-line-items-sort-url-value="<%= reorder_line_items_path %>">
 
       <div data-line-items-sort-target="list" id="<%= section.id %>-line-items">
         <% section.line_items.order(:position).each do |line_item| %>
@@ -48,7 +48,7 @@
             <div class="invalid-feedback" data-form-validation-target="error"></div>
 
             <div class="d-flex gap-2 align-items-center mt-2">
-              <%= f.submit 'Analyser la description', class: "btn btn-primary btn-sm" %>
+              <%= f.submit 'Analyser la description', class: "btn btn-primary btn-sm", data: { action: "click->ia-loading#show" } %>
 
               <button type="button"
                       data-action="click->audio-recorder#toggle"
@@ -76,5 +76,9 @@
     <div class="card shadow-sm mt-4 ai-section-card">
       <%= render "quotes/section_total", section: section %>
     </div>
+  </div>
+
+  <div data-ia-loading-target="overlay" style="position: absolute; bottom: 0px; right: 0px; left: 0px; top: 0px; background: rgba(254, 254, 254, 0.97); z-index: 10000; display: flex; justify-content: center; align-items: center; display: none" id="loading-animation">
+    <dotlottie-player src="https://lottie.host/2e5e2561-9557-4430-b68d-1739dbcffc02/IgRMPqhTrX.json" background="transparent" speed="1" style="width: 300px; height: 300px" loop autoplay></dotlottie-player>
   </div>
 </div>

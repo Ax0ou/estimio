@@ -1,5 +1,5 @@
 <div id="<%= dom_id(line_item, line_item.persisted? ? nil : "new_line_item_for_section_#{line_item.section_id}") %>"
-     class="line-item-card card mb-2 shadow-sm"
+     class="line-item-card card mb-2 shadow-sm bg-white"
      data-line-items-target="item"
      data-controller="line-item-calculator">
   <%= simple_form_for line_item.persisted? ? line_item : [line_item.section, line_item],

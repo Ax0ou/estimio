@@ -1,4 +1,4 @@
-<div class="container py-5 d-flex justify-content-center align-items-start" style="min-height: 100vh; background: #f6f2e7;">
+<div class="container py-5 d-flex justify-content-center align-items-start" style="min-height: 100vh; background: #f6f2e7; border: none !important; box-shadow: none !important; font-size: 1em;">
   <div class="shadow-lg rounded-4 p-0" style="max-width: 900px; width: 100%; background: #f9f9f7; border: 1px solid #e0e0e0;">
     <div class="d-flex justify-content-between align-items-center p-4 border-bottom" style="background: #f6f2e7; border-radius: 24px 24px 0 0;">
       <div class="d-flex align-items-center gap-3">
@@ -13,7 +13,7 @@
       <div class="text-end small">
         <div class="fw-semibold">contact@estimio.com</div>
         <div>01 23 45 67 89</div>
-        <div><a href="https://www.estimio.com" target="_blank" class="text-decoration-none text-primary">www.estimio.pro</a></div>
+        <div><a href="https://www.estimio.pro" target="_blank" class="text-decoration-none text-primary">www.estimio.pro</a></div>
       </div>
     </div>
 
@@ -64,11 +64,6 @@
           </thead>
           <tbody>
             <% @quote.sections.each do |section| %>
-              <tr class="table-section-separator">
-                <td colspan="5" class="fw-bold bg-creme text-primary" style="font-size: 1.05em; border-top: 2px solid #e0e0e0;">
-                  <i class="bi bi-folder2-open me-2"></i><%= section.description.presence || 'Section' %>
-                </td>
-              </tr>
               <% section.line_items.each do |item| %>
                 <tr>
                   <td><%= item.description %></td>
@@ -88,9 +83,6 @@
       <div class="bg-white rounded-4 shadow-sm p-4 border text-center small d-flex flex-column justify-content-between" style="min-width: 320px; max-width: 350px; flex: 1 1 320px;">
         <div class="fw-semibold mb-1 d-flex justify-content-center align-items-center gap-2">
           Mentions légales
-          <button class="btn btn-outline-primary btn-sm ms-2" data-bs-toggle="modal" data-bs-target="#legalMentionsModal">
-            ✎ Modifier
-          </button>
         </div>
         <div class="text-muted mb-1" style="font-size: 0.95em;">
           Estimio SARL - SIRET 123 456 789 00102 - RCS Paris B 123 456 789<br>
@@ -114,7 +106,6 @@
         </div>
       </div>
     </div>
-    <%= render "legal_mentions_modal", quote: @quote %>
 
     <div class="row g-3 mb-4">
       <div class="col-md-4">
@@ -136,11 +127,5 @@
         </div>
       </div>
     </div>
-    <div class="d-flex flex-wrap gap-2 justify-content-center mb-4">
-      <a href="<%= edit_quote_path(@quote) %>" class="btn btn-outline-secondary">← Retour au devis</a>
-      <a href="<%= download_pdf_quote_path(@quote) %>" class="btn btn-outline-primary">Télécharger PDF</a>
-    </div>
   </div>
 </div>
-
-

@@ -1,19 +1,19 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-8">
-      <div class="card shadow-sm">
+      <div class="card shadow-sm rounded-3">
         <div class="card-body">
-          <h2 class="card-title mb-4 text-center text-primary">
-            Initialisation du devis
+          <h2 class="card-title mb-4 text-primary">
+            <i class="bi bi-file-earmark-plus me-2"></i>Commençons votre nouveau devis
           </h2>
-          <p class="text-center text-muted mb-4">
-            Renseignez les informations principales pour démarrer la création de votre devis.
+          <p class="text-muted mb-4">
+            Quelques informations clés pour commencer à chiffrer votre projet.
           </p>
 
           <%= form_for [@company, @quote], local: true do |form| %>
             <div class="mb-4">
               <%= form.label :title, "Titre du projet", class: "form-label fw-semibold" %>
-              <%= form.text_field :title, class: "form-control", placeholder: "Ex : Rénovation cuisine", required: true %>
+              <%= form.text_field :title, class: "form-control", placeholder: "Ex : Rénovation complète appartement T3", required: true %>
             </div>
 
             <div class="mb-4">
@@ -36,6 +36,3 @@
     </div>
   </div>
 </div>
-
-
-

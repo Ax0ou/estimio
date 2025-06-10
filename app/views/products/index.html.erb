@@ -1,33 +1,28 @@
-<div class="container mt-5">
+<div class="container my-5" style="max-width: 1100px;">
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="h3 mb-0">🧰 Mes produits</h1>
+    <h2 class="fw-bold mb-0">Mes produits</h2>
     <div class="d-flex gap-2">
       <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#newProductModal">➕ Nouveau produit</button>
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#importProductsModal">🪄 Générer avec l'IA</button>
     </div>
   </div>
 
-  <% if @products.any? %>
-    <div class="table-responsive shadow-sm rounded">
-      <table class="table table-striped table-hover align-middle mb-0">
-        <thead class="table-light">
-          <tr>
-            <th scope="col">Nom</th>
-            <th scope="col">Prix</th>
-            <th scope="col">Unité</th>
-            <th scope="col" class="text-end"></th>
-          </tr>
-        </thead>
-        <tbody id="products">
-          <%= render @products %>
-        </tbody>
-      </table>
-    </div>
-  <% else %>
-    <div class="alert alert-info" role="alert">
-      Aucun produit enregistré pour le moment.
-    </div>
-  <% end %>
+  <div class="mb-4 d-flex justify-content-center">
+    <%= form_with url: products_path, method: :get, local: true, class: "w-100", style: "max-width: 600px;", data: { controller: "products-search", products_search_target: "form" } do %>
+      <div class="input-group">
+        <%= search_field_tag :query, params[:query], class: "form-control form-control-lg rounded-pill shadow-sm", placeholder: "Rechercher un produit...", style: "background: #f8f9fa; border: 1px solid #e0e0e0;", id: "product-search-input", data: { action: "input->products-search#search" } %>
+        <% if params[:query].present? %>
+          <a href="<%= products_path %>" class="btn btn-link text-secondary" style="margin-left: -48px; z-index: 2;">
+            <i class="bi bi-x-circle"></i>
+          </a>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div id="products">
+    <%= render "products/table", products: @products %>
+  </div>
 </div>
 
 <div class="modal fade" id="newProductModal" tabindex="-1" aria-labelledby="newProductModalLabel" aria-hidden="true">

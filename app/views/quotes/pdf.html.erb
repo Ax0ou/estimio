@@ -1,1 +1,11 @@
-<%= render template: 'quotes/show', locals: { quote: @quote } %>
+<div class="container">
+  <%= render "quotes/quote_content", quote: @quote %>
+
+  <div class="text-center mt-5">
+    <%= link_to '📄 Télécharger le PDF', download_pdf_quote_path(@quote), class: "btn px-4 py-2", style: "background-color: #00509e; color: white; border-radius: 6px;" %>
+  </div>
+
+  <div class="text-center mt-3">
+    <%= link_to "← Retour à mes devis", company_quotes_path(@quote.company), class: "btn btn-outline-light", style: "border-radius: 6px; color: white;" %>
+  </div>
+</div>

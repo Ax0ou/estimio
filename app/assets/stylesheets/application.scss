@@ -598,3 +598,21 @@ body {
 .navbar .fw-semibold, .navbar .small {
   color: #003366 !important;
 }
+
+.section-separator td {
+  background: #f6f2e7 !important;
+  color: #1e3a8a !important;
+  font-weight: 700;
+  border-top: 2px solid #e0e0e0 !important;
+  border-bottom: 1px solid #e0e0e0 !important;
+  letter-spacing: 0.01em;
+}
+
+.table-section-separator td {
+  background: #f6f2e7 !important;
+  color: #1e3a8a !important;
+  font-weight: 700;
+  border-top: 2.5px solid #e0e0e0 !important;
+  border-bottom: 1.5px solid #e0e0e0 !important;
+  letter-spacing: 0.01em;
+}

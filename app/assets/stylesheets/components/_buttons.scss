@@ -9,59 +9,118 @@ $creme-light: #fff0d6;
 $creme-border: #ffe8b3;
 $creme-hover-border: #ffdf99;
 
-// ========== Base Mixin ========== //
-@mixin button-base {
-  border-radius: 8px;
-  font-weight: 600;
-  padding: 0.5rem 1.2rem;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  display: inline-block;
-  text-align: center;
-  line-height: 1.5;
-  border: none;
+// // ========== Base Mixin ========== //
+// @mixin button-base {
+//   border-radius: 8px;
+//   font-weight: 600;
+//   padding: 0.5rem 1.2rem;
+//   transition: all 0.3s ease;
+//   cursor: pointer;
+//   display: inline-block;
+//   text-align: center;
+//   line-height: 1.5;
+//   border: none;
 
-  &:focus-visible {
-    outline: 3px solid $blue-gradient-hover;
-    outline-offset: 2px;
-  }
-}
+//   &:focus-visible {
+//     outline: 3px solid $blue-gradient-hover;
+//     outline-offset: 2px;
+//   }
+// }
 
-// ========== Primary ========== //
 .btn-primary {
-  @include button-base;
-  background: linear-gradient(135deg, $blue-gradient-start 0%, $blue-gradient-end 100%);
-  color: white;
-
-  &:hover {
-    background: linear-gradient(135deg, $blue-gradient-end 0%, $blue-gradient-hover 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba($blue-gradient-start, 0.3);
-  }
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;           // 8px 16px
+  font-size: 0.875rem;            // 14px
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #4f46e5;      // indigo-600
+  border: none;
+  border-radius: 0.375rem;        // rounded-md
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, transform 0.15s ease;
 }
 
-// ========== Outline ========== //
+.btn-primary:hover {
+  background-color: #4338ca;      // indigo-700
+}
+
+.btn-primary:focus-visible {
+  outline: 2px solid #6366f1;     // indigo-500
+  outline-offset: 2px;
+}
+
+.btn-primary:active {
+  background-color: #3730a3;      // indigo-800
+  transform: scale(0.97);
+}
+
+
+
 .btn-outline-primary {
-  @include button-base;
+  // @include button-base;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;        // 8px 16px
+  font-size: 0.875rem;         // 14px
+  font-weight: 500;
+  color: #111827;              // text-gray-900
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;   // border-gray-300
+  border-radius: 0.375rem;     // rounded-md
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-outline-primary:hover {
+  background-color: rgba(59, 130, 246, 0.1); /* text-blue-500 @ 10% */
+  border-color: #3b82f6; /* border-blue-500 */
+  color: #1d4ed8; /* text-blue-700 */
+}
+
+.btn-outline-primary:focus-visible {
+  outline: 2px solid #3b82f6;  // ring-blue-500
+  outline-offset: 2px;
+}
+
+.btn-outline-primary:active {
+  background-color: #f3f4f6;   // active:bg-gray-100
+  transform: scale(0.98);
+}
+
+.btn-outline-primary.btn-sm {
+  padding: 0.25rem 0.75rem;    // 4px 12px
+  font-size: 0.8125rem;        // ~13px
+}
+
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem; // ajuste selon ton design
+  border-radius: 0.5rem;
+  border: 1px solid transparent;
   background-color: white;
-  color: $blue;
-  border: 2px solid $blue;
+  font-size: 1rem;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.btn-danger {
+  color: #dc2626; // text-red-600
 
   &:hover {
-    background-color: #eaf1fe;
-    color: $blue-gradient-hover;
-    border-color: $blue-gradient-hover;
-  }
-
-  &.btn-sm {
-    padding: 0.2rem 0.8rem;
-    font-size: 0.875rem;
+    background-color: rgba(220, 38, 38, 0.1); // bg-red-100
+    color: #b91c1c; // text-red-700
   }
 }
+
 
 // ========== Crème filled ========== //
 .btn-creme-filled {
-  @include button-base;
+  // @include button-base;
   background-color: $creme;
   color: $blue;
   border: 1px solid $creme-border;
@@ -75,7 +134,7 @@ $creme-hover-border: #ffdf99;
 
 // ========== Crème outline ========== //
 .btn-creme-outline {
-  @include button-base;
+  // @include button-base;
   background-color: transparent;
   color: $creme;
   border: 1px solid $creme;

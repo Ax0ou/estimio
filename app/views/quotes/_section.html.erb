@@ -12,11 +12,11 @@
     <div class="sticky-header bg-light py-2 rounded bg-white" style="position: sticky; top: 0; z-index: 100;">
       <div class="row align-items-center">
         <div class="col-auto" style="width: 40px;"></div>
-        <div class="col-md-4 ms-5">Description</div>
-        <div class="col-md-1 push">Quantité</div>
-        <div class="col-md-1 ms-5px">Unité</div>
-        <div class="col-md-2 px-0 ms-2">Prix unitaire</div>
-        <div class="col-md-2 px-0">Prix total</div>
+        <div class="col-md-6" style="margin-left: 51px; margin-right: -10px">Description</div>
+        <div class="col-md-1 push" style="padding-left: 13px;">Quantité</div>
+        <div class="col-md-1" style="padding-left: 11px">Unité</div>
+        <div class="col-md-1" style="padding-left: 8px">Prix unit.</div>
+        <div class="col-md-1" style="padding-left: 5px">Prix total</div>
       </div>
     </div>
 
@@ -44,11 +44,22 @@
         <div data-controller="audio-recorder">
           <%= simple_form_for :transcript, url: add_line_items_with_llm_section_path(section), html: { data: { controller: "form-validation", action: "submit->form-validation#validate" } } do |f| %>
             <%= f.input :text,
-                        label: "Décrivez les éléments à ajouter (vous pouvez aussi utiliser le micro) :",
-                        required: false,
-                        input_html: { data: { "audio-recorder-target": "textArea", "form-validation-target": "input" }, rows: 3, class: "form-control-sm" },
-                        placeholder: "Ex: Deux heures de ponçage et la mise en peinture de cinq mètres carrés de mur en blanc...",
-                        label_html: { class: "form-label" } %>
+            as: :text,
+            label: "Décrivez les éléments à ajouter (vous pouvez aussi utiliser le micro) :",
+            required: false,
+            input_html: {
+              rows: 1,
+              class: "form-control",
+              data: {
+                controller: "auto-expand",
+                action: "input->auto-expand#resize",
+                "audio-recorder-target": "textArea",
+                "form-validation-target": "input"
+              }
+            },
+            placeholder: "Ex: Deux heures de ponçage et la mise en peinture de cinq mètres carrés de mur en blanc...",
+            label_html: { class: "form-label" } %>
+
             <div class="invalid-feedback" data-form-validation-target="error"></div>
 
             <div class="d-flex gap-2 align-items-center mt-2">

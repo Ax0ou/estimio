@@ -1,0 +1,164 @@
+// ========== Variables ========== //
+$blue: #1e3a8a;
+$blue-dark: #0f2557;
+$blue-gradient-start: #0d6efd;
+$blue-gradient-end: #0b5ed7;
+$blue-gradient-hover: #0a58ca;
+$creme: #fff8e7;
+$creme-light: #fff0d6;
+$creme-border: #ffe8b3;
+$creme-hover-border: #ffdf99;
+
+// ========== Base Mixin ========== //
+@mixin button-base {
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 0.5rem 1.2rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  line-height: 1.5;
+  border: none;
+
+  &:focus-visible {
+    outline: 3px solid $blue-gradient-hover;
+    outline-offset: 2px;
+  }
+}
+
+// ========== Primary ========== //
+.btn-primary {
+  @include button-base;
+  background: linear-gradient(135deg, $blue-gradient-start 0%, $blue-gradient-end 100%);
+  color: white;
+
+  &:hover {
+    background: linear-gradient(135deg, $blue-gradient-end 0%, $blue-gradient-hover 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba($blue-gradient-start, 0.3);
+  }
+}
+
+// ========== Outline ========== //
+.btn-outline-primary {
+  @include button-base;
+  background-color: white;
+  color: $blue;
+  border: 2px solid $blue;
+
+  &:hover {
+    background-color: #eaf1fe;
+    color: $blue-gradient-hover;
+    border-color: $blue-gradient-hover;
+  }
+
+  &.btn-sm {
+    padding: 0.2rem 0.8rem;
+    font-size: 0.875rem;
+  }
+}
+
+// ========== Crème filled ========== //
+.btn-creme-filled {
+  @include button-base;
+  background-color: $creme;
+  color: $blue;
+  border: 1px solid $creme-border;
+
+  &:hover {
+    background-color: $creme-light;
+    color: $blue-dark;
+    border-color: $creme-hover-border;
+  }
+}
+
+// ========== Crème outline ========== //
+.btn-creme-outline {
+  @include button-base;
+  background-color: transparent;
+  color: $creme;
+  border: 1px solid $creme;
+
+  &:hover {
+    background-color: $creme;
+    color: $blue;
+    border-color: $creme-border;
+  }
+}
+
+
+
+
+// .btn-creme-filled {
+//   background-color: #fff8e7;
+//   border: 1px solid #ffe8b3;
+//   color: #1e3a8a;
+//   font-weight: 600;
+//   transition: background-color 0.3s ease, color 0.3s ease;
+
+//   &:hover {
+//     background-color: #fff0d6;
+//     color: #0f2557;
+//     border-color: #ffdf99;
+//   }
+// }
+
+// .btn-creme-outline {
+//   background-color: transparent;
+//   border: 1px solid #fff8e7;
+//   color: #fff8e7;
+//   font-weight: 500;
+
+//   &:hover {
+//     background-color: #fff8e7;
+//     color: #1e3a8a;
+//     border-color: #ffe8b3;
+//   }
+// }
+
+// .btn-primary,
+// .btn-outline-primary,
+// .btn-dark,
+// .btn-outline-secondary {
+//   border-radius: 8px;
+//   font-weight: 600;
+// }
+
+// .btn-outline-primary {
+//   transition: all 0.3s ease;
+
+//   &:hover {
+//     background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 100%);
+//     transform: translateY(-1px);
+//     box-shadow: 0 4px 8px rgba(13, 110, 253, 0.2);
+//   }
+// }
+
+// .btn-primary {
+//   background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 100%);
+//   border: none;
+//   transition: all 0.3s ease;
+
+//   &:hover {
+//     background: linear-gradient(135deg, #0b5ed7 0%, #0a58ca 100%);
+//     transform: translateY(-2px);
+//     box-shadow: 0 6px 12px rgba(13, 110, 253, 0.3);
+//   }
+// }
+
+// .btn-outline-primary.btn-sm {
+//   border-radius: 8px;
+//   font-weight: 600;
+//   border-width: 2px;
+//   padding: 0.2rem 0.8rem;
+//   color: #1e3a8a;
+//   background: #fff;
+//   transition: all 0.2s;
+
+//   &:hover {
+//     background: #eaf1fe;
+//     color: #0a58ca;
+//     border-color: #0a58ca;
+//   }
+// }

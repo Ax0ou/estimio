@@ -1,0 +1,43 @@
+.input-creme {
+  background-color: #fff8e7;
+  border: 1px solid #ffe8b3;
+  color: #1e3a8a;
+
+  &::placeholder {
+    color: #aaa;
+  }
+
+  &:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+}
+
+.form-control {
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  transition: all 0.3s ease;
+
+  &:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+  }
+}
+
+.new-line-item input,
+.new-line-item select,
+.new-line-item textarea {
+  border: 2px solid #cecece;
+}
+
+input.is-valid,
+select.is-valid,
+textarea.is-valid,
+.form-control.is-valid,
+.form-select.is-valid,
+.was-validated .form-control:valid,
+.was-validated .form-select:valid {
+  border-color: inherit !important;
+  box-shadow: none !important;
+  background-image: none !important; // supprime la coche verte
+}

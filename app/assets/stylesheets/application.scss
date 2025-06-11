@@ -660,6 +660,7 @@ body {
 .fa-regular {
   color: red;
   font-size: larger;
+}
 
 .section-separator td {
   background: #f6f2e7 !important;
@@ -680,9 +681,8 @@ body {
 
 }
 
-// .fa-regular:hover {
-//   color: white;
-//   background-color: red;
-//   border-radius: 50%;
-// }
+.new-line-item input,
+.new-line-item select,
+.new-line-item textarea {
+  border: 2px solid #cecece; /* gris foncé Bootstrap par défaut */
 }

@@ -1,4 +1,4 @@
-<div class="container d-flex justify-content-center align-items-start" style="background: #f6f2e7; border: none !important; box-shadow: none !important; padding: 0; margin: 0;">
+<div class="container d-flex justify-content-center align-items-start" style="background: #ffffff; border: none !important; box-shadow: none !important; padding: 0; margin: 0;">
   <div class="shadow-lg rounded-4 p-0" style="width: 100%; background: #f9f9f7; border: 1px solid #e0e0e0;">
     <!-- En-tête -->
     <div class="d-flex justify-content-between align-items-center p-2 border-bottom" style="background: #f6f2e7; border-radius: 12px 12px 0 0;">
@@ -19,7 +19,7 @@
     </div>
 
     <!-- Info devis et client -->
-    <div class="p-2">
+    <div class="py-2">
       <div class="row g-2 mb-2">
         <div class="col-12">
           <div class="bg-white rounded-3 shadow-sm p-2 mb-2 border w-100" style="min-height: auto;">
@@ -32,15 +32,15 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-4" style="float: left; padding-left: 3rem;">
           <div class="bg-white rounded-3 shadow-sm p-2 border mb-2">
             <div class="fw-semibold text-muted mb-1" style="font-size: 11px;">Devis</div>
             <div class="fw-bold mb-1" style="font-size: 12px;">DEVIS-<%= @quote.id.to_s.rjust(7, '0') %></div>
-            <div style="font-size: 10px;"><i class="bi bi-calendar-event me-1"></i>Date: <%= l(@quote.created_at.to_date) %></div>
-            <div style="font-size: 10px;"><i class="bi bi-clock-history me-1"></i>Validité: <%= @quote.validity_duration.presence || "30 jours" %></div>
+            <div style="font-size: 10px;">Date: <%= l(@quote.created_at.to_date) %></div>
+            <div style="font-size: 10px;">Validité: <%= @quote.validity_duration.presence || "30 jours" %></div>
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-4" style="float: right; padding-left: 4rem;">
           <div class="bg-white rounded-3 shadow-sm p-2 border mb-2">
             <div class="fw-semibold text-muted mb-1" style="font-size: 11px;">Client</div>
             <div class="fw-bold mb-1" style="font-size: 12px;"><%= @quote.client.first_name %> <%= @quote.client.last_name %></div>
@@ -53,7 +53,7 @@
     </div>
 
     <!-- Tableau des prestations -->
-    <div class="p-2 rounded-3 shadow mb-2" style="background-color: #fffaf4;">
+    <div class="p-2 rounded-3 shadow mb-2" style="background-color: #fffaf4; margin-top: 80px;">
       <div class="table-responsive">
         <table class="table align-middle mb-0" style="border-radius: 8px; overflow: hidden; font-size: 9px;">
           <thead style="background: #1e3a8a; color: #fff;">
@@ -88,8 +88,25 @@
     </div>
 
     <!-- Mentions légales et totaux -->
-    <div class="d-flex flex-row flex-wrap justify-content-between align-items-stretch gap-2 mb-2 mx-2">
-      <div class="bg-white rounded-3 shadow-sm p-2 border text-center" style="min-width: 45%; max-width: 48%; flex: 1 1 48%;">
+    <div style="margin-bottom: 100px;">
+      <div class="d-flex flex-row flex-wrap justify-content-between align-items-stretch mb-2">
+        <div class="bg-white rounded-3 shadow-sm p-2 border d-flex flex-column justify-content-between align-items-end text-end" style="min-width: 45%; max-width: 48%; flex: 1 1 48%; margin-left: auto; float: right;">
+          <div class="d-flex justify-content-between mb-1 w-100" style="font-size: 10px;">
+            <span class="fw-semibold">Sous-total HT:</span>
+            <span><%= number_to_currency(@quote.total_ht, unit: "€", separator: ",", delimiter: " ") %></span>
+          </div>
+          <div class="d-flex justify-content-between mb-1 w-100" style="font-size: 10px;">
+            <span class="fw-semibold">TVA (10%)</span>
+            <span><%= number_to_currency((@quote.total_ttc - @quote.total_ht).round(2), unit: "€", separator: ",", delimiter: " ") %></span>
+          </div>
+          <hr style="margin: 3px 0; width: 100%;">
+          <div class="d-flex justify-content-between align-items-center w-100">
+            <span class="fw-bold" style="font-size: 12px;">Total TTC:</span>
+            <span class="fw-bold text-primary" style="font-size: 12px;"><%= number_to_currency(@quote.total_ttc.round(2), unit: "€", separator: ",", delimiter: " ") %></span>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white rounded-3 shadow-sm p-2 border text-center" style="min-width: 45%; max-width: 48%; flex: 1 1 48%; margin: 0 auto; float: left;">
         <div class="fw-semibold mb-1" style="font-size: 11px;">Mentions légales</div>
         <div style="font-size: 9px;">
           Estimio SARL - SIRET 123 456 789 00102 - RCS Paris B 123 456 789<br>
@@ -97,37 +114,44 @@
           12 rue des Entrepreneurs, 75015 Paris
         </div>
       </div>
-      <div class="bg-white rounded-3 shadow-sm p-2 border d-flex flex-column justify-content-between align-items-end text-end" style="min-width: 45%; max-width: 48%; flex: 1 1 48%; margin-left: auto;">
-        <div class="d-flex justify-content-between mb-1 w-100" style="font-size: 10px;">
-          <span class="fw-semibold">Sous-total HT:</span>
-          <span><%= number_to_currency(@quote.total_ht, unit: "€", separator: ",", delimiter: " ") %></span>
-        </div>
-        <div class="d-flex justify-content-between mb-1 w-100" style="font-size: 10px;">
-          <span class="fw-semibold">TVA (10%)</span>
-          <span><%= number_to_currency((@quote.total_ttc - @quote.total_ht).round(2), unit: "€", separator: ",", delimiter: " ") %></span>
-        </div>
-        <hr style="margin: 3px 0; width: 100%;">
-        <div class="d-flex justify-content-between align-items-center w-100">
-          <span class="fw-bold" style="font-size: 12px;">Total TTC:</span>
-          <span class="fw-bold text-primary" style="font-size: 12px;"><%= number_to_currency(@quote.total_ttc.round(2), unit: "€", separator: ",", delimiter: " ") %></span>
-        </div>
-      </div>
     </div>
 
     <!-- Conditions (horizontal) -->
-    <div class="d-flex flex-row flex-wrap justify-content-between align-items-stretch gap-2 mb-2 mx-2">
-      <div class="bg-white rounded-3 shadow-sm p-2 h-100 border flex-fill text-center" style="min-width: 0;">
-        <div class="fw-semibold mb-1" style="font-size: 11px;"><i class="bi bi-clock-history me-1"></i>Délai d'exécution</div>
-        <div style="font-size: 10px;">Sous 15 jours après réception de l'accord</div>
-      </div>
-      <div class="bg-white rounded-3 shadow-sm p-2 h-100 border flex-fill text-center" style="min-width: 0;">
-        <div class="fw-semibold mb-1" style="font-size: 11px;"><i class="bi bi-credit-card-2-front me-1"></i>Conditions de paiement</div>
-        <div style="font-size: 10px;">30% à la commande, solde à la livraison</div>
-      </div>
-      <div class="bg-white rounded-3 shadow-sm p-2 h-100 border flex-fill text-center" style="min-width: 0;">
-        <div class="fw-semibold mb-1" style="font-size: 11px;"><i class="bi bi-calendar-check me-1"></i>Validité de l'offre</div>
-        <div style="font-size: 10px;">Ce devis est valable 30 jours à compter de sa date d'émission</div>
-      </div>
-    </div>
+    <table style="width: 100%; border-collapse: collapse; table-layout: fixed;">
+      <tr>
+        <!-- Bloc 1 -->
+        <td style="padding: 10px; vertical-align: top;">
+          <div style="background-color: white; border-radius: 0.5rem; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); padding: 8px; text-align: center; height: 75px;">
+            <div style="font-weight: 600; font-size: 11px; margin-bottom: 6px;">
+              <i class="bi bi-clock-history" style="margin-right: 4px;"></i>Délai d'exécution
+            </div>
+            <div style="font-size: 10px;">Sous 15 jours après réception de l'accord</div>
+          </div>
+        </td>
+
+        <!-- Bloc 2 -->
+        <td style="padding: 10px; vertical-align: top;">
+          <div style="background-color: white; border-radius: 0.5rem; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); padding: 8px; text-align: center; height: 75px;">
+            <div style="font-weight: 600; font-size: 11px; margin-bottom: 6px;">
+              <i class="bi bi-credit-card-2-front" style="margin-right: 4px;"></i>Conditions de paiement
+            </div>
+            <div style="font-size: 10px;">30% à la commande, solde à la livraison</div>
+          </div>
+        </td>
+
+        <!-- Bloc 3 -->
+        <td style="padding: 10px; vertical-align: top;">
+          <div style="background-color: white; border-radius: 0.5rem; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); padding: 8px; text-align: center; height: 75px;">
+            <div style="font-weight: 600; font-size: 11px; margin-bottom: 6px;">
+              <i class="bi bi-calendar-check" style="margin-right: 4px;"></i>Validité de l'offre
+            </div>
+            <div style="font-size: 10px;">Ce devis est valable 30 jours à compter de sa date d'émission</div>
+          </div>
+        </td>
+      </tr>
+    </table>
+
   </div>
+
+
 </div>

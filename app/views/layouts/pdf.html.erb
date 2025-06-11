@@ -5,12 +5,8 @@
   <meta charset="UTF-8">
   <%= wicked_pdf_stylesheet_link_tag "application" -%>
   <%= wicked_pdf_javascript_include_tag 'application' %>
+
   <style>
-    /* Réglages de base pour le format A4 */
-    @page {
-      size: A4;
-      margin: 10mm; /* Marges réduites */
-    }
 
     body {
       margin: 0;
@@ -21,7 +17,6 @@
 
     .container {
       width: 100%;
-      max-width: 760px; /* Légèrement inférieur à 210mm pour tenir compte des marges */
       padding: 10px !important; /* Réduction des paddings */
       margin: 0 auto;
       box-sizing: border-box;
@@ -112,8 +107,6 @@
   </style>
 </head>
 <body>
-  <div class="quote">
-    <%= yield %>
-  </div>
+  <%= yield %>
 </body>
 </html>

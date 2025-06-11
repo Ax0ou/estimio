@@ -635,30 +635,6 @@ body {
   }
 }
 
-.navbar, .navbar.navbar-light, .navbar.bg-custom-blue, .navbar.bg-white, .navbar.navbar-expand-lg {
-  background: #fff !important;
-  border-bottom: 1.5px solid #e0e0e0 !important;
-  box-shadow: 0 2px 8px rgba(30,58,138,0.04);
-}
-
-.navbar .navbar-brand, .navbar .nav-link, .navbar .navbar-brand.text-primary {
-  color: #1e3a8a !important;
-}
-
-.navbar .nav-link.active, .navbar .nav-link:focus, .navbar .nav-link:hover {
-  color: #0a58ca !important;
-  background: #f5f5f5 !important;
-  border-radius: 8px;
-}
-
-.navbar .text-creme, .navbar .btn-creme-outline, .navbar .btn-creme-filled {
-  color: #fff8e7 !important;
-}
-
-.navbar .fw-semibold, .navbar .small {
-  color: #003366 !important;
-}
-
 .fa-regular {
   color: red;
   font-size: larger;

@@ -6,16 +6,16 @@
     <i class="bi bi-x-lg"></i>
   <% end %>
 
-  <h4><strong><%= section.description %></strong></h4>
+  <h4 class="ms-3 mt-3 mb-3"><strong><%= section.description %></strong></h4>
 
   <div class="line-items" data-section-id="<%= section.id %>" data-controller="line-items">
     <div class="sticky-header bg-light py-2 rounded bg-white" style="position: sticky; top: 0; z-index: 100;">
       <div class="row align-items-center">
         <div class="col-auto" style="width: 40px;"></div>
-        <div class="col-md-4">Description</div>
-        <div class="col-md-1 px-0 push">Quantité</div>
-        <div class="col-md-1 px-0 push">Unité</div>
-        <div class="col-md-2 px-0 push">Prix unitaire</div>
+        <div class="col-md-4 ms-5">Description</div>
+        <div class="col-md-1 push">Quantité</div>
+        <div class="col-md-1 ms-5px">Unité</div>
+        <div class="col-md-2 px-0 ms-2">Prix unitaire</div>
         <div class="col-md-2 px-0">Prix total</div>
       </div>
     </div>
@@ -34,7 +34,7 @@
 
     <%= render "quotes/line_item", line_item: section.line_items.new, class:"ml-2" %>
 
-    <div class="mt-4 ai-section-card border-no bg-white">
+    <div class="container mt-4 ai-section-card border-no bg-white" style="padding-left: 78px; padding-right: 145px;">
       <%= render "quotes/section_total", section: section %>
     </div>
 
@@ -79,7 +79,7 @@
 
   </div>
 
-  <div data-ia-loading-target="overlay" style="position: absolute; bottom: 0px; right: 0px; left: 0px; top: 0px; background: rgba(254, 254, 254, 0.97); z-index: 10000; display: flex; justify-content: center; align-items: center; display: none" id="loading-animation">
+  <div data-ia-loading-target="overlay" style="position: absolute; bottom: 0px; right: 0px; left: 0px; top: 0px; background: rgba(254, 254, 254, 0.97); z-index: 10000; opacity:70; display: flex; justify-content: center; align-items: center; display: none" id="loading-animation">
     <dotlottie-player src="https://lottie.host/2e5e2561-9557-4430-b68d-1739dbcffc02/IgRMPqhTrX.json" background="transparent" speed="1" style="width: 300px; height: 300px" loop autoplay></dotlottie-player>
   </div>
 </div>

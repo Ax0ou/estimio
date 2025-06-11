@@ -1,5 +1,5 @@
 <div id="<%= dom_id(line_item, line_item.persisted? ? nil : "new_line_item_for_section_#{line_item.section_id}") %>"
-     class="line-item-card mb-2 bg-white"
+     class="line-item-card mb-2 bg-white <%= 'new-line-item' unless line_item.persisted? %>"
      data-line-items-target="item"
      data-controller="line-item-calculator">
   <%= simple_form_for line_item.persisted? ? line_item : [line_item.section, line_item],
@@ -14,12 +14,16 @@
 
     <% if line_item.persisted? %>
       <div class="col-auto handle" style="cursor: grab; touch-action: none;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-grip-vertical" viewBox="0 0 16 16">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-grip-vertical ms-5" viewBox="0 0 16 16">
           <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
         </svg>
       </div>
     <% else %>
-      <div class="col-auto" style="width: 24px;"></div>
+      <div class="col-auto handle" style="touch-action: none; opacity: 0;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-grip-vertical ms-5" viewBox="0 0 16 16">
+          <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+        </svg>
+      </div>
     <% end %>
 
     <div class="col-md-4" data-controller="description-expander">
@@ -88,14 +92,12 @@
           <i class="fa-regular fa-circle-xmark"></i>
         <% end %>
       <% else %>
-
-
-
-      <div class="line-item-button-container position-relative">
-        <p>+</p>
-        <%= f.submit "", class: "btn btn-sm line-item-button", style: "width: 30px"%>
-      </div>
-
+    <div class="line-item-button-container">
+      <%= f.submit '', class: "d-none" %>
+      <label for="<%= f.object_name %>_submit" class="custom-plus-btn" style="cursor:pointer;">
+        <i class="fa-regular fa-square-plus fa-lg text-primary custom-plus-icon" style="margin-left: 1.5px;"></i>
+      </label>
+    </div>
       <% end %>
     </div>
   <% end %>

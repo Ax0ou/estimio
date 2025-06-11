@@ -36,7 +36,7 @@
             class: "form-control form-control-sm description-field bg-white rounded-3", # Classe pour le style et JS
             rows: 1, # Hauteur initiale d'une ligne
             "data-description-expander-target": "field",
-            "data-action": "mouseenter->description-expander#handleMouseEnter mouseleave->description-expander#handleMouseLeave focus->description-expander#handleFocus blur->description-expander#handleBlur"
+            "data-action": "#{ 'mouseenter->description-expander#handleMouseEnter mouseleave->description-expander#handleMouseLeave focus->description-expander#handleFocus blur->description-expander#handleBlur' if line_item.persisted? }"
           } %>
     </div>
 
@@ -92,12 +92,11 @@
           <i class="fa-regular fa-circle-xmark"></i>
         <% end %>
       <% else %>
-    <div class="line-item-button-container">
-      <%= f.submit '', class: "d-none" %>
-      <label for="<%= f.object_name %>_submit" class="custom-plus-btn" style="cursor:pointer;">
-        <i class="fa-regular fa-square-plus fa-lg text-primary custom-plus-icon" style="margin-left: 1.5px;"></i>
-      </label>
-    </div>
+      <div class="line-item-button-container">
+        <button type="submit" class="custom-plus-btn" style="padding: 0; border: none; background: none;">
+          <i class="fa-regular fa-square-plus fa-lg text-primary custom-plus-icon" style="margin-left: 1.5px;"></i>
+        </button>
+      </div>
       <% end %>
     </div>
   <% end %>

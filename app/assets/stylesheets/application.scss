@@ -475,6 +475,8 @@ body {
   .form-select.is-valid {
     border-color: #ced4da !important;
     background-image: none !important;
+    padding-right: 8px !important;
+    width: 100% !important;
 
     &:focus {
       border-color: #86b7fe !important;

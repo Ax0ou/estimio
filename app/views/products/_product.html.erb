@@ -17,22 +17,22 @@
       <%= f.select :unit, Product::UNIT_LABELS.map { |k, v| [v, k] }, {}, class: "d-none form-select form-select-sm", data: { editable_row_target: "form" }, selected: product.unit, form: "product-form-#{product.id}" %>
     </td>
     <!-- Actions -->
-    <td class="text-end">
+    <td class="text-end pe-3">
       <!-- Mode affichage -->
-      <div data-editable-row-target="display" class="d-flex justify-content-end gap-2">
-        <button type="button" class="btn btn-sm btn-outline-primary d-flex align-items-center gap-1" data-action="click->editable-row#edit" title="Modifier">
+      <div data-editable-row-target="display" class="d-flex gap-1 justify-content-end">
+        <button type="button" class="btn btn-sm btn-outline-primary" data-action="click->editable-row#edit" title="Modifier">
           <i class="bi bi-pencil"></i>
         </button>
-        <%= link_to product_path(product), data: { turbo_method: :delete, turbo_confirm: "Supprimer ce produit ?" }, class: "btn-icon btn-sm btn-danger d-flex align-items-center gap-1", form: "product-form-#{product.id}", title: "Supprimer" do %>
-          <i class="bi bi-trash3-fill"></i>
+        <%= link_to product_path(product), data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr(e) de vouloir supprimer ce produit ?" }, class: "btn btn-sm btn-outline-danger", form: "product-form-#{product.id}", title: "Supprimer" do %>
+          <i class="bi bi-trash3"></i>
         <% end %>
       </div>
       <!-- Mode édition -->
-      <div class="d-none d-flex gap-2 align-items-center mb-0" data-editable-row-target="form">
-        <button type="submit" form="<%= "product-form-#{product.id}" %>" class="btn btn-sm btn-success d-flex align-items-center gap-1" title="Enregistrer">
-          <i class="bi bi-check-circle-fill"></i>
+      <div class="d-none d-flex gap-1 justify-content-end" data-editable-row-target="form">
+        <button type="submit" form="<%= "product-form-#{product.id}" %>" class="btn btn-sm btn-success" title="Enregistrer">
+          <i class="bi bi-check-circle"></i>
         </button>
-        <button type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1" data-action="click->editable-row#cancel" title="Annuler">
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-action="click->editable-row#cancel" title="Annuler">
           <i class="bi bi-x-circle"></i>
         </button>
       </div>

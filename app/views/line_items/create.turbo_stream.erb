@@ -2,7 +2,7 @@
   partial: "quotes/line_item",
   locals: { line_item: @line_item }) %>
 
-<%= turbo_stream.replace("section_#{@line_item.section.id}_new_line_item",
+<%= turbo_stream.replace("new_line_item_for_section_#{@line_item.section_id}_line_item",
   partial: "quotes/line_item",
   locals: { line_item: @line_item.section.line_items.new }) %>
 
@@ -10,7 +10,7 @@
   partial: "quotes/section_total",
   locals: { section: @section } %>
 
-<%= turbo_stream.invoke("ia-loading#hide") %>
+<%#= turbo_stream.invoke("ia-loading#hide") %>
 
 <%= turbo_stream.replace "quote-total",
   partial: "quotes/quote_total",

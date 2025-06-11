@@ -26,10 +26,16 @@
               <td><%= client.address %></td>
               <td><%= client.created_at.strftime("%d/%m/%Y") %></td>
               <td class="text-end">
-                <%= link_to "🧾", client_path(client), class: "btn btn-sm btn-outline-primary me-2 rounded-0" %>
-                <%= link_to "✏️", edit_client_path(client), class: "btn btn-sm btn-outline-secondary me-2" %>
-                <%= link_to "🗑️", client_path(client), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn btn-sm btn-outline-danger" %>
-            </td>
+                <%= link_to client_path(client), class: "btn btn-sm btn-outline-primary rounded me-2", title: "Voir" do %>
+                  <i class="bi bi-eye"></i>
+                <% end %>
+                <%= link_to edit_client_path(client), class: "btn btn-sm btn-outline-primary rounded me-2", title: "Modifier" do %>
+                  <i class="bi bi-pencil-square"></i>
+                <% end %>
+                <button type="button" class="btn btn-sm btn-outline-danger rounded" title="Supprimer" data-bs-toggle="modal" data-bs-target="#deleteModal" data-client-id="<%= client.id %>" data-client-name="<%= client.first_name %> <%= client.last_name %>">
+                  <i class="bi bi-trash3"></i>
+                </button>
+              </td>
             </tr>
           <% end %>
         </tbody>
@@ -41,3 +47,53 @@
     </div>
   <% end %>
 </div>
+
+<!-- Modal de confirmation de suppression -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0 pb-0">
+        <h5 class="modal-title text-danger" id="deleteModalLabel">
+          <i class="bi bi-exclamation-triangle me-2"></i>Confirmer la suppression
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body pt-2">
+        <p class="mb-3">Êtes-vous sûr(e) de vouloir supprimer le client <strong id="clientName"></strong> ?</p>
+        <div class="alert alert-warning d-flex align-items-center" role="alert">
+          <i class="bi bi-info-circle me-2"></i>
+          <small>Cette action est irréversible et supprimera également tous les devis associés à ce client.</small>
+        </div>
+      </div>
+      <div class="modal-footer border-0 pt-0">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Annuler</button>
+        <form id="deleteForm" method="post" class="d-inline">
+          <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+          <input type="hidden" name="_method" value="delete">
+          <button type="submit" class="btn btn-outline-danger">
+            <i class="bi bi-trash3 me-1"></i>Supprimer définitivement
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const deleteModal = document.getElementById('deleteModal');
+    const deleteForm = document.getElementById('deleteForm');
+    const clientNameSpan = document.getElementById('clientName');
+
+    if (deleteModal) {
+      deleteModal.addEventListener('show.bs.modal', function(event) {
+        const button = event.relatedTarget;
+        const clientId = button.getAttribute('data-client-id');
+        const clientName = button.getAttribute('data-client-name');
+
+        clientNameSpan.textContent = clientName;
+        deleteForm.action = `/clients/${clientId}`;
+      });
+    }
+  });
+</script>

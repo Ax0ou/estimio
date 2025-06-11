@@ -26,7 +26,7 @@
       </div>
     <% end %>
 
-    <div class="col-md-4" data-controller="description-expander">
+    <div class="col-md-6" data-controller="description-expander">
       <%= f.input :description,
           as: :text, # Assure que c'est un textarea
           wrapper: false,
@@ -61,7 +61,7 @@
           include_blank: false %>
     </div>
 
-    <div class="col-md-2">
+    <div class="col-md-1">
       <%= f.input :price_per_unit,
           wrapper: false,
           label: false,
@@ -74,7 +74,7 @@
           } %>
     </div>
 
-    <div class="col-md-2">
+    <div class="col-md-1">
       <%= f.input :price,
           wrapper: false,
           label: false,

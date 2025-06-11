@@ -81,8 +81,12 @@ export default class extends Controller {
       })
 
       const data = await response.json()
+
       if (data.text) {
         this.textAreaTarget.value = data.text
+        this.textAreaTarget.style.height = "auto"
+        this.textAreaTarget.style.height = `${this.textAreaTarget.scrollHeight}px`
+
       } else {
         alert("Erreur lors de la transcription.")
       }

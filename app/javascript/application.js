@@ -1,7 +1,6 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
 import "@hotwired/turbo-rails"
 import "controllers"
-import "bootstrap"
 
 // import "bootstrap"
 
@@ -84,28 +83,3 @@ import "bootstrap"
 //     };
 //   }
 // }
-
-// Global modal backdrop cleanup for Turbo navigation
-function cleanupModalBackdrops() {
-  // Remove all modal backdrops
-  const backdrops = document.querySelectorAll('.modal-backdrop');
-  backdrops.forEach(backdrop => backdrop.remove());
-
-  // Reset body classes and styles
-  document.body.classList.remove('modal-open');
-  document.body.style.overflow = '';
-  document.body.style.paddingRight = '';
-  document.body.style.marginRight = '';
-}
-
-// Clean up on page load
-document.addEventListener('DOMContentLoaded', cleanupModalBackdrops);
-
-// Clean up before Turbo navigation
-document.addEventListener('turbo:before-visit', cleanupModalBackdrops);
-
-// Clean up after Turbo navigation
-document.addEventListener('turbo:load', cleanupModalBackdrops);
-
-// Clean up on page unload
-window.addEventListener('beforeunload', cleanupModalBackdrops);

@@ -120,19 +120,19 @@
       <div class="col-md-4">
         <div class="bg-white rounded-4 shadow-sm p-3 h-100 border d-flex flex-column justify-content-between">
           <div class="fw-semibold mb-1"><i class="bi bi-clock-history me-1"></i>Délai d’exécution</div>
-          <div class="small text-muted flex-grow-1">Sous 15 jours après réception de l’accord</div>
+          <div class="small text-muted flex-grow-1"><%= @quote.execution_delay.presence || "Sous 15 jours après réception de l’accord" %></div>
         </div>
       </div>
       <div class="col-md-4">
         <div class="bg-white rounded-4 shadow-sm p-3 h-100 border d-flex flex-column justify-content-between">
           <div class="fw-semibold mb-1"><i class="bi bi-credit-card-2-front me-1"></i>Conditions de paiement</div>
-          <div class="small text-muted flex-grow-1">30% à la commande, solde à la livraison</div>
+          <div class="small text-muted flex-grow-1"><%= @quote.payment_terms.presence || "30% à la commande, solde à la livraison" %></div>
         </div>
       </div>
       <div class="col-md-4">
         <div class="bg-white rounded-4 shadow-sm p-3 h-100 border d-flex flex-column justify-content-between">
           <div class="fw-semibold mb-1"><i class="bi bi-calendar-check me-1"></i>Validité de l’offre</div>
-          <div class="small text-muted flex-grow-1">Ce devis est valable 30 jours à compter de sa date d’émission</div>
+          <div class="small text-muted flex-grow-1"><%= @quote.validity_duration.presence || "Ce devis est valable 30 jours à compter de sa date d’émission" %></div>
         </div>
       </div>
     </div>

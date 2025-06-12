@@ -20,7 +20,7 @@
     <div class="p-4 pb-0">
       <div class="row g-3 mb-4">
         <div class="col-12">
-          <div class="bg-white rounded-4 shadow-sm p-4 mb-2 border w-100" style="min-height: 90px; max-width: none;">
+          <div class="bg-white rounded-4 shadow-sm p-4 border mb-2" style="min-height: 90px; max-width: none;">
             <div class="d-flex flex-column align-items-center gap-2 mb-2">
               <i class="bi bi-folder2-open text-primary fs-4"></i>
               <div class="text-center w-100">
@@ -41,7 +41,7 @@
         <div class="col-md-6">
           <div class="bg-white rounded-4 shadow-sm p-4 border mb-2">
             <div class="fw-semibold text-muted mb-1">Client</div>
-            <div class="fs-5 fw-bold mb-1"><%= @quote.client.first_name %> <%= @quote.client.last_name %></div>
+            <div class="fs-5 fw-bold mb-2"><%= @quote.client.first_name %> <%= @quote.client.last_name %></div>
             <div class="small text-muted mb-1"><%= @quote.client.address %></div>
             <div class="small text-muted"><%= @quote.client.email %></div>
             <div class="small text-muted"><%= @quote.client.phone_number %></div>
@@ -53,7 +53,7 @@
     <div class="p-4 rounded-4 shadow mb-4" style="background-color: #fffaf4;">
       <div class="table-responsive">
         <table class="table align-middle mb-0" style="border-radius: 12px; overflow: hidden;">
-          <thead style="background: #1e3a8a; color: #fff;">
+          <thead style="color: #fff;">
             <tr>
               <th style="border-top-left-radius: 12px;">Description</th>
               <th>Quantité</th>
@@ -85,7 +85,7 @@
     </div>
 
     <div class="d-flex flex-wrap justify-content-between align-items-stretch gap-4 mb-4">
-      <div class="bg-white rounded-4 shadow-sm p-4 border text-center small d-flex flex-column justify-content-between" style="min-width: 320px; max-width: 350px; flex: 1 1 320px;">
+      <div class="bg-white rounded-4 shadow-sm p-4 border text-center small d-flex flex-column justify-content-between" style="min-width: 320px; max-width: 350px; flex: 1 1 320px; min-height: 190px;">
         <div class="fw-semibold mb-1 d-flex justify-content-center align-items-center gap-2">
           Mentions légales
           <button class="btn btn-outline-primary btn-sm ms-2" data-bs-toggle="modal" data-bs-target="#legalMentionsModal">
@@ -98,9 +98,9 @@
           12 rue des Entrepreneurs, 75015 Paris
         </div>
       </div>
-      <div class="bg-white rounded-4 shadow-sm p-4 border" style="min-width: 320px; max-width: 350px; flex: 1 1 320px;">
+      <div class="bg-white rounded-4 shadow-sm p-4 border " style="min-width: 320px; max-width: 350px; flex: 1 1 320px; min-height: 190px;">
         <div class="d-flex justify-content-between mb-2">
-          <span class="fw-semibold">Sous-total HT:</span>
+          <span class="fw-semibold mb-1 d-flex justify-content-center align-items-center gap-2">Sous-total HT:</span>
           <span><%= number_to_currency(@quote.total_ht, unit: "€", separator: ",", delimiter: " ") %></span>
         </div>
         <div class="d-flex justify-content-between mb-2">
@@ -142,5 +142,3 @@
     </div>
   </div>
 </div>
-
-

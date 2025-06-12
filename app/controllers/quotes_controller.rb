@@ -103,6 +103,56 @@ class QuotesController < ApplicationController
     end
   end
 
+  # GET /quotes/:id/totals
+  def totals
+    @quote = Quote.find(params[:id])
+    
+    render json: {
+      quote_id: @quote.id,
+      total_ht: @quote.total_ht,
+      total_ttc: @quote.total_ttc,
+      sections_count: @quote.sections.count,
+      line_items_count: @quote.sections.joins(:line_items).count
+    }
+  end
+
+  # GET /quotes/:id/section_totals
+  def section_totals
+    @quote = Quote.find(params[:id])
+    
+    sections_data = @quote.sections.map do |section|
+      {
+        id: section.id,
+        description: section.description,
+        total_ht: section.total_ht,
+        total_ttc: section.total_ttc,
+        line_items_count: section.line_items.count
+      }
+    end
+    
+    render json: {
+      quote_id: @quote.id,
+      sections: sections_data
+    }
+  end
+
+  # GET /quotes/:id/sections
+  def sections
+    @quote = Quote.find(params[:id])
+    
+    sections_data = @quote.sections.map do |section|
+      {
+        id: section.id,
+        description: section.description
+      }
+    end
+    
+    render json: {
+      quote_id: @quote.id,
+      sections: sections_data
+    }
+  end
+
   private
 
   def quote_params

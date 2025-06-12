@@ -1,8 +1,21 @@
-<div id="quote-total" class="d-flex justify-content-between align-items-baseline mt-4 px-2">
-  <div class="fw-semibold" style="font-size: 1.4rem;">
-    <%= 'Total devis (HT)' %>
+<div id="quote-total" class="quote-total-display">
+  <div class="total-item">
+    <span class="total-label">
+      <i class="bi bi-receipt me-1"></i>
+      Total HT
+    </span>
+    <span class="total-amount ht h6 mb-0">
+      <%= number_to_currency(quote.total_ht, unit: "€", separator: ",", delimiter: " ") %>
+    </span>
   </div>
-  <div class="fw-bold" style="font-size: 1.4rem;">
-    <%= number_to_currency(quote.total_ht, unit: "€", separator: ",", delimiter: " ") %>
+  
+  <div class="total-item">
+    <span class="total-label">
+      <i class="bi bi-cash-coin me-1"></i>
+      <strong>Total TTC</strong>
+    </span>
+    <span class="total-amount ttc h5 mb-0">
+      <strong><%= number_to_currency(quote.total_ttc, unit: "€", separator: ",", delimiter: " ") %></strong>
+    </span>
   </div>
 </div>

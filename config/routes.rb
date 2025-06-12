@@ -20,9 +20,30 @@ Rails.application.routes.draw do
     member do
       post :add_line_items_with_llm
       post :transcribe_audio
+      post :analyze_with_ai  # Nouvelle route pour l'analyse IA
+      get :totals           # Nouvelle route pour récupérer les totaux
     end
     resources :line_items, only: [:new, :create]
     resources :ai_messages, only: [:new, :create]
+  end
+
+  # Routes pour les nouvelles fonctionnalités IA/Audio
+  namespace :ai do
+    post :transcribe      # Transcription audio
+    post :analyze_text    # Analyse de texte par IA
+  end
+
+  # Routes pour les données en temps réel
+  resources :quotes, only: [:show, :edit, :update, :destroy] do
+    member do
+      post :add_section
+      get :download_pdf
+      patch :update_legal_mentions
+      get :totals           # Récupérer les totaux du devis
+      get :section_totals   # Récupérer les totaux par section
+      get :sections         # Liste des sections pour le select
+    end
+    resources :sections, only: [:new, :create, :index]
   end
 
   resources :line_items, only: [:edit, :update, :destroy]

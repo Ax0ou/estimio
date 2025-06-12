@@ -1,29 +1,198 @@
-<h2 class="container pt-4 text-center pb-3">- Votre devis pour <%= " #{@quote.client.first_name} #{@quote.client.last_name} -" %></h2>
+<div class="container-fluid py-4" 
+     data-controller="quote-sidebar-integration" 
+     data-quote-sidebar-integration-quote-id-value="<%= @quote.id %>"
+     data-quote-sidebar-integration-update-url-value="<%= quote_path(@quote) %>">
+  <div class="row">
+    <!-- Colonne principale (contenu du devis) -->
+    <div class="col-lg-8 col-xl-9">
+      <div class="card shadow-sm border-0">
+        <div class="card-header bg-white border-bottom">
+          <h2 class="text-center mb-0 py-2">
+            <i class="bi bi-hammer text-primary me-2"></i>
+            Votre devis pour <%= "#{@quote.client.first_name} #{@quote.client.last_name}" %>
+          </h2>
+        </div>
+        
+        <div class="card-body" data-controller="sections">
+          <div id="sections" data-sections-target="list">
+            <% @quote.sections.each do |section| %>
+              <%= render "quotes/section", section: section %>
+            <% end %>
+          </div>
 
-<div class="container" data-controller="sections">
-  <div id="sections" data-sections-target="list">
-    <% @quote.sections.each do |section| %>
-      <%= render "quotes/section", section: section %>
-    <% end %>
-  </div>
+          <div class="mt-4">
+            <button type="button" class="btn btn-outline-primary w-100" data-action="click->sections#showNewSectionForm">
+              <i class="bi bi-plus-circle me-2"></i>Ajouter une section
+            </button>
 
-  <div class="mt-4">
-    <button type="button" class="btn btn-outline-primary w-100" data-action="click->sections#showNewSectionForm">
-      + Ajouter une section
-    </button>
+            <div data-sections-target="newSectionFormContainer" class="mt-3" style="display: none;">
+              <%= render "quotes/new_section", quote: @quote %>
+            </div>
+          </div>
 
-    <div data-sections-target="newSectionFormContainer" class="mt-3" style="display: none;">
-      <%= render "quotes/new_section", quote: @quote %>
+          <turbo-frame id="quote_visualize_button" class="mt-4">
+            <%= render "quotes/visualize_button", quote: @quote %>
+          </turbo-frame>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar sticky (Totaux & Assistant IA) -->
+    <div class="col-lg-4 col-xl-3">
+      <div class="sidebar-container" style="position: sticky; top: 1rem; max-height: calc(100vh - 2rem); overflow-y: auto;">
+        
+        <!-- CARTE 1: Récapitulatif financier -->
+        <div class="card bg-light rounded-3 shadow-sm mb-3">
+          <div class="card-header bg-white border-0 rounded-top-3 py-3">
+            <h6 class="mb-0 d-flex align-items-center text-dark fw-semibold">
+              <i class="bi bi-calculator text-primary me-2"></i>
+              Récapitulatif financier
+            </h6>
+          </div>
+          <div class="card-body p-3">
+            <% if !@quote.sections.empty? %>
+              <div id="quote-total" class="mb-3">
+                <%= render "quotes/quote_total", quote: @quote %>
+              </div>
+              
+              <!-- Détail par sections -->
+              <div class="border-top pt-3">
+                <label class="form-label small text-muted fw-semibold mb-2">
+                  <i class="bi bi-list-ul me-1"></i>
+                  Détail par section
+                </label>
+                <div class="section-totals small">
+                  <% @quote.sections.each do |section| %>
+                    <div class="d-flex justify-content-between py-2 border-bottom">
+                      <span class="text-truncate me-2" title="<%= section.description %>">
+                        <i class="bi bi-folder2 me-1 text-muted"></i>
+                        <%= truncate(section.description, length: 20) %>
+                      </span>
+                      <span class="fw-semibold text-primary">
+                        <%= number_to_currency(section.total_ht, unit: "€", separator: ",", delimiter: " ") %>
+                      </span>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            <% else %>
+              <div class="text-center text-muted py-4">
+                <i class="bi bi-calculator fs-2 text-muted mb-2"></i>
+                <p class="mb-0 small">Ajoutez des sections pour voir les totaux</p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- CARTE 2: Assistant Intelligent -->
+        <div class="card bg-light rounded-3 shadow-sm mb-3" 
+             data-controller="ai-assistant" 
+             data-ai-assistant-quote-id-value="<%= @quote.id %>">
+          <div class="card-header bg-white border-0 rounded-top-3 py-3">
+            <h6 class="mb-0 d-flex align-items-center text-dark fw-semibold">
+              <i class="bi bi-robot text-success me-2"></i>
+              Assistant Intelligent
+            </h6>
+          </div>
+          <div class="card-body p-3">
+            
+            <!-- Section à compléter -->
+            <div class="row g-2 mb-3">
+              <div class="col-12">
+                <label class="form-label small fw-semibold text-muted mb-1">
+                  <i class="bi bi-diagram-3 me-1"></i>
+                  Section à compléter
+                </label>
+                <select class="form-select form-select-sm" 
+                        onchange="selectSection(event)"
+                        data-ai-assistant-target="sectionSelect">
+                  <option value="">Choisir une section...</option>
+                  <% @quote.sections.each do |section| %>
+                    <option value="<%= section.id %>">
+                      <%= truncate(section.description, length: 25) %>
+                    </option>
+                  <% end %>
+                </select>
+              </div>
+            </div>
+
+            <!-- Description des travaux -->
+            <div class="row g-2 mb-3">
+              <div class="col-12">
+                <label class="form-label small fw-semibold text-muted mb-1">
+                  <i class="bi bi-chat-dots me-1"></i>
+                  Description des travaux
+                </label>
+                <textarea class="form-control form-control-sm" 
+                          rows="3" 
+                          placeholder="Décrivez précisément les travaux à effectuer..."
+                          data-ai-assistant-target="description"></textarea>
+                <small class="text-muted mt-1">
+                  <i class="bi bi-lightbulb me-1"></i>
+                  Plus vous êtes précis, meilleure sera l'analyse
+                </small>
+              </div>
+            </div>
+
+            <!-- Actions IA -->
+            <div class="row g-2 mb-3">
+              <div class="col-8">
+                <button type="button" 
+                        class="btn btn-outline-primary btn-sm w-100"
+                        onclick="analyzeDescription()"
+                        data-ai-assistant-target="analyzeBtn">
+                  <i class="bi bi-magic me-1"></i>
+                  Analyser avec l'IA
+                </button>
+              </div>
+              <div class="col-4">
+                <button type="button" 
+                        class="btn btn-outline-danger btn-sm w-100"
+                        onclick="startRecording()"
+                        data-ai-assistant-target="recordBtn"
+                        title="Enregistrement vocal">
+                  <i class="bi bi-mic-fill"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Indicateur d'enregistrement -->
+            <div class="row g-2 mb-3" 
+                 data-ai-assistant-target="recordingIndicator" 
+                 style="display: none;">
+              <div class="col-12">
+                <div class="alert alert-warning alert-sm py-2 mb-0">
+                  <i class="bi bi-record-circle-fill text-danger me-2"></i>
+                  <span class="small fw-semibold">Enregistrement en cours...</span>
+                  <button type="button" 
+                          class="btn btn-sm btn-outline-secondary ms-2"
+                          onclick="stopRecording()">
+                    Stop
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Résultats de l'IA -->
+            <div class="row g-2" 
+                 data-ai-assistant-target="results" 
+                 style="display: none;">
+              <div class="col-12">
+                <label class="form-label small fw-semibold text-muted mb-1">
+                  <i class="bi bi-lightbulb me-1"></i>
+                  Suggestions de l'IA
+                </label>
+                <div class="alert alert-info alert-sm py-2"
+                     data-ai-assistant-target="resultsContent">
+                  <!-- Les résultats apparaîtront ici -->
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
-
-  <% if !@quote.sections.empty? %>
-    <div id="quote-total">
-      <%= render "quotes/quote_total", quote: @quote %>
-    </div>
-  <% end %>
-
-  <turbo-frame id="quote_visualize_button">
-    <%= render "quotes/visualize_button", quote: @quote %>
-  </turbo-frame>
 </div>

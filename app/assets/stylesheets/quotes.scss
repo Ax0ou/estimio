@@ -1,0 +1,800 @@
+/* ===================================
+   QUOTES EDIT PAGE - SIDEBAR STYLING
+   =================================== */
+
+// Variables de couleurs - Palette douce et cohérente
+$soft-blue: #4A90E2;      // Bleu doux pour Totaux
+$soft-green: #7ED321;     // Vert doux pour IA
+$muted-blue: #6C7B95;     // Bleu gris pour textes
+$warm-gray: #F5F7FA;      // Gris chaud pour backgrounds
+$cool-gray: #8B95A1;     // Gris froid pour borders
+$accent-orange: #F5A623;  // Orange pour accents
+$soft-purple: #9013FE;    // Violet pour fonctionnalités avancées
+$light-bg: #FAFBFC;       // Background très clair
+$card-shadow: rgba(0, 0, 0, 0.08); // Ombre douce
+
+/* Sidebar sticky avec scrollbar personnalisée et hiérarchie visuelle */
+.sidebar-sticky {
+  scrollbar-width: thin;
+  scrollbar-color: $cool-gray $warm-gray;
+  
+  &::-webkit-scrollbar {
+    width: 8px; // Légèrement plus large pour meilleure visibilité
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: $warm-gray;
+    border-radius: 4px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, $cool-gray 0%, darken($cool-gray, 10%) 100%);
+    border-radius: 4px;
+    
+    &:hover {
+      background: linear-gradient(180deg, darken($cool-gray, 10%) 0%, darken($cool-gray, 20%) 100%);
+    }
+  }
+}
+
+/* Cards dans la sidebar - Design épuré avec respirations */
+.sidebar-sticky .card {
+  border-radius: 16px;
+  border: 1px solid rgba($cool-gray, 0.2);
+  box-shadow: 0 4px 12px $card-shadow;
+  margin-bottom: 1.5rem; // Plus d'espace entre les cartes
+  background: white;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba($card-shadow, 1.5);
+  }
+  
+  .card-header {
+    border-radius: 16px 16px 0 0 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 1.25rem 1.5rem; // Plus d'espace interne
+    
+    h5 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      letter-spacing: 0.025em;
+      
+      i {
+        font-size: 1.2rem;
+        margin-right: 0.75rem;
+      }
+    }
+  }
+  
+  .card-body {
+    padding: 1.5rem; // Plus généreux
+    background: $light-bg;
+    border-radius: 0 0 16px 16px;
+  }
+}
+
+/* Headers colorés avec gradients doux */
+.card-header.totals-header {
+  background: linear-gradient(135deg, $soft-blue 0%, lighten($soft-blue, 15%) 100%) !important;
+  color: white;
+}
+
+.card-header.ai-header {
+  background: linear-gradient(135deg, $soft-green 0%, lighten($soft-green, 10%) 100%) !important;
+  color: white;
+}
+
+.card-header.advanced-header {
+  background: linear-gradient(135deg, $soft-purple 0%, lighten($soft-purple, 10%) 100%) !important;
+  color: white;
+}
+
+/* Form controls dans la sidebar - Style unifié et lisible */
+.sidebar-sticky {
+  .form-control, .form-select {
+    font-size: 0.9rem;
+    border-radius: 8px;
+    border: 2px solid rgba($cool-gray, 0.2);
+    padding: 0.6rem 0.75rem;
+    background: white;
+    transition: all 0.2s ease;
+    
+    &:focus {
+      border-color: $soft-blue;
+      box-shadow: 0 0 0 0.2rem rgba($soft-blue, 0.15);
+      background: white;
+    }
+    
+    &:hover:not(:focus) {
+      border-color: rgba($cool-gray, 0.4);
+    }
+  }
+  
+  .form-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: $muted-blue;
+    letter-spacing: 0.025em;
+  }
+  
+  textarea.form-control {
+    resize: vertical;
+    min-height: 70px;
+    line-height: 1.5;
+  }
+  
+  .input-group {
+    .btn {
+      border: 2px solid rgba($cool-gray, 0.2);
+      
+      &:hover {
+        background: rgba($cool-gray, 0.1);
+      }
+    }
+  }
+}
+
+/* Boutons dans la sidebar - Style cohérent et interactif */
+.sidebar-sticky .btn {
+  font-size: 0.9rem;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+  transition: all 0.2s ease;
+  border-width: 2px;
+  
+  &.btn-sm {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+  
+  // Bouton principal d'analyse
+  &.btn-analyze {
+    background: linear-gradient(135deg, $soft-green 0%, darken($soft-green, 10%) 100%);
+    border-color: $soft-green;
+    color: white;
+    
+    &:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba($soft-green, 0.3);
+    }
+    
+    &:disabled {
+      background: $cool-gray;
+      border-color: $cool-gray;
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+  
+  // Boutons d'enregistrement vocal
+  &.btn-record {
+    background: linear-gradient(135deg, #FF6B6B 0%, #FF5252 100%);
+    border-color: #FF6B6B;
+    color: white;
+    
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(#FF6B6B, 0.3);
+    }
+    
+    &.recording {
+      animation: pulse-record 2s infinite;
+    }
+  }
+  
+  &.btn-stop {
+    background: linear-gradient(135deg, #6C757D 0%, #495057 100%);
+    border-color: #6C757D;
+    color: white;
+  }
+  
+  // Boutons secondaires
+  &.btn-outline-secondary {
+    border-color: rgba($cool-gray, 0.3);
+    color: $muted-blue;
+    
+    &:hover {
+      background: rgba($cool-gray, 0.1);
+      border-color: $cool-gray;
+      color: darken($muted-blue, 10%);
+    }
+  }
+  
+  // Clear button
+  &.btn-clear {
+    background: none;
+    border-color: rgba($cool-gray, 0.3);
+    color: $cool-gray;
+    
+    &:hover {
+      background: rgba(#FF6B6B, 0.1);
+      border-color: #FF6B6B;
+      color: #FF6B6B;
+    }
+  }
+}
+
+/* Animation pour l'enregistrement */
+@keyframes pulse-record {
+  0% { box-shadow: 0 0 0 0 rgba(#FF6B6B, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(#FF6B6B, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(#FF6B6B, 0); }
+}
+
+/* Indicateurs d'état */
+.recording-indicator {
+  color: #FF6B6B;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  
+  &::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: #FF6B6B;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    animation: blink 1s infinite;
+  }
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0.3; }
+}
+
+/* Section Totaux - Design amélioré */
+#quote-total {
+  .fw-bold {
+    color: $soft-blue;
+    font-size: 1.1rem;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.section-totals {
+  max-height: 140px;
+  overflow-y: auto;
+  background: white;
+  border-radius: 8px;
+  padding: 0.75rem;
+  border: 1px solid rgba($cool-gray, 0.2);
+  
+  .text-truncate {
+    max-width: 140px;
+    cursor: help;
+    
+    &:hover {
+      color: $soft-blue;
+    }
+  }
+  
+  .fw-semibold {
+    color: $muted-blue;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.totals-summary {
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  border: 2px solid rgba($soft-blue, 0.1);
+  
+  .total-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    
+    &:not(:last-child) {
+      border-bottom: 1px solid rgba($cool-gray, 0.1);
+    }
+    
+    .total-label {
+      font-size: 0.9rem;
+      color: $muted-blue;
+      font-weight: 500;
+    }
+    
+    .total-amount {
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      
+      &.ht { color: $soft-blue; }
+      &.ttc { color: $soft-green; }
+      &.tva { color: $accent-orange; }
+    }
+  }
+}
+
+@media (max-width: 991.98px) {
+  .sidebar-sticky {
+    position: static !important;
+    max-height: none !important;
+    
+    .card {
+      margin-bottom: 1rem;
+    }
+  }
+  
+  /* Sur tablette, réorganiser l'ordre */
+  .col-lg-4 {
+    order: -1;
+    margin-bottom: 2rem;
+    
+    .card {
+      border-radius: 8px;
+    }
+  }
+}
+
+@media (max-width: 767.98px) {
+  /* Sur mobile, simplifier l'affichage */
+  .sidebar-sticky .card {
+    margin-bottom: 0.75rem;
+    
+    .card-header {
+      padding: 0.75rem 1rem;
+      
+      h5 {
+        font-size: 0.9rem;
+      }
+    }
+    
+    .card-body {
+      padding: 0.75rem;
+    }
+  }
+  
+  .section-totals {
+    max-height: 80px;
+  }
+}
+
+/* Contenu principal */
+.col-lg-8 .card {
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  
+  .card-header {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 12px 12px 0 0 !important;
+    
+    h2 {
+      color: #0d6efd; // Bleu Bootstrap primary
+      font-size: 1.5rem;
+      
+      @media (max-width: 767.98px) {
+        font-size: 1.25rem;
+      }
+    }
+  }
+}
+
+/* Section extensible (pour futurs ajouts) */
+.extensible-section {
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+  
+  &:hover {
+    opacity: 1;
+  }
+}
+
+/* Améliorations visuelles */
+.totals-section {
+  .fw-bold {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Animation pour les collapsibles */
+.collapse {
+  transition: all 0.3s ease;
+}
+
+/* Ajustements pour les icônes */
+.bi {
+  font-size: inherit;
+}
+
+/* Labels longs - abréviations intelligentes */
+.sidebar-sticky {
+  .text-truncate {
+    cursor: help;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+/* Styles pour les tooltips custom si nécessaire */
+.tooltip-wrapper {
+  position: relative;
+  
+  .tooltip-content {
+    position: absolute;
+    background: #333;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    z-index: 1000;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+  }
+  
+  &:hover .tooltip-content {
+    opacity: 1;
+  }
+}
+
+/* Amélioration de la lisibilité des champs Description */
+.col-md-6 .description-field {
+  min-width: 200px !important;
+  width: 100% !important;
+}
+
+/* Alignements perfectionnés */
+.sidebar-sticky .d-flex.justify-content-between {
+  align-items: center;
+  line-height: 1.3;
+}
+
+/* États de focus améliorés */
+.sidebar-sticky .form-control:focus,
+.sidebar-sticky .form-select:focus {
+  outline: none;
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Indicateurs visuels pour l'état de loading/processing */
+.processing {
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+}
+
+/* =============================================
+   OPTIMISATIONS SPÉCIFIQUES LINE ITEMS
+   ============================================= */
+
+/* Champ Description des line items - doit rester large et lisible */
+.line-item-card .col-md-6 .description-field {
+  min-width: 250px !important;
+  width: 100% !important;
+  font-size: 0.9rem !important;
+  line-height: 1.4 !important;
+  
+  @media (max-width: 991.98px) {
+    min-width: 200px !important;
+  }
+  
+  @media (max-width: 767.98px) {
+    min-width: 100% !important;
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Améliorations pour les line items dans le contexte de la nouvelle structure */
+.line-item-card {
+  margin-bottom: 0.75rem;
+  border-radius: 8px;
+  transition: box-shadow 0.2s ease;
+  
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .row.align-items-center {
+    padding: 0.5rem;
+  }
+}
+
+/* Ajustements pour les colonnes des line items */
+.line-item-card .col-md-1 {
+  min-width: 80px;
+  
+  .form-control, .form-select {
+    font-size: 0.85rem;
+  }
+}
+
+/* Drag handle amélioré */
+.line-item-card .handle {
+  cursor: grab;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+  
+  &:hover {
+    opacity: 1;
+  }
+  
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+/* =============================================
+   RESPONSIVE BREAKPOINTS SPÉCIFIQUES
+   ============================================= */
+
+/* Tablette landscape (1024px et moins) */
+@media (max-width: 1024px) {
+  .sidebar-sticky {
+    .card {
+      margin-bottom: 1.25rem;
+      
+      .card-body {
+        padding: 1.25rem;
+      }
+      
+      .card-header {
+        padding: 1rem 1.25rem;
+      }
+    }
+  }
+  
+  .line-item-card .col-md-6 .description-field {
+    min-width: 200px !important;
+  }
+}
+
+/* Tablette portrait (768px et moins) */
+@media (max-width: 768px) {
+  .container-fluid {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  
+  .col-lg-8 .card {
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Réorganisation en stack vertical */
+  .row {
+    margin: 0;
+  }
+  
+  .col-lg-4 {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    order: -1; // Sidebar avant le contenu principal sur mobile
+  }
+  
+  .sidebar-sticky {
+    position: static !important;
+    max-height: none !important;
+    margin-bottom: 2rem;
+    
+    .card {
+      margin-bottom: 1rem;
+      
+      .card-header {
+        padding: 0.875rem 1rem;
+        
+        h5 {
+          font-size: 1rem;
+        }
+      }
+      
+      .card-body {
+        padding: 1rem;
+      }
+    }
+  }
+  
+  /* Line items en mode mobile */
+  .line-item-card .row {
+    flex-direction: column;
+    gap: 0.5rem;
+    
+    .col-md-6, .col-md-1, .col-auto {
+      width: 100%;
+      max-width: 100%;
+      flex: 0 0 100%;
+    }
+    
+    .col-md-6 .description-field {
+      min-width: 100% !important;
+    }
+  }
+
+  /* Ajustements pour les totaux sur mobile */
+  .totals-summary {
+    .total-item {
+      padding: 0.75rem 0;
+      
+      .total-label {
+        font-size: 0.85rem;
+      }
+      
+      .total-amount {
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
+
+/* Mobile étroit (480px et moins) */
+@media (max-width: 480px) {
+  .sidebar-sticky .card {
+    border-radius: 12px;
+    
+    .card-header {
+      padding: 0.75rem;
+      
+      h5 {
+        font-size: 0.95rem;
+        
+        i {
+          font-size: 1rem;
+          margin-right: 0.5rem;
+        }
+      }
+    }
+    
+    .card-body {
+      padding: 0.75rem;
+    }
+  }
+  
+  .sidebar-sticky {
+    .form-control, .form-select {
+      font-size: 0.85rem;
+      padding: 0.5rem;
+    }
+    
+    .btn {
+      font-size: 0.85rem;
+      padding: 0.5rem 0.75rem;
+      
+      &.btn-sm {
+        font-size: 0.8rem;
+        padding: 0.375rem 0.5rem;
+      }
+    }
+  }
+  
+  .section-totals {
+    max-height: 100px;
+    padding: 0.5rem;
+  }
+}
+
+/* =============================================
+   ANIMATIONS ET TRANSITIONS
+   ============================================= */
+
+/* Animation lors du chargement */
+.sidebar-sticky .card {
+  animation: slideInRight 0.4s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Animation pour les statuts */
+.alert {
+  animation: fadeInDown 0.3s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Smooth scroll pour la sidebar */
+.sidebar-sticky {
+  scroll-behavior: smooth;
+}
+
+/* États hover améliorés */
+.sidebar-sticky .card {
+  &:hover {
+    .card-header {
+      background-position: right center;
+    }
+  }
+}
+
+/* =============================================
+   OPTIMISATIONS VISUELLES
+   ============================================= */
+
+/* Focus amélioré pour l'accessibilité */
+.sidebar-sticky {
+  .form-control:focus,
+  .form-select:focus,
+  .btn:focus {
+    outline: 2px solid rgba($soft-blue, 0.5);
+    outline-offset: 2px;
+  }
+}
+
+/* Amélioration de la lisibilité des montants */
+.totals-summary .total-amount,
+.section-totals .fw-semibold {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.025em;
+}
+
+/* Indicateurs de validation améliorés */
+.form-control.is-valid {
+  border-color: $soft-green;
+  background-image: none;
+  
+  &:focus {
+    border-color: $soft-green;
+    box-shadow: 0 0 0 0.2rem rgba($soft-green, 0.15);
+  }
+}
+
+.form-control.is-invalid {
+  border-color: #FF6B6B;
+  background-image: none;
+  
+  &:focus {
+    border-color: #FF6B6B;
+    box-shadow: 0 0 0 0.2rem rgba(#FF6B6B, 0.15);
+  }
+}
+
+/* =============================================
+   PRINT STYLES
+   ============================================= */
+@media print {
+  .sidebar-sticky {
+    display: none !important;
+  }
+  
+  .col-lg-8 {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  .container-fluid {
+    padding: 0 !important;
+  }
+}

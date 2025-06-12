@@ -27,13 +27,13 @@
 
 <div class="modal fade" id="newProductModal" tabindex="-1" aria-labelledby="newProductModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content rounded-4 shadow-lg border-0">
+    <div class="modal-content rounded-4 shadow-lg border-0 overflow-hidden">
       <div class="modal-header bg-light border-bottom-0">
         <h1 class="modal-title fs-5 fw-semibold text-primary" id="exampleModalLabel">Nouveau produit</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body py-4 px-4">
-        <%= form_with(model: Product.new, url: products_path, method: :post, local: true, data: { turbo: false }) do |f| %>
+      <%= form_with(model: Product.new, url: products_path, method: :post, local: true, data: { turbo: false }) do |f| %>
+        <div class="modal-body py-4 px-4">
           <div class="mb-3">
             <%= f.label :name, "Nom", class: "form-label fw-semibold" %>
             <%= f.text_field :name, class: "form-control rounded-3", required: true %>
@@ -46,30 +46,29 @@
               class: "form-select rounded-3", required: true %>
           </div>
 
-          <div class="mb-4">
+          <div class="mb-3">
             <%= f.label :price, "Prix", class: "form-label fw-semibold" %>
             <%= f.number_field :price, step: 0.01, class: "form-control rounded-3", required: true %>
           </div>
-
-          <div class="modal-footer border-top-0 d-flex justify-content-end gap-2">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-            <%= f.submit "Créer", class: "btn btn-primary px-4" %>
-          </div>
-        <% end %>
-      </div>
+        </div>
+        <div class="modal-footer border-top-0 d-flex justify-content-end gap-2">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <%= f.submit "Créer", class: "btn btn-primary px-4" %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
 
 <div class="modal fade" id="importProductsModal" tabindex="-1" aria-labelledby="importProductsModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content rounded-4 shadow-lg border-0">
+    <div class="modal-content rounded-4 shadow-lg border-0 overflow-hidden">
       <div class="modal-header bg-light border-bottom-0">
         <h1 class="modal-title fs-5 fw-semibold text-primary" id="exampleModalLabel">Importez vos derniers devis</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body py-4 px-4">
-        <%= form_with(url: import_products_path, method: :post, data: { turbo: false, controller: "import-products" }) do |f| %>
+      <%= form_with(url: import_products_path, method: :post, data: { turbo: false, controller: "import-products" }) do |f| %>
+        <div class="modal-body py-4 px-4">
           <div class="mb-4" data-import-products-target="dropZone">
             <div class="border-2 border-dashed rounded-4 p-5 text-center"
                  style="border: 2px dashed #dee2e6; background: #f8f9fa; cursor: pointer;"
@@ -95,25 +94,24 @@
           <div class="selected-files mb-4" data-import-products-target="fileList">
             <!-- Les fichiers sélectionnés seront affichés ici -->
           </div>
+        </div>
+        <div class="modal-footer border-top-0 d-flex justify-content-end gap-2">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <%= f.submit "Importer", class: "btn btn-primary px-4", data: { import_products_target: "submitButton" } %>
+        </div>
 
-          <div class="modal-footer border-top-0 d-flex justify-content-end gap-2">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-            <%= f.submit "Importer", class: "btn btn-primary px-4", data: { import_products_target: "submitButton" } %>
-          </div>
-
-          <div class="position-absolute top-0 start-0 w-100 h-100 bg-white bg-opacity-90 d-none"
-               data-import-products-target="loadingOverlay"
-               style="z-index: 1050;">
-            <div class="d-flex flex-column align-items-center justify-content-center h-100">
-              <div class="spinner-grow text-primary mb-3" role="status" style="width: 3rem; height: 3rem;">
-                <span class="visually-hidden">Chargement...</span>
-              </div>
-              <h5 class="text-primary mb-2">Importation en cours</h5>
-              <p class="text-muted mb-0">Veuillez patienter pendant que nous traitons vos fichiers...</p>
+        <div class="position-absolute top-0 start-0 w-100 h-100 bg-white bg-opacity-90 d-none"
+             data-import-products-target="loadingOverlay"
+             style="z-index: 1050;">
+          <div class="d-flex flex-column align-items-center justify-content-center h-100">
+            <div class="spinner-grow text-primary mb-3" role="status" style="width: 3rem; height: 3rem;">
+              <span class="visually-hidden">Chargement...</span>
             </div>
+            <h5 class="text-primary mb-2">Importation en cours</h5>
+            <p class="text-muted mb-0">Veuillez patienter pendant que nous traitons vos fichiers...</p>
           </div>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

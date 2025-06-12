@@ -1,5 +1,5 @@
 <div id="<%= dom_id(line_item, line_item.persisted? ? nil : "new_line_item_for_section_#{line_item.section_id}") %>"
-     class="line-item-card mb-2 bg-white"
+     class="line-item-card mb-2 bg-white <%= 'new-line-item' unless line_item.persisted? %>"
      data-line-items-target="item"
      data-controller="line-item-calculator">
   <%= simple_form_for line_item.persisted? ? line_item : [line_item.section, line_item],
@@ -14,15 +14,19 @@
 
     <% if line_item.persisted? %>
       <div class="col-auto handle" style="cursor: grab; touch-action: none;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-grip-vertical" viewBox="0 0 16 16">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-grip-vertical ms-5" viewBox="0 0 16 16">
           <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
         </svg>
       </div>
     <% else %>
-      <div class="col-auto" style="width: 24px;"></div>
+      <div class="col-auto handle" style="touch-action: none; opacity: 0;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-grip-vertical ms-5" viewBox="0 0 16 16">
+          <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+        </svg>
+      </div>
     <% end %>
 
-    <div class="col-md-4" data-controller="description-expander">
+    <div class="col-md-6" data-controller="description-expander">
       <%= f.input :description,
           as: :text, # Assure que c'est un textarea
           wrapper: false,
@@ -32,7 +36,7 @@
             class: "form-control form-control-sm description-field bg-white rounded-3", # Classe pour le style et JS
             rows: 1, # Hauteur initiale d'une ligne
             "data-description-expander-target": "field",
-            "data-action": "mouseenter->description-expander#handleMouseEnter mouseleave->description-expander#handleMouseLeave focus->description-expander#handleFocus blur->description-expander#handleBlur"
+            "data-action": "#{ 'mouseenter->description-expander#handleMouseEnter mouseleave->description-expander#handleMouseLeave focus->description-expander#handleFocus blur->description-expander#handleBlur' if line_item.persisted? }"
           } %>
     </div>
 
@@ -57,7 +61,7 @@
           include_blank: false %>
     </div>
 
-    <div class="col-md-2">
+    <div class="col-md-1">
       <%= f.input :price_per_unit,
           wrapper: false,
           label: false,
@@ -70,7 +74,7 @@
           } %>
     </div>
 
-    <div class="col-md-2">
+    <div class="col-md-1">
       <%= f.input :price,
           wrapper: false,
           label: false,
@@ -88,14 +92,11 @@
           <i class="fa-regular fa-circle-xmark"></i>
         <% end %>
       <% else %>
-
-
-
-      <div class="line-item-button-container position-relative">
-        <p>+</p>
-        <%= f.submit "", class: "btn btn-sm line-item-button", style: "width: 30px"%>
+      <div class="line-item-button-container">
+        <button type="submit" class="custom-plus-btn" style="padding: 0; border: none; background: none;">
+          <i class="fa-regular fa-square-plus fa-lg text-primary custom-plus-icon" style="margin-left: 1.5px;"></i>
+        </button>
       </div>
-
       <% end %>
     </div>
   <% end %>

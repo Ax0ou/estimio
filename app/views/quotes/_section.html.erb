@@ -6,17 +6,17 @@
     <i class="bi bi-x-lg"></i>
   <% end %>
 
-  <h4><strong><%= section.description %></strong></h4>
+  <h4 class="ms-3 mt-3 mb-3"><strong><%= section.description %></strong></h4>
 
   <div class="line-items" data-section-id="<%= section.id %>" data-controller="line-items">
     <div class="sticky-header bg-light py-2 rounded bg-white" style="position: sticky; top: 0; z-index: 100;">
       <div class="row align-items-center">
         <div class="col-auto" style="width: 40px;"></div>
-        <div class="col-md-4">Description</div>
-        <div class="col-md-1 px-0 push">Quantité</div>
-        <div class="col-md-1 px-0 push">Unité</div>
-        <div class="col-md-2 px-0 push">Prix unitaire</div>
-        <div class="col-md-2 px-0">Prix total</div>
+        <div class="col-md-6" style="margin-left: 51px; margin-right: -10px">Description</div>
+        <div class="col-md-1 push" style="padding-left: 13px;">Quantité</div>
+        <div class="col-md-1" style="padding-left: 11px">Unité</div>
+        <div class="col-md-1" style="padding-left: 8px">Prix unit.</div>
+        <div class="col-md-1" style="padding-left: 5px">Prix total</div>
       </div>
     </div>
 
@@ -34,7 +34,7 @@
 
     <%= render "quotes/line_item", line_item: section.line_items.new, class:"ml-2" %>
 
-    <div class="mt-4 ai-section-card border-no bg-white">
+    <div class="container mt-4 ai-section-card border-no bg-white" style="padding-left: 78px; padding-right: 145px;">
       <%= render "quotes/section_total", section: section %>
     </div>
 
@@ -44,11 +44,22 @@
         <div data-controller="audio-recorder">
           <%= simple_form_for :transcript, url: add_line_items_with_llm_section_path(section), html: { data: { controller: "form-validation", action: "submit->form-validation#validate" } } do |f| %>
             <%= f.input :text,
-                        label: "Décrivez les éléments à ajouter (vous pouvez aussi utiliser le micro) :",
-                        required: false,
-                        input_html: { data: { "audio-recorder-target": "textArea", "form-validation-target": "input" }, rows: 3, class: "form-control-sm" },
-                        placeholder: "Ex: Deux heures de ponçage et la mise en peinture de cinq mètres carrés de mur en blanc...",
-                        label_html: { class: "form-label" } %>
+            as: :text,
+            label: "Décrivez les éléments à ajouter (vous pouvez aussi utiliser le micro) :",
+            required: false,
+            input_html: {
+              rows: 1,
+              class: "form-control",
+              data: {
+                controller: "auto-expand",
+                action: "input->auto-expand#resize",
+                "audio-recorder-target": "textArea",
+                "form-validation-target": "input"
+              }
+            },
+            placeholder: "Ex: Deux heures de ponçage et la mise en peinture de cinq mètres carrés de mur en blanc...",
+            label_html: { class: "form-label" } %>
+
             <div class="invalid-feedback" data-form-validation-target="error"></div>
 
             <div class="d-flex gap-2 align-items-center mt-2">
@@ -79,7 +90,7 @@
 
   </div>
 
-  <div data-ia-loading-target="overlay" style="position: absolute; bottom: 0px; right: 0px; left: 0px; top: 0px; background: rgba(254, 254, 254, 0.97); z-index: 10000; display: flex; justify-content: center; align-items: center; display: none" id="loading-animation">
+  <div data-ia-loading-target="overlay" style="position: absolute; bottom: 0px; right: 0px; left: 0px; top: 0px; background: rgba(254, 254, 254, 0.97); z-index: 10000; opacity:70; display: flex; justify-content: center; align-items: center; display: none" id="loading-animation">
     <dotlottie-player src="https://lottie.host/2e5e2561-9557-4430-b68d-1739dbcffc02/IgRMPqhTrX.json" background="transparent" speed="1" style="width: 300px; height: 300px" loop autoplay></dotlottie-player>
   </div>
 </div>

@@ -10,6 +10,5 @@ export default class extends Controller {
 
     btn.click();
     // this.element.submit();
-
   }
 }

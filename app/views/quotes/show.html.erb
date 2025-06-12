@@ -137,8 +137,20 @@
       </div>
     </div>
     <div class="d-flex flex-wrap gap-2 justify-content-center mb-4">
-      <a href="<%= edit_quote_path(@quote) %>" class="btn btn-outline-secondary">← Retour au devis</a>
-      <a href="<%= download_pdf_quote_path(@quote) %>" class="btn btn-outline-primary">Télécharger PDF</a>
+      <a href="<%= edit_quote_path(@quote) %>" class="btn btn-outline-secondary rounded-3">← Retour au devis</a>
+      <a href="<%= download_pdf_quote_path(@quote) %>" class="btn btn-outline-primary rounded-3">Télécharger PDF</a>
+      <button type="button"
+              class="btn btn-outline-success rounded-3"
+              data-controller="pdf-share"
+              data-action="click->pdf-share#fire"
+              data-pdf-share-data-value="<%= {
+                title: "Devis #{@quote.client.first_name} #{@quote.client.last_name}",
+                text: "Voici votre devis Estimio pour #{@quote.title}",
+                file_url: download_pdf_quote_url(@quote)
+              }.to_json %>">
+        <i class="bi bi-share me-1"></i> Partager le PDF
+      </button>
+
     </div>
   </div>
 </div>

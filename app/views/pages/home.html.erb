@@ -2,8 +2,8 @@
   <a class="navbar-brand fw-bold text-creme" href="#">Estim.io</a>
 
   <div>
-    <a href="/users/sign_in" class="btn btn-creme-outline me-2">Connexion</a>
-    <a href="/users/sign_up" class="btn btn-creme-filled">Créer un compte</a>
+    <%= link_to "Connexion", new_user_session_path, class: "btn btn-creme-outline me-2" %>
+    <%= link_to "Créer un compte", new_user_registration_path, class: "btn btn-creme-filled" %>
   </div>
 </nav>
 

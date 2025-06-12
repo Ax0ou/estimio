@@ -5,10 +5,7 @@ export default class extends Controller {
   connect() {
   }
   submit(event) {
-    const btn  = this.element.querySelector("input[type='submit']")
-    if (!btn) return;
-
-    btn.click();
-    // this.element.submit();
+    // Soumission directe du formulaire
+    this.element.requestSubmit();
   }
 }

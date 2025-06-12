@@ -20,10 +20,10 @@
     <td class="text-end pe-3">
       <!-- Mode affichage -->
       <div data-editable-row-target="display" class="d-flex gap-1 justify-content-end">
-        <button type="button" class="btn btn-sm btn-outline-primary" data-action="click->editable-row#edit" title="Modifier">
+        <button type="button" class="btn btn-sm btn-outline-secondary rounded-0" data-action="click->editable-row#edit" title="Modifier">
           <i class="bi bi-pencil"></i>
         </button>
-        <%= link_to product_path(product), data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr(e) de vouloir supprimer ce produit ?" }, class: "btn btn-sm btn-outline-danger", form: "product-form-#{product.id}", title: "Supprimer" do %>
+        <%= link_to product_path(product), data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr(e) de vouloir supprimer ce produit ?" }, class: "btn btn-sm btn-outline-danger rounded-0", form: "product-form-#{product.id}", title: "Supprimer" do %>
           <i class="bi bi-trash3"></i>
         <% end %>
       </div>

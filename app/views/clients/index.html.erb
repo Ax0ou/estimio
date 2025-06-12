@@ -27,13 +27,13 @@
               <td><%= client.created_at.strftime("%d/%m/%Y") %></td>
               <td class="text-end pe-3">
                 <div class="d-flex gap-1 justify-content-end">
-                  <%= link_to client_path(client), class: "btn btn-sm btn-outline-primary", title: "Voir" do %>
+                  <%= link_to client_path(client), class: "btn btn-sm btn-light rounded-0", style: "border: 1px solid #6c757d;", title: "Voir" do %>
                     <i class="bi bi-eye"></i>
                   <% end %>
-                  <%= link_to edit_client_path(client), class: "btn btn-sm btn-outline-secondary", title: "Modifier" do %>
+                  <%= link_to edit_client_path(client), class: "btn btn-sm btn-outline-secondary rounded-0", title: "Modifier" do %>
                     <i class="bi bi-pencil"></i>
                   <% end %>
-                  <%= link_to client_path(client), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr(e) de vouloir supprimer ce client ?"}, class: "btn btn-sm btn-outline-danger", title: "Supprimer" do %>
+                  <%= link_to client_path(client), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr(e) de vouloir supprimer ce client ?"}, class: "btn btn-sm btn-outline-danger rounded-0", title: "Supprimer" do %>
                     <i class="bi bi-trash3"></i>
                   <% end %>
                 </div>

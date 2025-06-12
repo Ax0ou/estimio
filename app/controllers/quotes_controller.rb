@@ -103,6 +103,17 @@ class QuotesController < ApplicationController
     end
   end
 
+  def update_legal_mentions
+    @quote = Quote.find(params[:id])
+    if @quote.update(legal_mentions_params)
+      flash_success("Mentions légales mises à jour.")
+      redirect_to quote_path(@quote)
+    else
+      flash_error("Erreur lors de la mise à jour des mentions légales.")
+      redirect_to quote_path(@quote)
+    end
+  end
+
   private
 
   def quote_params
@@ -124,5 +135,9 @@ class QuotesController < ApplicationController
         ] }
       ]
     )
+  end
+
+  def legal_mentions_params
+    params.require(:quote).permit(:validity_duration, :execution_delay, :payment_terms)
   end
 end

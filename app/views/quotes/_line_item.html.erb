@@ -8,8 +8,8 @@
       id: (("edit_line_item_#{line_item.id}" if line_item.persisted?) || ("new_line_item_form_for_section_#{line_item.section_id}" unless line_item.persisted?)),
     },
     data: {
-      controller: "submit-form-on-change",
-      # action: "change->submit-form-on-change#submit",
+      controller: "#{'submit-form-on-change' if line_item.persisted?}",
+      action: "#{'change->submit-form-on-change#submit' if line_item.persisted?}",
     } do |f| %>
 
     <% if line_item.persisted? %>

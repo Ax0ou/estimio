@@ -2,8 +2,8 @@
   <a class="navbar-brand fw-bold text-creme" href="#">Estim.io</a>
 
   <div>
-    <%= link_to "Connexion", new_user_session_path, class: "btn btn-creme-outline me-2" %>
-    <%= link_to "Créer un compte", new_user_registration_path, class: "btn btn-creme-filled" %>
+    <a href="/users/sign_in" class="btn btn-creme-outline me-2">Connexion</a>
+    <a href="/users/sign_up" class="btn btn-creme-filled">Créer un compte</a>
   </div>
 </nav>
 
@@ -11,14 +11,14 @@
   <h1 class="display-4 fw-bold mb-3 text-primary-blue">Simplifiez la création<br>de vos devis</h1>
   <p class="lead text-primary-blue mb-4">Laissez notre assistant IA générer vos devis<br>rapidement et facilement.</p>
 
-  <%= link_to "Commencer", new_user_session_path, class: "btn btn-creme-filled btn-lg px-4" %>
+  <a href="/users/sign_in" class="btn btn-creme-filled btn-lg px-4">Commencer</a>
 
   <div class="row justify-content-center mt-5">
     <div class="col-md-3 mb-3">
       <div class="card h-100 shadow-sm border-0">
         <div class="card-body">
           <h5 class="card-title">🧑‍🔧 Pour les artisans</h5>
-          <p class="card-text text-muted">Inscrivez-vous en tant qu’artisan et accédez à la génération automatique de devis.</p>
+          <p class="card-text text-muted">Inscrivez-vous en tant qu'artisan et accédez à la génération automatique de devis.</p>
         </div>
       </div>
     </div>
@@ -26,7 +26,7 @@
       <div class="card h-100 shadow-sm border-0">
         <div class="card-body">
           <h5 class="card-title">🤖 Assistant intelligent</h5>
-          <p class="card-text text-muted">Décrivez les travaux à réaliser, notre IA s’occupe du reste.</p>
+          <p class="card-text text-muted">Décrivez les travaux à réaliser, notre IA s'occupe du reste.</p>
         </div>
       </div>
     </div>
